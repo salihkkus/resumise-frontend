@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
   const [jobUrl, setJobUrl] = useState('');
@@ -18,10 +19,10 @@ const Dashboard = () => {
               <span className="material-symbols-outlined !text-[22px]" style={{fontVariationSettings: '"FILL" 1'}}>grid_view</span>
               <span className="text-[15px]">Panel</span>
             </a>
-            <a className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group" href="#">
+            <Link to="/ozgecmislerim" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
               <span className="material-symbols-outlined !text-[22px]">description</span>
-              <span className="text-[15px] font-semibold">Özgeçmişim</span>
-            </a>
+              <span className="text-[15px] font-semibold">Özgeçmişlerim</span>
+            </Link>
             <a className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group" href="#">
               <span className="material-symbols-outlined !text-[22px]">work</span>
               <span className="text-[15px] font-semibold">İş Eşleşmeleri</span>
