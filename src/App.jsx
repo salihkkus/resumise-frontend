@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
 import MyResumes from './components/MyResumes';
 import JobMatches from './components/JobMatches';
+import ATSCheck from './components/ATSCheck';
 import './styles/globals.css';
 import './styles/my-resumes.css';
 
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/ozgecmislerim" element={<MyResumes />} />
           <Route path="/is-eslesmeleri" element={<JobMatches />} />
+          <Route path="/ats-kontrolu" element={<ATSCheck />} />
         </Routes>
       </div>
     </Router>
