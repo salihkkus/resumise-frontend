@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+
+<html class="light" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Resumise | ATS Kontrolü</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-surface": "#191c1e",
+                    "secondary-fixed-dim": "#b4c5fb",
+                    "on-primary-fixed": "#001848",
+                    "on-primary": "#ffffff",
+                    "tertiary-fixed": "#ffdbcf",
+                    "primary-fixed-dim": "#b2c5ff",
+                    "on-tertiary-fixed-variant": "#812800",
+                    "surface-dim": "#d9dadc",
+                    "on-secondary": "#ffffff",
+                    "on-secondary-container": "#415382",
+                    "outline": "#737685",
+                    "secondary": "#4c5d8d",
+                    "error": "#ba1a1a",
+                    "surface-container-highest": "#e1e2e4",
+                    "on-secondary-fixed-variant": "#344573",
+                    "on-primary-fixed-variant": "#0040a2",
+                    "inverse-on-surface": "#f0f1f3",
+                    "background": "#f8f9fb",
+                    "surface-container-low": "#f3f4f6",
+                    "outline-variant": "#c3c6d6",
+                    "surface-bright": "#f8f9fb",
+                    "error-container": "#ffdad6",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#dae2ff",
+                    "secondary-fixed": "#dae2ff",
+                    "on-surface-variant": "#434654",
+                    "inverse-primary": "#b2c5ff",
+                    "secondary-container": "#b6c8fe",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary": "#7b2600",
+                    "surface-variant": "#e1e2e4",
+                    "on-primary-container": "#c4d2ff",
+                    "tertiary-fixed-dim": "#ffb59b",
+                    "tertiary-container": "#a33500",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-high": "#e7e8ea",
+                    "on-background": "#191c1e",
+                    "on-tertiary-container": "#ffc6b2",
+                    "on-error": "#ffffff",
+                    "surface": "#f8f9fb",
+                    "primary": "#003d9b",
+                    "on-tertiary-fixed": "#380d00",
+                    "surface-container": "#edeef0",
+                    "inverse-surface": "#2e3132",
+                    "on-secondary-fixed": "#021945",
+                    "surface-tint": "#0c56d0",
+                    "primary-container": "#0052cc"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(195, 198, 214, 0.15);
+        }
+        .radial-progress-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+</head>
+<body class="bg-background font-body text-on-surface">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-screen w-64 z-50 bg-slate-50 dark:bg-slate-950 flex flex-col py-8 px-4 gap-y-2">
+<div class="text-2xl font-black text-blue-700 dark:text-blue-500 mb-8 px-4">Resumise</div>
+<nav class="space-y-1">
+<a class="flex items-center gap-3 text-slate-600 dark:text-slate-400 px-4 py-3 hover:translate-x-1 transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 text-slate-600 dark:text-slate-400 px-4 py-3 hover:translate-x-1 transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span>Özgeçmişim</span>
+</a>
+<a class="flex items-center gap-3 text-slate-600 dark:text-slate-400 px-4 py-3 hover:translate-x-1 transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="handshake">handshake</span>
+<span>İş Eşleşmeleri</span>
+</a>
+<a class="flex items-center gap-3 bg-white dark:bg-slate-800 text-blue-700 dark:text-blue-400 font-semibold rounded-lg shadow-sm px-4 py-3 ml-2 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="fact_check">fact_check</span>
+<span>ATS Kontrolü</span>
+</a>
+<a class="flex items-center gap-3 text-slate-600 dark:text-slate-400 px-4 py-3 hover:translate-x-1 transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+<span>Yapay Zeka Mülakat Koçu</span>
+</a>
+</nav>
+</aside>
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 shadow-sm shadow-blue-900/5 flex items-center justify-between w-[calc(100%-16rem)] ml-64 px-8 h-16">
+<div class="flex items-center bg-surface-container-low px-4 py-2 rounded-full w-96">
+<span class="material-symbols-outlined text-outline" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-full font-label" placeholder="Yardım merkezi veya belgelerde ara..." type="text"/>
+</div>
+<div class="flex items-center gap-6">
+<button class="relative text-slate-500 hover:bg-slate-100 p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<div class="flex items-center gap-3">
+<div class="text-right">
+<p class="text-sm font-bold text-on-surface">Ahmet Yılmaz</p>
+<p class="text-[10px] text-outline uppercase tracking-wider">Premium Üye</p>
+</div>
+<img alt="User Profile Avatar" class="w-10 h-10 rounded-full object-cover ring-2 ring-primary-fixed" data-alt="professional headshot of a male software engineer in a minimalist tech office clean lighting blurry office background high quality photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnsZyrL4uL1n4Wj0rwM9difGI691BKNBh5qZWOkPr-8fd8Nuzny1KB8iDbQuvs17tGUbz-f58MP-pp5e5gWTZwuMti9k5D95rGPCKns3llYEBwvtKu4BJbnKDGUKaKl-MATzzQoVQds_Hjl7X4YLmND85xnBeeGJ8ZQizBMwlYNopGPJ3AN_xCQmcRo2GkhJUHpN76kGbVYqZXguonSeqrdGIi6SeUwYMB279BZqzu0aWqPY_HS_JjKD8DjRNNSmDgvcFQG2rDnDk"/>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-64 pt-24 pb-12 px-8 min-h-screen">
+<!-- Header Section -->
+<div class="mb-10">
+<h1 class="font-headline text-4xl font-extrabold tracking-tight text-on-surface">ATS Kontrolü</h1>
+<div class="flex items-center gap-2 mt-2 text-outline">
+<span class="material-symbols-outlined text-sm" data-icon="history">history</span>
+<p class="text-sm">Son Tarama: 2 dakika önce</p>
+</div>
+</div>
+<!-- Top Summary Grid -->
+<div class="grid grid-cols-12 gap-8 mb-12">
+<!-- Radial Progress Card -->
+<div class="col-span-12 lg:col-span-4 bg-surface-container-lowest rounded-[1.5rem] p-8 shadow-sm flex flex-col items-center justify-center relative overflow-hidden group">
+<div class="absolute -top-12 -right-12 w-48 h-48 bg-primary/5 rounded-full blur-3xl"></div>
+<div class="radial-progress-container">
+<svg class="w-full h-full rotate-[-90deg]" viewbox="0 0 36 36">
+<path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#f3f4f6" stroke-dasharray="100, 100" stroke-width="3"></path>
+<path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="url(#blue-gradient)" stroke-dasharray="78, 100" stroke-linecap="round" stroke-width="3"></path>
+<defs>
+<lineargradient id="blue-gradient" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#003d9b"></stop>
+<stop offset="100%" stop-color="#0052cc"></stop>
+</lineargradient>
+</defs>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-headline text-5xl font-black text-primary">%78</span>
+<span class="text-xs text-outline font-medium tracking-widest uppercase">ATS SKORU</span>
+</div>
+</div>
+</div>
+<!-- Stats Cards -->
+<div class="col-span-12 lg:col-span-8 grid grid-cols-3 gap-6">
+<div class="bg-surface-container-lowest rounded-[1.5rem] p-6 shadow-sm flex flex-col justify-between border-l-4 border-error">
+<div class="flex justify-between items-start">
+<div class="bg-error-container/30 p-2 rounded-xl">
+<span class="material-symbols-outlined text-error" data-icon="cancel">cancel</span>
+</div>
+</div>
+<div>
+<h3 class="text-3xl font-black text-on-surface">3</h3>
+<p class="text-error font-semibold text-sm">Kritik Hata</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-[1.5rem] p-6 shadow-sm flex flex-col justify-between border-l-4 border-tertiary">
+<div class="flex justify-between items-start">
+<div class="bg-tertiary-fixed/30 p-2 rounded-xl">
+<span class="material-symbols-outlined text-tertiary" data-icon="warning">warning</span>
+</div>
+</div>
+<div>
+<h3 class="text-3xl font-black text-on-surface">5</h3>
+<p class="text-tertiary font-semibold text-sm">Format Uyarısı</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-[1.5rem] p-6 shadow-sm flex flex-col justify-between border-l-4 border-emerald-500">
+<div class="flex justify-between items-start">
+<div class="bg-emerald-50/50 p-2 rounded-xl">
+<span class="material-symbols-outlined text-emerald-500" data-icon="check_circle">check_circle</span>
+</div>
+</div>
+<div>
+<h3 class="text-lg font-bold text-on-surface mt-2">Hazır</h3>
+<p class="text-emerald-600 font-semibold text-sm">Optimizasyona Hazır</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Content Columns -->
+<div class="grid grid-cols-12 gap-10">
+<!-- Left Column: Yapısal Analiz -->
+<div class="col-span-12 lg:col-span-7">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-1 h-8 bg-primary rounded-full"></div>
+<h2 class="font-headline text-2xl font-bold">Yapısal Analiz</h2>
+</div>
+<div class="space-y-4">
+<!-- Error Card 1 -->
+<div class="bg-surface-container-lowest rounded-2xl p-6 shadow-sm group hover:bg-surface-container transition-colors duration-300">
+<div class="flex items-start justify-between">
+<div class="flex gap-4">
+<div class="bg-error-container text-error p-3 rounded-full h-fit">
+<span class="material-symbols-outlined" data-icon="error">error</span>
+</div>
+<div>
+<h4 class="font-bold text-lg text-on-surface">Karmaşık Tablo Yapısı</h4>
+<p class="text-sm text-outline mt-1 max-w-md">ATS sistemleri tabloların içindeki verileri okumakta %60 oranında hata yapmaktadır.</p>
+</div>
+</div>
+<button class="bg-surface-container-high hover:bg-primary hover:text-white text-on-surface text-xs font-bold px-4 py-2 rounded-full transition-all whitespace-nowrap">Çözüm Önerisi</button>
+</div>
+</div>
+<!-- Warning Card 1 -->
+<div class="bg-surface-container-lowest rounded-2xl p-6 shadow-sm group hover:bg-surface-container transition-colors duration-300">
+<div class="flex items-start justify-between">
+<div class="flex gap-4">
+<div class="bg-tertiary-fixed text-tertiary p-3 rounded-full h-fit">
+<span class="material-symbols-outlined" data-icon="photo_camera">photo_camera</span>
+</div>
+<div>
+<h4 class="font-bold text-lg text-on-surface">Fotoğraf Tespit Edildi</h4>
+<p class="text-sm text-outline mt-1 max-w-md">Modern İK filtreleri tarafsızlık adına fotoğrafsız özgeçmişleri tercih etmektedir.</p>
+</div>
+</div>
+<button class="bg-surface-container-high hover:bg-primary hover:text-white text-on-surface text-xs font-bold px-4 py-2 rounded-full transition-all whitespace-nowrap">Çözüm Önerisi</button>
+</div>
+</div>
+<!-- Warning Card 2 -->
+<div class="bg-surface-container-lowest rounded-2xl p-6 shadow-sm group hover:bg-surface-container transition-colors duration-300">
+<div class="flex items-start justify-between">
+<div class="flex gap-4">
+<div class="bg-tertiary-fixed text-tertiary p-3 rounded-full h-fit">
+<span class="material-symbols-outlined" data-icon="font_download">font_download</span>
+</div>
+<div>
+<h4 class="font-bold text-lg text-on-surface">Uygunsuz Font Tercihi</h4>
+<p class="text-sm text-outline mt-1 max-w-md">Kullandığınız bazı fontlar OCR tarayıcıları tarafından doğru tanımlanamıyor.</p>
+</div>
+</div>
+<button class="bg-surface-container-high hover:bg-primary hover:text-white text-on-surface text-xs font-bold px-4 py-2 rounded-full transition-all whitespace-nowrap">Çözüm Önerisi</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Keyword Intelligence -->
+<div class="col-span-12 lg:col-span-5">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-1 h-8 bg-primary-container rounded-full"></div>
+<h2 class="font-headline text-2xl font-bold">Anahtar Kelime Zekası</h2>
+</div>
+<div class="glass-panel rounded-[2rem] p-8 mb-6">
+<p class="text-xs font-bold text-outline uppercase tracking-widest mb-6">Kelime Bulutu Analizi</p>
+<div class="flex flex-wrap gap-3">
+<span class="px-4 py-2 bg-primary text-white text-sm font-semibold rounded-full shadow-md shadow-primary/20">Kubernetes</span>
+<span class="px-4 py-2 bg-primary text-white text-sm font-semibold rounded-full shadow-md shadow-primary/20">TypeScript</span>
+<span class="px-4 py-2 border-2 border-dashed border-outline-variant text-outline text-sm font-semibold rounded-full">Docker</span>
+<span class="px-4 py-2 bg-primary text-white text-sm font-semibold rounded-full shadow-md shadow-primary/20">React</span>
+<span class="px-4 py-2 border-2 border-dashed border-outline-variant text-outline text-sm font-semibold rounded-full">Agile</span>
+<span class="px-4 py-2 bg-primary text-white text-sm font-semibold rounded-full shadow-md shadow-primary/20">Tailwind</span>
+<span class="px-4 py-2 border-2 border-dashed border-outline-variant text-outline text-sm font-semibold rounded-full">CI/CD</span>
+<span class="px-4 py-2 bg-primary text-white text-sm font-semibold rounded-full shadow-md shadow-primary/20">Node.js</span>
+</div>
+<div class="mt-8 pt-8 border-t border-outline-variant/30">
+<p class="text-sm font-bold text-on-surface mb-4">Şansını Artıracak Kelimeler:</p>
+<div class="flex flex-col gap-3">
+<div class="flex items-center gap-3 text-sm text-outline">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span><strong class="text-primary">Docker:</strong> DevOps süreçlerinde %40 daha fazla görünürlük sağlar.</span>
+</div>
+<div class="flex items-center gap-3 text-sm text-outline">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span><strong class="text-primary">CI/CD:</strong> Modern yazılım ekiplerinin en çok aradığı yetkinliktir.</span>
+</div>
+<div class="flex items-center gap-3 text-sm text-outline">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span><strong class="text-primary">Agile:</strong> Proje yönetim metodolojisi eksikliği puanınızı düşürüyor.</span>
+</div>
+</div>
+</div>
+</div>
+<!-- AI Insight Card -->
+<div class="bg-primary text-on-primary rounded-[2rem] p-8 relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-20">
+<span class="material-symbols-outlined text-6xl" data-icon="psychology">psychology</span>
+</div>
+<h5 class="text-lg font-bold mb-2">AI Önerisi</h5>
+<p class="text-sm leading-relaxed text-blue-100/90">Yapay zekamız, özgeçmişinizdeki iş tanımlarının çok pasif olduğunu tespit etti. "Yaptım" yerine "Geliştirdim", "Yönettim" gibi etki odaklı kelimeler kullanmalısınız.</p>
+</div>
+</div>
+</div>
+<!-- Bottom Section: Benchmark -->
+<section class="mt-16">
+<div class="flex items-center gap-3 mb-8">
+<div class="w-1 h-8 bg-on-surface rounded-full"></div>
+<h2 class="font-headline text-2xl font-bold">Sektör Ortalaması vs. Sen</h2>
+</div>
+<div class="bg-surface-container-lowest rounded-[2rem] p-10 shadow-sm">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+<div class="space-y-8">
+<div>
+<div class="flex justify-between text-sm font-bold mb-3">
+<span>İçerik Kalitesi</span>
+<span class="text-primary">Sen: %92</span>
+</div>
+<div class="h-3 bg-surface-container rounded-full overflow-hidden flex">
+<div class="h-full bg-primary rounded-full" style="width: 92%"></div>
+<div class="h-full bg-outline-variant/30" style="width: 65%; margin-left: -92%; z-index: 1;"></div>
+</div>
+<div class="flex justify-end mt-1">
+<span class="text-[10px] text-outline uppercase tracking-tighter">Sektör Ortalaması: %65</span>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-sm font-bold mb-3">
+<span>Görsel Hiyerarşi</span>
+<span class="text-primary">Sen: %45</span>
+</div>
+<div class="h-3 bg-surface-container rounded-full overflow-hidden flex">
+<div class="h-full bg-primary rounded-full" style="width: 45%"></div>
+<div class="h-full bg-outline-variant/30" style="width: 78%; margin-left: -45%; z-index: 1;"></div>
+</div>
+<div class="flex justify-end mt-1">
+<span class="text-[10px] text-outline uppercase tracking-tighter">Sektör Ortalaması: %78</span>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-sm font-bold mb-3">
+<span>Anahtar Kelime Yoğunluğu</span>
+<span class="text-primary">Sen: %84</span>
+</div>
+<div class="h-3 bg-surface-container rounded-full overflow-hidden flex">
+<div class="h-full bg-primary rounded-full" style="width: 84%"></div>
+<div class="h-full bg-outline-variant/30" style="width: 70%; margin-left: -84%; z-index: 1;"></div>
+</div>
+<div class="flex justify-end mt-1">
+<span class="text-[10px] text-outline uppercase tracking-tighter">Sektör Ortalaması: %70</span>
+</div>
+</div>
+</div>
+<div class="relative flex justify-center items-center">
+<img alt="Sektör Karşılaştırma Grafiği" class="rounded-3xl shadow-xl border-8 border-surface-container-low" data-alt="abstract data visualization showing career growth and benchmarking sleek lines tech blue accents clean white background minimalist business aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBq-tsOzfJQB9hqr_PClJ7b-qI0A9N3kj5sNt4axeBSX6F7FwpirFlFwY9xl-P4RWTfpGgR399zYnDtaRpIjJHR1YXiH5yP5Iqp_1BVE5FftsQBcYXdAouMdzdjXircBcg2P2QWbvvLSUE9CqLX-3Yi-OUyuJmGJuXyaZopgEu9sDCPOKq4267Ijn42H5k-0lf4B8himeqoHqikpeLMi2wglhStrmHGKkO7ZbZZSajlAcijq3hrJYDS3pdleVP9J9i383vDmGqvB98"/>
+<div class="absolute -bottom-6 -right-6 glass-panel p-6 rounded-2xl shadow-lg border border-primary/10">
+<p class="text-2xl font-black text-primary">+15%</p>
+<p class="text-xs text-outline font-medium">Genel Ortalamadan Daha İyisin</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- FAB Action (Contextual to ATS Scan) -->
+<button class="fixed bottom-8 right-8 bg-primary hover:bg-primary-container text-white h-16 px-8 rounded-full shadow-2xl shadow-primary/40 flex items-center gap-3 transition-all active:scale-95 group z-50">
+<span class="material-symbols-outlined" data-icon="refresh">refresh</span>
+<span class="font-bold">Yeni Taramayı Başlat</span>
+</button>
+</body></html>

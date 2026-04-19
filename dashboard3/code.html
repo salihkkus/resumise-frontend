@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+
+<html lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-low": "#f3f4f6",
+                    "on-tertiary-fixed-variant": "#812800",
+                    "on-secondary-fixed": "#021945",
+                    "on-secondary-container": "#415382",
+                    "error-container": "#ffdad6",
+                    "on-error": "#ffffff",
+                    "inverse-surface": "#2e3132",
+                    "tertiary-container": "#a33500",
+                    "surface-container": "#edeef0",
+                    "outline": "#737685",
+                    "surface-bright": "#f8f9fb",
+                    "surface-container-highest": "#e1e2e4",
+                    "primary-fixed": "#dae2ff",
+                    "on-primary-container": "#c4d2ff",
+                    "surface-container-lowest": "#ffffff",
+                    "outline-variant": "#c3c6d6",
+                    "secondary": "#4c5d8d",
+                    "secondary-fixed": "#dae2ff",
+                    "primary-container": "#0052cc",
+                    "on-surface-variant": "#434654",
+                    "on-secondary-fixed-variant": "#344573",
+                    "surface-variant": "#e1e2e4",
+                    "secondary-container": "#b6c8fe",
+                    "on-primary": "#ffffff",
+                    "inverse-primary": "#b2c5ff",
+                    "on-background": "#191c1e",
+                    "surface-tint": "#0c56d0",
+                    "surface-dim": "#d9dadc",
+                    "on-secondary": "#ffffff",
+                    "surface-container-high": "#e7e8ea",
+                    "tertiary-fixed-dim": "#ffb59b",
+                    "tertiary-fixed": "#ffdbcf",
+                    "inverse-on-surface": "#f0f1f3",
+                    "primary": "#003d9b",
+                    "on-primary-fixed": "#001848",
+                    "primary-fixed-dim": "#b2c5ff",
+                    "on-surface": "#191c1e",
+                    "on-tertiary-container": "#ffc6b2",
+                    "on-tertiary-fixed": "#380d00",
+                    "secondary-fixed-dim": "#b4c5fb",
+                    "tertiary": "#7b2600",
+                    "background": "#f8f9fb",
+                    "on-primary-fixed-variant": "#0040a2",
+                    "surface": "#f8f9fb",
+                    "on-error-container": "#93000a",
+                    "on-tertiary": "#ffffff",
+                    "error": "#ba1a1a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {},
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-headline { font-family: 'Manrope', sans-serif; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(195, 198, 214, 0.15);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .active-nav-glow {
+            box-shadow: 0 0 20px rgba(0, 61, 155, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-screen w-64 bg-slate-100 flex flex-col py-6 space-y-2 z-50">
+<div class="px-8 mb-8">
+<h1 class="font-headline font-bold text-lg text-slate-900">Resumise</h1>
+<p class="text-xs text-slate-500 font-medium tracking-wide">Premium Career Intelligence</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="text-slate-600 px-4 py-3 mx-2 flex items-center gap-3 hover:bg-white/50 transition-all font-semibold text-sm" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                Dashboard
+            </a>
+<a class="text-slate-600 px-4 py-3 mx-2 flex items-center gap-3 hover:bg-white/50 transition-all font-semibold text-sm" href="#">
+<span class="material-symbols-outlined">description</span>
+                Özgeçmişim
+            </a>
+<!-- Active State: İş Eşleşmeleri -->
+<a class="bg-white text-blue-700 shadow-sm rounded-xl px-4 py-3 mx-2 flex items-center gap-3 active-nav-glow font-semibold text-sm" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">ads_click</span>
+                İş Eşleşmeleri
+            </a>
+<a class="text-slate-600 px-4 py-3 mx-2 flex items-center gap-3 hover:bg-white/50 transition-all font-semibold text-sm" href="#">
+<span class="material-symbols-outlined">fact_check</span>
+                ATS Kontrolü
+            </a>
+<a class="text-slate-600 px-4 py-3 mx-2 flex items-center gap-3 hover:bg-white/50 transition-all font-semibold text-sm" href="#">
+<span class="material-symbols-outlined">psychology</span>
+                Yapay Zeka Mülakat Koçu
+            </a>
+</nav>
+<div class="px-4 mt-auto space-y-4">
+<div class="bg-primary-container/10 p-4 rounded-xl">
+<p class="text-xs font-bold text-primary mb-2">PRO SÜRÜMÜ</p>
+<p class="text-[11px] text-on-surface-variant leading-relaxed mb-3">AI mülakat hazırlığı ve sınırsız ATS kontrolü için yükseltin.</p>
+<button class="w-full py-2 bg-gradient-to-r from-primary to-primary-container text-white text-xs font-bold rounded-xl shadow-md">
+                    Upgrade to Pro
+                </button>
+</div>
+<div class="border-t border-slate-200 pt-4 space-y-1">
+<a class="text-slate-600 px-4 py-2 flex items-center gap-3 text-sm hover:bg-white/50 transition-all" href="#">
+<span class="material-symbols-outlined text-lg">settings</span> Settings
+                </a>
+<a class="text-slate-600 px-4 py-2 flex items-center gap-3 text-sm hover:bg-white/50 transition-all" href="#">
+<span class="material-symbols-outlined text-lg">help</span> Support
+                </a>
+</div>
+</div>
+</aside>
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 h-16 ml-64 flex justify-between items-center px-8 bg-slate-50 z-40 w-[calc(100%-16rem)]">
+<div class="flex items-center gap-4 bg-surface-container-low px-4 py-2 rounded-full w-96">
+<span class="material-symbols-outlined text-slate-400">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-full font-medium text-slate-700" placeholder="İş ilanı veya yetenek ara..." type="text"/>
+</div>
+<div class="flex items-center gap-6">
+<button class="relative text-slate-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute -top-1 -right-1 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<div class="flex items-center gap-3">
+<div class="text-right">
+<p class="text-sm font-bold text-slate-900 leading-none">Deniz Yılmaz</p>
+<p class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Kıdemli Yazılımcı</p>
+</div>
+<img alt="User profile" class="w-10 h-10 rounded-full object-cover border-2 border-white shadow-sm" data-alt="Professional portrait of a confident male tech professional in a modern office setting with soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKqAvIcTyoAFI8hZRlizcgYGGvNdMCtM3WMjnnhIqF17O81ARGhHO6qi7mwUvHDkFcm_ND3Oto7tzua5Dk2bgpDNxG9ExA4svg64LPSowPb372pr7YC45Kuw08aVICbUCW91dOAdtEx2FOFlGBq6LLF1QdE-ChTo3cNWS9Ow_kT4dBtSZFdH6yToCth7ZiamRMkIJ3aufzMJgsiIjAjcByT9Sa4i7o96Yxp-wwqquDcir6NQ83LM3poFyh1BD75yraZSjGo4j4oy0"/>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-64 pt-16 min-h-screen">
+<div class="p-8 max-w-[1600px] mx-auto">
+<!-- Hero Header & Filter Slider -->
+<section class="mb-12">
+<h2 class="font-headline text-4xl font-extrabold tracking-tight text-on-surface mb-6">Sizin İçin En İyi Eşleşmeler</h2>
+<div class="bg-surface-container-low p-6 rounded-3xl flex flex-wrap items-center gap-8 shadow-sm">
+<div class="flex-1 min-w-[300px]">
+<div class="flex justify-between items-center mb-3">
+<label class="text-sm font-bold text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">target</span>
+                                Eşleşme Skoru
+                            </label>
+<span class="text-primary font-bold text-sm">%70+</span>
+</div>
+<input class="w-full h-2 bg-slate-300 rounded-lg appearance-none cursor-pointer accent-primary" type="range"/>
+</div>
+<div class="flex gap-3 flex-wrap">
+<span class="px-4 py-2 bg-primary text-white rounded-full text-xs font-bold shadow-md cursor-pointer">Yazılım</span>
+<span class="px-4 py-2 bg-white text-on-surface-variant rounded-full text-xs font-bold hover:bg-primary-fixed transition-colors cursor-pointer">Uzaktan</span>
+<span class="px-4 py-2 bg-white text-on-surface-variant rounded-full text-xs font-bold hover:bg-primary-fixed transition-colors cursor-pointer">AI Odaklı</span>
+<span class="px-4 py-2 bg-white text-on-surface-variant rounded-full text-xs font-bold hover:bg-primary-fixed transition-colors cursor-pointer">İstanbul</span>
+<button class="ml-4 p-2 rounded-full border border-outline-variant hover:bg-white transition-all">
+<span class="material-symbols-outlined text-lg">tune</span>
+</button>
+</div>
+</div>
+</section>
+<div class="grid grid-cols-12 gap-8 items-start">
+<!-- Left Column: Job Cards -->
+<div class="col-span-12 lg:col-span-5 space-y-6">
+<!-- Card 1 -->
+<div class="glass-card p-6 rounded-[16px] hover:shadow-xl transition-all cursor-pointer ring-2 ring-primary ring-offset-4 ring-offset-surface">
+<div class="flex justify-between items-start mb-4">
+<div class="flex gap-4">
+<div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-primary text-3xl">bolt</span>
+</div>
+<div>
+<h3 class="font-headline font-bold text-lg leading-tight">Senior Frontend Developer</h3>
+<p class="text-sm text-on-surface-variant font-medium">TechFlow Systems • Hibrit</p>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<div class="w-12 h-12 rounded-full flex items-center justify-center relative">
+<svg class="absolute inset-0 w-full h-full -rotate-90">
+<circle class="text-primary" cx="24" cy="24" fill="transparent" r="20" stroke="currentColor" stroke-dasharray="125.6" stroke-dashoffset="18.8" stroke-width="4"></circle>
+</svg>
+<span class="text-[11px] font-extrabold text-primary">%85</span>
+</div>
+</div>
+</div>
+<div class="bg-primary/5 border-l-4 border-primary p-3 rounded-r-lg mb-4">
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-primary text-sm">auto_awesome</span>
+<p class="text-xs text-primary font-semibold">Bu ilan, React ve Tailwind tecrübenle tam örtüşüyor.</p>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-xs font-bold text-on-surface-variant">2 gün önce yayınlandı</span>
+<div class="flex gap-1">
+<span class="px-2 py-1 bg-surface-container text-[10px] font-bold rounded">REACT</span>
+<span class="px-2 py-1 bg-surface-container text-[10px] font-bold rounded">TYPESCRIPT</span>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="glass-card p-6 rounded-[16px] opacity-80 hover:opacity-100 hover:shadow-lg transition-all cursor-pointer">
+<div class="flex justify-between items-start mb-4">
+<div class="flex gap-4">
+<div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-secondary text-3xl">cloud</span>
+</div>
+<div>
+<h3 class="font-headline font-bold text-lg leading-tight">Cloud Infrastructure Lead</h3>
+<p class="text-sm text-on-surface-variant font-medium">SkyNet Solutions • Uzaktan</p>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<div class="w-12 h-12 rounded-full flex items-center justify-center relative">
+<svg class="absolute inset-0 w-full h-full -rotate-90">
+<circle class="text-secondary" cx="24" cy="24" fill="transparent" r="20" stroke="currentColor" stroke-dasharray="125.6" stroke-dashoffset="35.6" stroke-width="4"></circle>
+</svg>
+<span class="text-[11px] font-extrabold text-secondary">%72</span>
+</div>
+</div>
+</div>
+<div class="bg-secondary/5 border-l-4 border-secondary p-3 rounded-r-lg mb-4">
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-secondary text-sm">lightbulb</span>
+<p class="text-xs text-secondary font-semibold">AWS deneyimin bir avantaj ancak GCP bilgisi isteniyor.</p>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-xs font-bold text-on-surface-variant">5 saat önce yayınlandı</span>
+<div class="flex gap-1">
+<span class="px-2 py-1 bg-surface-container text-[10px] font-bold rounded">AWS</span>
+<span class="px-2 py-1 bg-surface-container text-[10px] font-bold rounded">KUBERNETES</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: AI Analysis Panel -->
+<div class="col-span-12 lg:col-span-7">
+<div class="bg-white rounded-[24px] p-8 shadow-sm border border-outline-variant/10 sticky top-24">
+<div class="flex justify-between items-center mb-8">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 bg-surface-container flex items-center justify-center rounded-2xl">
+<span class="material-symbols-outlined text-primary text-4xl">bolt</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h2 class="font-headline font-extrabold text-2xl">TechFlow Systems</h2>
+<span class="px-2 py-0.5 bg-green-100 text-green-700 text-[10px] font-black rounded-full">DOĞRULANMIŞ İŞVEREN</span>
+</div>
+<p class="text-on-surface-variant font-medium">Senior Frontend Developer • ₺120k - ₺180k / ay</p>
+</div>
+</div>
+<button class="p-3 rounded-xl border border-outline-variant hover:bg-slate-50 transition-colors">
+<span class="material-symbols-outlined">bookmark</span>
+</button>
+</div>
+<div class="grid grid-cols-2 gap-8 mb-8">
+<!-- Match List -->
+<div class="space-y-4">
+<h4 class="font-headline font-bold text-sm text-green-600 flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">check_circle</span>
+                                    Neden Eşleştin?
+                                </h4>
+<ul class="space-y-3">
+<li class="flex items-start gap-3 text-sm font-medium text-slate-700">
+<span class="material-symbols-outlined text-green-500 text-base mt-0.5" style="font-variation-settings: 'FILL' 1;">check</span>
+                                        3 yıl Python ve React deneyimi
+                                    </li>
+<li class="flex items-start gap-3 text-sm font-medium text-slate-700">
+<span class="material-symbols-outlined text-green-500 text-base mt-0.5" style="font-variation-settings: 'FILL' 1;">check</span>
+                                        Ekip liderliği yetkinliği
+                                    </li>
+<li class="flex items-start gap-3 text-sm font-medium text-slate-700">
+<span class="material-symbols-outlined text-green-500 text-base mt-0.5" style="font-variation-settings: 'FILL' 1;">check</span>
+                                        Önceki Fintech sektörü tecrübesi
+                                    </li>
+</ul>
+</div>
+<!-- Missing List -->
+<div class="space-y-4">
+<h4 class="font-headline font-bold text-sm text-tertiary flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">warning</span>
+                                    Eksiklerin Neler?
+                                </h4>
+<ul class="space-y-3">
+<li class="flex items-start gap-3 text-sm font-medium text-slate-700">
+<span class="material-symbols-outlined text-tertiary text-base mt-0.5">error_outline</span>
+                                        Docker ve Konteynerizasyon bilgisi eksik
+                                    </li>
+<li class="flex items-start gap-3 text-sm font-medium text-slate-700">
+<span class="material-symbols-outlined text-tertiary text-base mt-0.5">error_outline</span>
+                                        GraphQL tecrübesi aranıyor
+                                    </li>
+</ul>
+</div>
+</div>
+<!-- AI Advice Card -->
+<div class="glass-card p-6 rounded-[20px] mb-8 relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-primary"></div>
+<div class="flex items-center gap-4 mb-3">
+<div class="bg-primary/10 p-2 rounded-lg">
+<span class="material-symbols-outlined text-primary">psychology</span>
+</div>
+<span class="font-headline font-bold text-primary">AI Tavsiyesi</span>
+</div>
+<p class="text-on-surface-variant leading-relaxed font-medium">
+                                Özgeçmişine <span class="text-primary font-bold">"Mikroservis Mimari"</span> projeni eklemek ve Docker üzerinden yaptığın dağıtımları belirtmek seçilme şansını <span class="text-green-600 font-bold">%15 artırır.</span>
+</p>
+</div>
+<!-- Action Bar -->
+<div class="flex gap-4">
+<button class="flex-1 py-4 bg-gradient-to-r from-primary to-primary-container text-white font-extrabold rounded-2xl shadow-lg hover:opacity-90 transition-all flex items-center justify-center gap-3">
+                                Başvuruyu Başlat
+                                <span class="material-symbols-outlined">rocket_launch</span>
+</button>
+<button class="px-6 py-4 bg-surface-container text-on-surface-variant font-bold rounded-2xl hover:bg-surface-container-high transition-all">
+                                Detayları İncele
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Contextual Floating FAB -->
+<div class="fixed bottom-8 right-8 z-50">
+<button class="w-16 h-16 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-105 transition-transform group">
+<span class="material-symbols-outlined text-3xl group-hover:rotate-12 transition-transform">chat_bubble</span>
+<div class="absolute right-20 bg-on-surface text-white px-4 py-2 rounded-xl text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                AI Kariyer Asistanına Sor
+            </div>
+</button>
+</div>
+</body></html>

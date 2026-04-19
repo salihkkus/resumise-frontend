@@ -23,10 +23,10 @@ const Dashboard = () => {
               <span className="material-symbols-outlined !text-[22px]">description</span>
               <span className="text-[15px] font-semibold">Özgeçmişlerim</span>
             </Link>
-            <a className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group" href="#">
+            <Link to="/is-eslesmeleri" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
               <span className="material-symbols-outlined !text-[22px]">work</span>
               <span className="text-[15px] font-semibold">İş Eşleşmeleri</span>
-            </a>
+            </Link>
             <a className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group" href="#">
               <span className="material-symbols-outlined !text-[22px]">analytics</span>
               <span className="text-[15px] font-semibold">ATS Kontrolü</span>
