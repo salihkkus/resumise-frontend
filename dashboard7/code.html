@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+
+<html class="light" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Resumise - Giriş Yap</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed": "#021945",
+                    "surface-dim": "#d9dadc",
+                    "secondary-fixed-dim": "#b4c5fb",
+                    "on-tertiary-fixed-variant": "#812800",
+                    "surface-container-highest": "#e1e2e4",
+                    "on-tertiary-fixed": "#380d00",
+                    "on-primary-container": "#c4d2ff",
+                    "outline-variant": "#c3c6d6",
+                    "on-primary-fixed": "#001848",
+                    "tertiary-fixed-dim": "#ffb59b",
+                    "tertiary-fixed": "#ffdbcf",
+                    "error": "#ba1a1a",
+                    "surface-container-high": "#e7e8ea",
+                    "surface-container": "#edeef0",
+                    "primary": "#003d9b",
+                    "on-primary": "#ffffff",
+                    "inverse-on-surface": "#f0f1f3",
+                    "on-primary-fixed-variant": "#0040a2",
+                    "error-container": "#ffdad6",
+                    "tertiary-container": "#a33500",
+                    "primary-container": "#0052cc",
+                    "on-tertiary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "secondary": "#4c5d8d",
+                    "inverse-primary": "#b2c5ff",
+                    "secondary-fixed": "#dae2ff",
+                    "surface-tint": "#0c56d0",
+                    "primary-fixed": "#dae2ff",
+                    "tertiary": "#7b2600",
+                    "surface-variant": "#e1e2e4",
+                    "secondary-container": "#b6c8fe",
+                    "outline": "#737685",
+                    "on-surface-variant": "#434654",
+                    "on-error-container": "#93000a",
+                    "surface-bright": "#f8f9fb",
+                    "primary-fixed-dim": "#b2c5ff",
+                    "on-secondary": "#ffffff",
+                    "inverse-surface": "#2e3132",
+                    "on-tertiary-container": "#ffc6b2",
+                    "on-surface": "#191c1e",
+                    "surface": "#f8f9fb",
+                    "surface-container-lowest": "#ffffff",
+                    "background": "#f8f9fb",
+                    "surface-container-low": "#f3f4f6",
+                    "on-secondary-fixed-variant": "#344573",
+                    "on-secondary-container": "#415382",
+                    "on-background": "#191c1e"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {},
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+        .neural-pattern {
+            background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0);
+            background-size: 32px 32px;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased overflow-hidden">
+<!-- Top Navigation (Suppressing shell visibility for Transactional flow per instructions) -->
+<header class="w-full absolute top-0 left-0 z-50 flex justify-between items-center w-full px-8 py-6">
+<div class="text-2xl font-black tracking-tighter text-white">Resumise</div>
+<div class="hidden md:flex items-center gap-6">
+<span class="font-inter text-xs uppercase tracking-widest text-white/70">Henüz hesabın yok mu?</span>
+<button class="bg-surface-container-lowest/10 text-white px-6 py-2 rounded-full font-manrope font-bold text-sm tracking-tight border border-white/20 hover:bg-white/20 transition-all">Sign Up</button>
+</div>
+</header>
+<main class="flex h-screen w-full">
+<!-- Left Side: Visual Anchor -->
+<section class="hidden lg:flex flex-col relative w-1/2 h-full bg-primary-container overflow-hidden justify-center items-center p-20">
+<!-- Background Decoration -->
+<div class="absolute inset-0 neural-pattern opacity-40"></div>
+<div class="absolute top-1/4 -right-20 w-96 h-96 bg-primary-fixed/20 blur-[120px] rounded-full"></div>
+<div class="absolute bottom-1/4 -left-20 w-96 h-96 bg-on-primary-container/10 blur-[100px] rounded-full"></div>
+<!-- Content -->
+<div class="relative z-10 max-w-lg">
+<h1 class="font-headline font-extrabold text-5xl text-white leading-tight mb-8 tracking-tighter">
+                    Kariyer Yolculuğunu Yapay Zeka ile Şekillendir
+                </h1>
+<p class="text-on-primary-container text-lg opacity-90 font-light leading-relaxed mb-12">
+                    Geleceğin iş dünyasında bir adım önde olun. Veri odaklı analizlerle özgeçmişinizi optimize edin.
+                </p>
+<!-- Floating Glassmorphism Component -->
+<div class="glass-card p-6 rounded-full border border-white/20 flex items-center gap-6 shadow-2xl transform hover:scale-105 transition-transform duration-500">
+<div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center text-white shadow-lg">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div>
+<div class="flex items-end gap-2">
+<span class="text-primary font-headline font-extrabold text-3xl">ATS Skoru: %95</span>
+</div>
+<p class="text-secondary font-medium text-sm">Özgeçmişiniz başarıyla optimize edildi</p>
+</div>
+</div>
+</div>
+<!-- Visual Asset - Abstract Background for Depth -->
+<div class="absolute inset-0 -z-10 bg-[url('https://images.unsplash.com/photo-1639322537228-f710d846310a?auto=format&amp;fit=crop&amp;q=80&amp;w=2000')] opacity-10 mix-blend-overlay grayscale" data-alt="abstract neural network connections with glowing nodes and data points in deep blue space"></div>
+</section>
+<!-- Right Side: Login Form -->
+<section class="w-full lg:w-1/2 h-full bg-surface-container-lowest flex items-center justify-center p-8 md:p-16">
+<div class="w-full max-w-md flex flex-col">
+<!-- Branding for Mobile -->
+<div class="lg:hidden mb-12">
+<span class="text-3xl font-black tracking-tighter text-primary">Resumise</span>
+</div>
+<div class="mb-10">
+<h2 class="font-headline font-extrabold text-4xl text-on-surface mb-3 tracking-tight">Tekrar Hoş Geldin!</h2>
+<p class="text-secondary font-medium">Hesabına giriş yaparak kariyerini optimize etmeye devam et.</p>
+</div>
+<!-- Social Login -->
+<button class="flex items-center justify-center gap-3 w-full py-4 px-6 bg-surface-container-lowest border border-outline-variant/30 rounded-full shadow-sm hover:bg-surface-container transition-all group">
+<img alt="Google" class="w-5 h-5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKUBliANBG4vAgC63UpjKoqpb5kq37TjwgT8-k-AxvayaSRIxtqmXK3xweCEgA6bv-NzRs7uu359dldPqSRueY-JQwqB6nVuGCQZGf56nkeP_2-RRXvYy-un4uuScifEpo9sG4Yyg7t62_gRXWAa7BpD8cQYhyBfPRNRWwake0J_L6X6z3U0RtJ7BN0J-ozz4iIzGnt3Rnfjk1lx4S3JLcqsbthsDB5ut_KYIDcUNZ5wYPjzQSrO2kmPzMN1ecq4wTIMFJthRQHMI"/>
+<span class="text-on-surface font-semibold text-sm">Google ile devam et</span>
+</button>
+<div class="flex items-center gap-4 my-8">
+<div class="h-px flex-1 bg-outline-variant/20"></div>
+<span class="text-outline text-xs uppercase tracking-widest font-semibold">Veya e-posta ile giriş yap</span>
+<div class="h-px flex-1 bg-outline-variant/20"></div>
+</div>
+<!-- Form -->
+<form action="#" class="space-y-6">
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-widest text-secondary ml-1" for="email">E-posta</label>
+<div class="relative">
+<input class="w-full px-6 py-4 bg-surface-container-low border-0 rounded-xl focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-lowest transition-all text-on-surface placeholder:text-outline/50 font-medium" id="email" name="email" placeholder="ornek@resumise.com" type="email"/>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-center ml-1">
+<label class="text-xs font-bold uppercase tracking-widest text-secondary" for="password">Şifre</label>
+<a class="text-xs font-bold text-primary hover:text-primary-container transition-colors" href="#">Şifremi Unuttum</a>
+</div>
+<div class="relative">
+<input class="w-full px-6 py-4 bg-surface-container-low border-0 rounded-xl focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-lowest transition-all text-on-surface placeholder:text-outline/50 font-medium" id="password" name="password" placeholder="••••••••" type="password"/>
+</div>
+</div>
+<button class="w-full py-4 bg-gradient-to-br from-primary to-primary-container text-white rounded-full font-headline font-bold text-lg shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all" type="submit">
+                        Giriş Yap
+                    </button>
+</form>
+<!-- Footer Links -->
+<footer class="mt-12 flex flex-col items-center gap-4">
+<p class="text-secondary text-sm">
+                        Henüz bir hesabınız yok mu? <a class="text-primary font-bold" href="#">Kayıt Ol</a>
+</p>
+<div class="flex gap-6 mt-4">
+<a class="font-inter text-[10px] uppercase tracking-widest text-outline hover:text-primary transition-all" href="#">Gizlilik Politikası</a>
+<a class="font-inter text-[10px] uppercase tracking-widest text-outline hover:text-primary transition-all" href="#">Hizmet Şartları</a>
+</div>
+</footer>
+</div>
+</section>
+</main>
+<!-- Bottom Footer (Suppressing shell per instructions for transactional pages) -->
+<!-- The instructions require suppressing shells for transactional flows like login, but the JSON includes a Footer. I will include the JSON Footer as requested but visually hidden or integrated if it feels redundant, however the prompt mandates literal transcription of styles if present. For the login page, the prompt asks for a specific right-side form. I have integrated the privacy/terms links into the form's footer area for better UX. -->
+</body></html>

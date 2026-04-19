@@ -74,6 +74,10 @@ const MyResumes = () => {
               <span className="material-symbols-outlined !text-[22px]">psychology</span>
               <span className="text-[15px] font-semibold">Yapay Zeka Mülakat Koçu</span>
             </Link>
+            <Link to="/profil" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
+              <span className="material-symbols-outlined !text-[22px]">person</span>
+              <span className="text-[15px] font-semibold">Profil</span>
+            </Link>
           </nav>
         </div>
         <div className="p-6">
@@ -120,9 +124,9 @@ const MyResumes = () => {
               <button className="p-2.5 text-slate-400 hover:text-primary hover:bg-primary-container/50 rounded-xl transition-all">
                 <span className="material-symbols-outlined">settings</span>
               </button>
-              <div className="ml-2 ring-2 ring-offset-2 ring-primary/10 rounded-full cursor-pointer hover:ring-primary/30 transition-all overflow-hidden w-9 h-9">
+              <Link to="/profil" className="ml-2 ring-2 ring-offset-2 ring-primary/10 rounded-full cursor-pointer hover:ring-primary/30 transition-all overflow-hidden w-9 h-9">
                 <img alt="User" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCr_XFiwkjdS11UGfwPueLfDETkToDBj2WZhCnjSYYOKz7CfxN4RszN6JrQZ95uJ0Fbl-CVh5nxyc9fUbXpvkcOzZ834AmAlF5Qt7prNOwMVnRTGkcVRVNdDxf38RMdV8CdgSK_nsw2LBFfAsHsaxpPWzf7f64nHpn9xzTgC9QomwWKDd-lV2QFf_e5zkm9ExOo5mlbXXn2P1TovZI4P8_k1zFko5QkFuqtDtK0wMxzCbs6g8s0jxJNJNII72z4Gf1lMhjekPZylxw" />
-              </div>
+              </Link>
             </div>
           </div>
         </header>

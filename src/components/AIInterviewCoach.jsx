@@ -37,10 +37,14 @@ const AIInterviewCoach = () => {
             <span>ATS Kontrolü</span>
           </Link>
           {/* Active Navigation */}
-          <a className="flex items-center gap-3 px-4 py-3 bg-white dark:bg-slate-800 text-[#0052CC] rounded-lg shadow-sm font-bold text-sm font-headline translate-x-1 duration-200" href="#">
-            <span className="material-symbols-outlined" data-icon="psychology" style={{fontVariationSettings: '"FILL" 1'}}>psychology</span>
-            <span>AI Mülakat Koçu</span>
-          </a>
+          <Link to="/ai-mulakat-kocu" className="sidebar-active flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-primary font-bold transition-all group" href="#">
+            <span className="material-symbols-outlined !text-[22px]" style={{fontVariationSettings: '"FILL" 1'}}>psychology</span>
+            <span className="text-[15px]">Yapay Zeka Mülakat Koçu</span>
+          </Link>
+          <Link to="/profil" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
+            <span className="material-symbols-outlined !text-[22px]">person</span>
+            <span className="text-[15px] font-semibold">Profil</span>
+          </Link>
         </nav>
         <div className="mt-auto space-y-1 pt-4 border-t border-outline-variant/10">
           <a className="flex items-center gap-3 px-4 py-3 text-slate-600 hover:text-[#191c1e] font-headline text-sm" href="#">
@@ -76,12 +80,14 @@ const AIInterviewCoach = () => {
             <div className="h-8 w-px bg-outline-variant/30"></div>
             <div className="flex items-center gap-3">
               <span className="font-semibold text-on-surface">Kerem Can</span>
-              <img 
-                alt="Kullanıcı Profili" 
-                className="w-10 h-10 rounded-full border-2 border-primary-container object-cover" 
-                data-alt="headshot of a young professional man with a friendly smile, clean-cut, against a soft corporate background" 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDw1N5Efq9zF2ZOMb2tokOMLYQyQZp5uUWXov-zj1NiCMqBU_RBWqZBP50d9TULuCayvOrO12ODWDOXA7qtM2TFzfmNxCFSutEjGQVPaR4BWZN2BBNQmrXKZE0CmZcD42tF3iTeWxWoLjnvz40i1SnCH68lxftnTY_HDQpDBqwj7Mas3FuGSuJpRPnYpk3wGdL_k3Dxi5SssobEoL3qrhupsaOWx5aEP3DoXV6yQ9OqmLIEk4yB2M3eH9P0agiPtdCAf5qpoiycAo0"
-              />
+              <Link to="/profil">
+                <img 
+                  alt="Kullanici Profili" 
+                  className="w-10 h-10 rounded-full border-2 border-primary-container object-cover hover:border-primary transition-all cursor-pointer" 
+                  data-alt="headshot of a young professional man with a friendly smile, clean-cut, against a soft corporate background" 
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDw1N5Efq9zF2ZOMb2tokOMLYQyQZp5uUWXov-zj1NiCMqBU_RBWqZBP50d9TULuCayvOrO12ODWDOXA7qtM2TFzfmNxCFSutEjGQVPaR4BWZN2BBNQmrXKZE0CmZcD42tF3iTeWxWoLjnvz40i1SnCH68lxftnTY_HDQpDBqwj7Mas3FuGSuJpRPnYpk3wGdL_k3Dxi5SssobEoL3qrhupsaOWx5aEP3DoXV6yQ9OqmLIEk4yB2M3eH9P0agiPtdCAf5qpoiycAo0"
+                />
+              </Link>
             </div>
           </div>
         </header>

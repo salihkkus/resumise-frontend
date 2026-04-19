@@ -30,6 +30,10 @@ const ATSCheck = () => {
             <span className="material-symbols-outlined" data-icon="psychology">psychology</span>
             <span>Yapay Zeka Mülakat Koçu</span>
           </Link>
+          <Link to="/profil" className="flex items-center gap-3 text-slate-600 dark:text-slate-400 px-4 py-3 hover:translate-x-1 transition-all rounded-lg" href="#">
+            <span className="material-symbols-outlined" data-icon="person">person</span>
+            <span>Profil</span>
+          </Link>
         </nav>
       </aside>
 
@@ -55,12 +59,14 @@ const ATSCheck = () => {
               <p className="text-sm font-bold text-on-surface">Ahmet Yılmaz</p>
               <p className="text-[10px] text-outline uppercase tracking-wider">Premium Üye</p>
             </div>
-            <img 
-              alt="User Profile Avatar" 
-              className="w-10 h-10 rounded-full object-cover ring-2 ring-primary-fixed" 
-              data-alt="professional headshot of a male software engineer in a minimalist tech office clean lighting blurry office background high quality photography" 
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnsZyrL4uL1n4Wj0rwM9difGI691BKNBh5qZWOkPr-8fd8Nuzny1KB8iDbQuvs17tGUbz-f58MP-pp5e5gWTZwuMti9k5D95rGPCKns3llYEBwvtKu4BJbnKDGUKaKl-MATzzQoVQds_Hjl7X4YLmND85xnBeeGJ8ZQizBMwlYNopGPJ3AN_xCQmcRo2GkhJUHpN76kGbVYqZXguonSeqrdGIi6SeUwYMB279BZqzu0aWqPY_HS_JjKD8DjRNNSmDgvcFQG2rDnDk"
-            />
+            <Link to="/profil">
+              <img 
+                alt="User Profile Avatar" 
+                className="w-10 h-10 rounded-full object-cover ring-2 ring-primary-fixed hover:ring-primary transition-all cursor-pointer" 
+                data-alt="professional headshot of a male software engineer in a minimalist tech office clean lighting blurry office background high quality photography" 
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnsZyrL4uL1n4Wj0rwM9difGI691BKNBh5qZWOkPr-8fd8Nuzny1KB8iDbQuvs17tGUbz-f58MP-pp5e5gWTZwuMti9k5D95rGPCKns3llYEBwvtKu4BJbnKDGUKaKl-MATzzQoVQds_Hjl7X4YLmND85xnBeeGJ8ZQizBMwlYNopGPJ3AN_xCQmcRo2GkhJUHpN76kGbVYqZXguonSeqrdGIi6SeUwYMB279BZqzu0aWqPY_HS_JjKD8DjRNNSmDgvcFQG2rDnDk"
+              />
+            </Link>
           </div>
         </div>
       </header>

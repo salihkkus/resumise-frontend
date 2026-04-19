@@ -87,6 +87,10 @@ const JobMatches = () => {
               <span className="material-symbols-outlined !text-[22px]">psychology</span>
               <span className="text-[15px] font-semibold">Yapay Zeka Mülakat Koçu</span>
             </Link>
+            <Link to="/profil" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
+              <span className="material-symbols-outlined !text-[22px]">person</span>
+              <span className="text-[15px] font-semibold">Profil</span>
+            </Link>
           </nav>
         </div>
         <div className="p-6">
@@ -133,9 +137,9 @@ const JobMatches = () => {
               <button className="p-2.5 text-slate-400 hover:text-primary hover:bg-primary-container/50 rounded-xl transition-all">
                 <span className="material-symbols-outlined">settings</span>
               </button>
-              <div className="ml-2 ring-2 ring-offset-2 ring-primary/10 rounded-full cursor-pointer hover:ring-primary/30 transition-all overflow-hidden w-9 h-9">
+              <Link to="/profil" className="ml-2 ring-2 ring-offset-2 ring-primary/10 rounded-full cursor-pointer hover:ring-primary/30 transition-all overflow-hidden w-9 h-9">
                 <img alt="User" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKqAvIcTyoAFI8hZRlizcgYGGvNdMCtM3WMjnnhIqF17O81ARGhHO6qi7mwUvHDkFcm_ND3Oto7tzua5Dk2bgpDNxG9ExA4svg64LPSowPb372pr7YC45Kuw08aVICbUCW91dOAdtEx2FOFlGBq6LLF1QdE-ChTo3cNWS9Ow_kT4dBtSZFdH6yToCth7ZiamRMkIJ3aufzMJgsiIjAjcByT9Sa4i7o96Yxp-wwqquDcir6NQ83LM3poFyh1BD75yraZSjGo4j4oy0" />
-              </div>
+              </Link>
             </div>
           </div>
         </header>
