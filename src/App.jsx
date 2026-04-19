@@ -4,6 +4,7 @@ import Dashboard from './components/Dashboard';
 import MyResumes from './components/MyResumes';
 import JobMatches from './components/JobMatches';
 import ATSCheck from './components/ATSCheck';
+import AIInterviewCoach from './components/AIInterviewCoach';
 import './styles/globals.css';
 import './styles/my-resumes.css';
 
@@ -16,6 +17,7 @@ function App() {
           <Route path="/ozgecmislerim" element={<MyResumes />} />
           <Route path="/is-eslesmeleri" element={<JobMatches />} />
           <Route path="/ats-kontrolu" element={<ATSCheck />} />
+          <Route path="/ai-mulakat-kocu" element={<AIInterviewCoach />} />
         </Routes>
       </div>
     </Router>

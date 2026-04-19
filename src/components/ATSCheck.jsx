@@ -26,10 +26,10 @@ const ATSCheck = () => {
             <span className="material-symbols-outlined" data-icon="fact_check">fact_check</span>
             <span>ATS Kontrolü</span>
           </a>
-          <a className="flex items-center gap-3 text-slate-600 dark:text-slate-400 px-4 py-3 hover:translate-x-1 transition-all rounded-lg" href="#">
+          <Link to="/ai-mulakat-kocu" className="flex items-center gap-3 text-slate-600 dark:text-slate-400 px-4 py-3 hover:translate-x-1 transition-all rounded-lg" href="#">
             <span className="material-symbols-outlined" data-icon="psychology">psychology</span>
             <span>Yapay Zeka Mülakat Koçu</span>
-          </a>
+          </Link>
         </nav>
       </aside>
 
