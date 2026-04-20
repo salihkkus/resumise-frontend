@@ -13,62 +13,58 @@ const Login = () => {
 
   return (
     <div className="bg-surface font-body text-on-surface antialiased overflow-hidden">
-      {/* Top Navigation */}
-      <header className="w-full absolute top-0 left-0 z-50 flex justify-between items-center w-full px-8 py-6">
-        <div className="text-2xl font-black tracking-tighter text-white">Resumise</div>
-        <div className="hidden md:flex items-center gap-6">
-          <span className="font-inter text-xs uppercase tracking-widest text-white/70">Henüz hesabınız yok mu?</span>
-          <button className="bg-surface-container-lowest/10 text-white px-6 py-2 rounded-full font-manrope font-bold text-sm tracking-tight border border-white/20 hover:bg-white/20 transition-all">
-            Kaydol
-          </button>
-        </div>
-      </header>
-      
-      <main className="flex h-screen w-full">
-        {/* Left Side: Visual Anchor */}
-        <section className="hidden lg:flex flex-col relative w-1/2 h-full bg-primary-container overflow-hidden justify-center items-center p-20">
-          {/* Background Decoration */}
-          <div className="absolute inset-0 neural-pattern opacity-40"></div>
-          <div className="absolute top-1/4 -right-20 w-96 h-96 bg-primary-fixed/20 blur-[120px] rounded-full"></div>
-          <div className="absolute bottom-1/4 -left-20 w-96 h-96 bg-on-primary-container/10 blur-[100px] rounded-full"></div>
+      <main className="min-h-screen flex flex-col md:flex-row overflow-hidden">
+        {/* Left Side: Visual Column */}
+        <section className="hidden md:flex md:w-5/12 lg:w-1/2 data-flow-bg p-12 flex-col justify-between relative">
+          {/* Brand Logo */}
+          <div className="z-10">
+            <span className="text-3xl font-headline font-black text-white tracking-tighter">Resumise</span>
+          </div>
           
-          {/* Content */}
-          <div className="relative z-10 max-w-lg">
-            <h1 className="font-headline font-extrabold text-5xl text-white leading-tight mb-8 tracking-tighter">
-              Kariyer Yolculuğunuzu Yapay Zeka ile Şekillendir
+          {/* Content Middle */}
+          <div className="z-10 max-w-lg">
+            <h1 className="text-white font-headline text-5xl lg:text-6xl font-extrabold leading-[1.1] mb-12">
+              Geleceğin Kariyerine Bugün Başla
             </h1>
-            <p className="text-on-primary-container text-lg opacity-90 font-light leading-relaxed mb-12">
-              Geleceğin iş dünyasında bir adım önde olun. Veri odaklı analizlerle özgeçmişinizi optimize edin.
-            </p>
             
-            {/* Floating Glassmorphism Component */}
-            <div className="glass-card p-6 rounded-full border border-white/20 flex items-center gap-6 shadow-2xl transform hover:scale-105 transition-transform duration-500">
-              <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center text-white shadow-lg">
-                <span className="material-symbols-outlined text-3xl" style={{fontVariationSettings: '"FILL" 1'}}>check_circle</span>
+            {/* Floating Glassmorphism Card */}
+            <div className="glass-card p-6 rounded-full border border-white/20 shadow-2xl flex items-center gap-4 max-w-md">
+              <div className="bg-primary-container p-3 rounded-full flex items-center justify-center text-white">
+                <span className="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
               </div>
               <div>
-                <div className="flex items-end gap-2">
-                  <span className="text-primary font-headline font-extrabold text-3xl">ATS Skoru: %95</span>
-                </div>
-                <p className="text-secondary font-medium text-sm">Özgeçmişiniz başarıyla optimize edildi</p>
+                <p className="text-on-surface font-semibold text-sm">Yapay zeka bugün 452 kişiye iş eşleşmesi buldu</p>
+                <p className="text-on-surface-variant text-xs">Sıradaki siz olabilirsiniz.</p>
               </div>
             </div>
           </div>
           
-          {/* Visual Asset - Abstract Background for Depth */}
-          <div className="absolute inset-0 -z-10 bg-[url('https://images.unsplash.com/photo-1639322537228-f710d846310a?auto=format&fit=crop&q=80&w=2000')] opacity-10 mix-blend-overlay grayscale" data-alt="abstract neural network connections with glowing nodes and data points in deep blue space"></div>
+          {/* Decorative Element (Abstract Image) */}
+          <div className="absolute inset-0 opacity-20 mix-blend-overlay">
+            <img className="w-full h-full object-cover" data-alt="abstract digital connection network with glowing blue particles and flowing data lines representing artificial intelligence" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNaIoZSzm8ieQP5MMu15oKZ3fzKzAw4dgaFgjaTzSc-dPwSG2sK86VQVakeVwapc77S8FQzYaskJkvRvLiJ8nAoB4uefjZdFdKk0NYAEr6RdBv7D3zwcLjnqyqLNtzC2_k1nnPkvfMpcgB0VyX1VzVIt4mVZG3PBc3A2yLaR-VcF-wxHqWvJ_I8IYQCCW4j18J5yva1WZhbHkEg1QZn4kn60Ue9L50DJklZ-0Qu0YVU7FFB_3SNqavTR6fAqCjKGdBhymTzZ-FSTo"/>
+          </div>
+          
+          {/* Bottom Branding Text */}
+          <div className="z-10">
+            <p className="text-white/60 text-xs font-label tracking-widest uppercase">Premium Career Architecture</p>
+          </div>
         </section>
         
         {/* Right Side: Login Form */}
-        <section className="w-full lg:w-1/2 h-full bg-surface-container-lowest flex items-center justify-center p-8 md:p-16">
-          <div className="w-full max-w-md flex flex-col">
+        <section className="flex-1 bg-surface-container-lowest flex flex-col justify-center items-center px-6 py-12 lg:px-24">
+          {/* Mobile Logo (Hidden on Desktop) */}
+          <div className="md:hidden mb-12">
+            <span className="text-3xl font-headline font-black text-primary tracking-tighter">Resumise</span>
+          </div>
+          
+          <div className="w-full max-w-md">
             {/* Branding for Mobile */}
             <div className="lg:hidden mb-12">
               <span className="text-3xl font-black tracking-tighter text-primary">Resumise</span>
             </div>
             
             <div className="mb-10">
-              <h2 className="font-headline font-extrabold text-4xl text-on-surface mb-3 tracking-tight">Tekrar Hoş Geldin!</h2>
+              <h2 className="font-headline font-extrabold text-4xl text-on-surface mb-3 tracking-tight">Hoş Geldin!</h2>
               <p className="text-secondary font-medium">Hesabınıza giriş yaparak kariyerinizi optimize etmeye devam et.</p>
             </div>
             
@@ -124,32 +120,54 @@ const Login = () => {
               </button>
             </form>
             
-            {/* Footer Links */}
-            <footer className="mt-12 flex flex-col items-center gap-4">
-              <p className="text-secondary text-sm">
-                Henüz bir hesabınız yok mu? <Link to="/kayit" className="text-primary font-bold">Kayıt Ol</Link>
+            {/* Footer Link */}
+            <div className="mt-8 text-center">
+              <p className="text-on-surface-variant text-sm">
+                Henüz bir hesabınız var mı? 
+                <Link to="/kayit" className="text-primary font-bold hover:text-on-primary-fixed-variant transition-colors ml-1">Kayıt Ol</Link>
               </p>
-              <div className="flex gap-6 mt-4">
-                <a className="font-inter text-[10px] uppercase tracking-widest text-outline hover:text-primary transition-all" href="#">Gizlilik Politikası</a>
-                <a className="font-inter text-[10px] uppercase tracking-widest text-outline hover:text-primary transition-all" href="#">Hizmet Şartları</a>
-              </div>
-            </footer>
+            </div>
           </div>
         </section>
       </main>
 
+      {/* Footer from Shared Components */}
+      <footer className="bg-[#f3f4f6] dark:bg-[#121416] py-12 mt-auto">
+        <div className="flex flex-col md:flex-row justify-between items-center w-full px-12 gap-6">
+          <p className="font-['Inter'] text-xs uppercase tracking-widest text-[#5e636e] dark:text-[#c3c6d6]">
+            © 2026 Resumise AI. Built for modern architect.
+          </p>
+          <div className="flex gap-8">
+            <a className="font-['Inter'] text-xs uppercase tracking-widest text-[#5e636e] dark:text-[#c3c6d6] hover:text-[#0052CC] transition-all opacity-80 hover:opacity-100" href="#">Terms of Service</a>
+            <a className="font-['Inter'] text-xs uppercase tracking-widest text-[#5e636e] dark:text-[#c3c6d6] hover:text-[#0052CC] transition-all opacity-80 hover:opacity-100" href="#">Privacy Policy</a>
+            <a className="font-['Inter'] text-xs uppercase tracking-widest text-[#5e636e] dark:text-[#c3c6d6] hover:text-[#0052CC] transition-all opacity-80 hover:opacity-100" href="#">Contact Support</a>
+          </div>
+        </div>
+      </footer>
+
       <style jsx>{`
-        .glass-card {
-          background: rgba(255, 255, 255, 0.7);
-          backdrop-filter: blur(16px);
-          -webkit-backdrop-filter: blur(16px);
-        }
-        .neural-pattern {
-          background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0);
-          background-size: 32px 32px;
-        }
         .material-symbols-outlined {
           font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+          background: rgba(255, 255, 255, 0.7);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+        }
+        .data-flow-bg {
+          background: linear-gradient(135deg, #003d9b 0%, #0052cc 100%);
+          position: relative;
+          overflow: hidden;
+        }
+        .data-flow-bg::before {
+          content: "";
+          position: absolute;
+          top: -50%;
+          left: -50%;
+          width: 200%;
+          height: 200%;
+          background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+          opacity: 0.5;
         }
       `}</style>
     </div>

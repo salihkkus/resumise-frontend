@@ -7,6 +7,7 @@ import ATSCheck from './components/ATSCheck';
 import AIInterviewCoach from './components/AIInterviewCoach';
 import Profile from './components/Profile';
 import Login from './components/Login';
+import Register from './components/Register';
 import './styles/globals.css';
 import './styles/my-resumes.css';
 
@@ -22,6 +23,7 @@ function App() {
           <Route path="/ai-mulakat-kocu" element={<AIInterviewCoach />} />
           <Route path="/profil" element={<Profile />} />
           <Route path="/giris" element={<Login />} />
+          <Route path="/kayit" element={<Register />} />
         </Routes>
       </div>
     </Router>
