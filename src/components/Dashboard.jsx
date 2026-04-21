@@ -89,12 +89,23 @@ const Dashboard = () => {
     setError('');
 
     try {
+      // Validate cvId and ensure it's a number
+      const cvId = parseInt(selectedCV.id);
+      if (isNaN(cvId) || cvId <= 0) {
+        setError('Geçersiz CV seçildi. Lütfen tekrar deneyin.');
+        setLoading(false);
+        return;
+      }
+
       const analysisData = {
-        cvId: selectedCV.id,
+        cvId: cvId,
         jobDescription: jobDescription.trim(),
         jobLink: jobUrl.trim() || null
       };
 
+      console.log('🚀 Creating analysis with data:', analysisData);
+      
+      // Create analysis without timeout - let user wait
       const newAnalysis = await analysisService.createAnalysis(analysisData);
       console.log('✅ Analysis created:', newAnalysis);
       
@@ -102,7 +113,7 @@ const Dashboard = () => {
       navigate(`/analiz-raporu/${newAnalysis.id}`);
     } catch (error) {
       console.error('❌ Analysis creation failed:', error);
-      setError(error.response?.data?.message || 'Analiz oluşturulamadı. Lütfen tekrar deneyin.');
+      setError(error.response?.data?.message || error.message || 'Analiz oluşturulamadı. Lütfen tekrar deneyin.');
     } finally {
       setLoading(false);
     }
@@ -129,6 +140,10 @@ const Dashboard = () => {
             <Link to="/ozgecmislerim" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
               <span className="material-symbols-outlined !text-[22px]">description</span>
               <span className="text-[15px] font-semibold">Özgeçmişlerim</span>
+            </Link>
+            <Link to="/analizlerim" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl bg-white/50 text-primary font-bold transition-all group">
+              <span className="material-symbols-outlined !text-[22px]" style={{fontVariationSettings: '"FILL" 1'}}>analytics</span>
+              <span className="text-[15px] font-semibold">Analizlerim</span>
             </Link>
             <Link to="/is-eslesmeleri" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
               <span className="material-symbols-outlined !text-[22px]">work</span>

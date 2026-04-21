@@ -10,13 +10,24 @@ const apiRequest = async (url, options = {}) => {
       ...options.headers
     },
     credentials: 'include', // Important for session cookies
-    ...options
   };
+
+  // Handle body for POST/PATCH/PUT requests
+  if (options.data) {
+    config.body = JSON.stringify(options.data);
+  }
+
+  // Apply other options
+  Object.assign(config, options);
+  delete config.data; // Remove data from config to avoid confusion
 
   console.log('🚀 API Request:', {
     method: config.method?.toUpperCase(),
     url: `${API_BASE_URL}${url}`,
-    data: config.data,
+    headers: config.headers,
+    body: config.body,
+    bodyType: typeof config.body,
+    bodyLength: config.body ? config.body.length : 0,
   });
 
   try {

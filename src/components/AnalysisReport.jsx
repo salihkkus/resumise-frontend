@@ -11,15 +11,52 @@ const AnalysisReport = () => {
   const [error, setError] = useState('');
   const { profileData } = useAuth();
 
-  // Load analysis data from backend
+  const analysis = analysisData || {};
+  const {
+    status = '',
+    cvTitle = '',
+    jobDescription = '',
+    correlationId = '',
+    errorMessage = '',
+    matchScore = 0,
+    summary = '',
+    strengths = '',
+    gaps = '',
+    actionItems = ''
+  } = analysis;
+
   useEffect(() => {
     const loadAnalysis = async () => {
       if (!analysisId) return;
       
       try {
+        // First attempt to load analysis
         const data = await analysisService.getAnalysisById(analysisId);
         setAnalysisData(data);
         console.log('✅ Analysis loaded from backend:', data);
+        
+        // If status is QUEUED, set up polling
+        if (data.status === 'QUEUED') {
+          console.log('🔄 Analysis is queued, setting up polling...');
+          const pollInterval = setInterval(async () => {
+            try {
+              const updatedData = await analysisService.getAnalysisById(analysisId);
+              setAnalysisData(updatedData);
+              console.log('🔄 Analysis status updated:', updatedData.status);
+              
+              // Stop polling when analysis is completed
+              if (updatedData.status === 'COMPLETED') {
+                clearInterval(pollInterval);
+                console.log('✅ Analysis completed!');
+              }
+            } catch (error) {
+              console.error('❌ Polling failed:', error);
+            }
+          }, 3000); // Poll every 3 seconds
+          
+          // Clean up interval on unmount
+          return () => clearInterval(pollInterval);
+        }
       } catch (error) {
         console.error('❌ Failed to load analysis:', error);
         setError('Analiz yüklenemedi. Lütfen daha sonra tekrar deneyin.');
@@ -37,9 +74,47 @@ const AnalysisReport = () => {
     setCheckedItems(newCheckedItems);
   };
 
+  if (loading) {
+    return (
+      <div className="flex min-h-screen bg-surface font-body text-on-surface crisp-text">
+        <div className="flex items-center justify-center w-full">
+          <div className="flex flex-col items-center gap-4 text-center max-w-md">
+            <span className="material-symbols-outlined animate-spin text-4xl text-primary">refresh</span>
+            <div>
+              <h3 className="text-lg font-bold text-on-surface mb-2">Analiz Yükleniyor</h3>
+              <p className="text-sm text-on-surface-variant">
+                {status === 'QUEUED' 
+                  ? 'Analiz sıraya alındı. Yapay zeka CV\'nizi işliyor, bu birkaç dakika sürebilir...'
+                  : 'Analiz verileri yükleniyor...'
+                }
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex min-h-screen bg-surface font-body text-on-surface crisp-text">
+        <div className="flex items-center justify-center w-full">
+          <div className="text-center">
+            <span className="material-symbols-outlined text-4xl text-error mb-4">error</span>
+            <p className="text-error font-medium">{error}</p>
+            <Link to="/" className="inline-flex items-center gap-2 mt-4 px-4 py-2 bg-primary text-white rounded-lg">
+              <span className="material-symbols-outlined">arrow_back</span>
+              Ana Sayfaya Dön
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex min-h-screen bg-surface text-on-surface">
-      {/* SideNavBar Shell */}
+      {/* Sidebar */}
       <aside className="hidden lg:flex flex-col fixed inset-y-0 left-0 z-50 justify-between bg-[#f1f5f9] border-r border-slate-200/60 w-[18%] min-w-[280px] max-w-[360px] transition-all duration-300">
         <div className="flex flex-col">
           <div className="p-8 pb-10">
@@ -52,7 +127,7 @@ const AnalysisReport = () => {
               <span className="text-[15px] font-semibold">Panel</span>
             </Link>
             <Link to="/analiz-raporu" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl bg-white/50 text-primary font-bold transition-all group">
-              <span className="material-symbols-outlined !text-[22px]" style={{fontVariationSettings: '"FILL" 1'}}>analytics</span>
+              <span className="material-symbols-outlined !text-[22px]" style={{ fontVariationSettings: '"FILL" 1' }}>analytics</span>
               <span className="text-[15px] font-semibold">Analiz Raporu</span>
             </Link>
             <Link to="/ozgecmislerim" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
@@ -78,7 +153,6 @@ const AnalysisReport = () => {
           </nav>
         </div>
         <div className="p-6">
-          {/* Pro Plan card */}
           <div className="bg-primary rounded-[2rem] p-6 text-white relative overflow-hidden shadow-xl shadow-primary/20 mb-6">
             <div className="relative z-10">
               <p className="text-[10px] font-black uppercase tracking-[0.2em] mb-2 opacity-80">PRO PLAN</p>
@@ -89,7 +163,6 @@ const AnalysisReport = () => {
             </div>
             <div className="absolute -right-4 -bottom-4 w-24 h-24 bg-white/10 rounded-full blur-2xl"></div>
           </div>
-          {/* Support and Logout */}
           <div className="space-y-1">
             <Link to="/yapim-asamasi" className="flex items-center gap-3.5 px-5 py-3 text-slate-500 hover:text-primary transition-colors">
               <span className="material-symbols-outlined !text-[20px]">help_center</span>
@@ -103,8 +176,8 @@ const AnalysisReport = () => {
         </div>
       </aside>
 
-      {/* Main Content Canvas */}
-      <main className="flex-grow lg:ml-[18%] p-8 lg:p-12 transition-all duration-300" style={{marginLeft: 'clamp(280px, 18%, 360px)'}}>
+      {/* Main Content */}
+      <main className="flex-grow lg:ml-[18%] p-8 lg:p-12 transition-all duration-300" style={{ marginLeft: 'clamp(280px, 18%, 360px)' }}>
         {/* Top Nav */}
         <header className="flex justify-between items-center gap-6 mb-12">
           <div className="flex-grow"></div>
@@ -120,10 +193,10 @@ const AnalysisReport = () => {
                 <span className="material-symbols-outlined">settings</span>
               </button>
               <Link to="/profil" className="ml-2 ring-2 ring-offset-2 ring-primary/10 rounded-full cursor-pointer hover:ring-primary/30 transition-all overflow-hidden w-9 h-9">
-                <img 
-                  alt="User" 
-                  className="w-full h-full object-cover" 
-                  src={profileData?.profileImageUrl || "https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740&q=80"} 
+                <img
+                  alt="User"
+                  className="w-full h-full object-cover"
+                  src={profileData?.profileImageUrl || "https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740&q=80"}
                 />
               </Link>
             </div>
@@ -136,18 +209,26 @@ const AnalysisReport = () => {
           <section className="grid grid-cols-12 gap-8 items-center">
             <div className="col-span-12 lg:col-span-8">
               <h2 className="text-5xl font-headline font-extrabold text-on-surface tracking-tight leading-tight">
-                Analiz Raporu: <span className="text-primary">Kıdemli Fullstack Geliştirici</span>
+                Analiz Raporu: <span className="text-primary">{cvTitle || 'Yüklenen CV'}</span>
               </h2>
               <p className="text-outline mt-2 text-lg">Profilinizin hedeflenen rol ile uyumluluğu detaylı olarak analiz edildi.</p>
               <div className="mt-8 flex items-center gap-6">
                 <div className="bg-surface-container-lowest p-6 rounded-[2rem] flex items-center gap-6 shadow-sm border border-outline-variant/10">
-                  <img alt="Google Logo" className="w-16 h-16 rounded-2xl object-cover" src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740&q=80" />
+                  <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center">
+                    <span className="material-symbols-outlined text-3xl text-primary">work</span>
+                  </div>
                   <div>
-                    <p className="text-primary font-bold text-sm tracking-widest uppercase">Hedef Pozisyon</p>
-                    <h3 className="font-headline font-extrabold text-2xl">Google - Lead Software Engineer</h3>
+                    <p className="text-primary font-bold text-sm tracking-widest uppercase">Analiz Durumu</p>
+                    <h3 className="font-headline font-extrabold text-2xl capitalize">{status || 'Analiz Ediliyor'}</h3>
                     <div className="flex gap-4 mt-1">
-                      <span className="flex items-center gap-1 text-xs font-medium text-outline"><span className="material-symbols-outlined text-sm">location_on</span> Mountain View, CA</span>
-                      <span className="flex items-center gap-1 text-xs font-medium text-outline"><span className="material-symbols-outlined text-sm">payments</span> $180k - $240k</span>
+                      <span className="flex items-center gap-1 text-xs font-medium text-outline">
+                        <span className="material-symbols-outlined text-sm">description</span> {cvTitle || 'CV'}
+                      </span>
+                      {correlationId && (
+                        <span className="flex items-center gap-1 text-xs font-medium text-outline">
+                          <span className="material-symbols-outlined text-sm">tag</span> ID: {correlationId.slice(0, 8)}
+                        </span>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -155,17 +236,17 @@ const AnalysisReport = () => {
             </div>
             <div className="col-span-12 lg:col-span-4 flex flex-col items-center justify-center">
               <div className="relative w-56 h-56 flex items-center justify-center rounded-full" style={{
-                background: 'radial-gradient(closest-side, white 79%, transparent 80% 100%), conic-gradient(#0052cc 82%, #e1e2e4 0)'
+                background: `radial-gradient(closest-side, white 79%, transparent 80% 100%), conic-gradient(#0052cc ${matchScore || 0}%, #e1e2e4 0)`
               }}>
                 <div className="text-center">
-                  <span className="block text-5xl font-headline font-black text-primary">%82</span>
+                  <span className="block text-5xl font-headline font-black text-primary">{matchScore || 0}%</span>
                   <span className="text-xs font-bold text-outline uppercase tracking-tighter">Eşleşme Skoru</span>
                 </div>
               </div>
             </div>
           </section>
 
-          {/* AI Summary Card (Glassmorphism) */}
+          {/* AI Summary Card */}
           <section className="relative">
             <div className="absolute -top-4 -left-4 w-24 h-24 bg-primary-fixed blur-3xl opacity-50"></div>
             <div className="relative z-10 overflow-hidden rounded-[2.5rem] p-8" style={{
@@ -176,12 +257,12 @@ const AnalysisReport = () => {
               <div className="absolute top-0 left-0 w-1 h-full bg-primary"></div>
               <div className="flex items-start gap-4">
                 <div className="p-3 bg-primary/10 rounded-2xl">
-                  <span className="material-symbols-outlined text-primary" style={{fontVariationSettings: '"FILL" 1'}}>auto_awesome</span>
+                  <span className="material-symbols-outlined text-primary" style={{ fontVariationSettings: '"FILL" 1' }}>auto_awesome</span>
                 </div>
                 <div className="space-y-4">
                   <h4 className="font-headline font-extrabold text-xl">Yapay Zeka Özeti</h4>
                   <p className="text-on-surface-variant leading-relaxed text-base">
-                    Özgeçmişiniz, teknik derinlik ve liderlik tecrübesi açısından Google'ın beklentileriyle yüksek oranda örtüşüyor. Özellikle <strong>Node.js ve React</strong> ekosistemindeki 8 yıllık deneyiminiz büyük bir artı. Ancak, raporun detaylarında görebileceğiniz üzere, büyük ölçekli sistem tasarımı ve açık kaynak katkıları konusundaki eksiklikler %18'lik farkın temel sebebidir.
+                    {summary || 'Analiz özeti yükleniyor...'}
                   </p>
                 </div>
               </div>
@@ -194,72 +275,54 @@ const AnalysisReport = () => {
             <div className="bg-surface-container-low p-8 rounded-[2rem] space-y-6">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-green-600">
-                  <span className="material-symbols-outlined" style={{fontVariationSettings: '"FILL" 1'}}>check_circle</span>
+                  <span className="material-symbols-outlined" style={{ fontVariationSettings: '"FILL" 1' }}>check_circle</span>
                 </div>
                 <h4 className="font-headline font-bold text-xl">Güçlü Yanlar</h4>
               </div>
-              <ul className="space-y-4">
-                <li className="flex items-start gap-3 p-4 bg-surface-container-lowest rounded-2xl">
-                  <div className="mt-1 w-2 h-2 rounded-full bg-green-500"></div>
-                  <div>
-                    <p className="font-bold text-sm">Teknik Stack Uyumu</p>
-                    <p className="text-xs text-outline">React, TypeScript ve Cloud mimarileri tam eşleşiyor.</p>
+              <div className="space-y-4">
+                {strengths ? (
+                  <div className="p-4 bg-surface-container-lowest rounded-2xl">
+                    <p className="text-sm text-outline-variant leading-relaxed whitespace-pre-line">
+                      {strengths}
+                    </p>
                   </div>
-                </li>
-                <li className="flex items-start gap-3 p-4 bg-surface-container-lowest rounded-2xl">
-                  <div className="mt-1 w-2 h-2 rounded-full bg-green-500"></div>
-                  <div>
-                    <p className="font-bold text-sm">Liderlik Deneyimi</p>
-                    <p className="text-xs text-outline">5+ yıl ekip yönetimi tecrübesi "Lead" rolü için ideal.</p>
+                ) : (
+                  <div className="text-center py-8 text-outline-variant">
+                    <span className="material-symbols-outlined text-3xl">hourglass_empty</span>
+                    <p className="text-sm mt-2">Güçlü yönler analiz ediliyor...</p>
                   </div>
-                </li>
-                <li className="flex items-start gap-3 p-4 bg-surface-container-lowest rounded-2xl">
-                  <div className="mt-1 w-2 h-2 rounded-full bg-green-500"></div>
-                  <div>
-                    <p className="font-bold text-sm">Performans Optimizasyonu</p>
-                    <p className="text-xs text-outline">Önceki rollerdeki %40 verimlilik artışı verisi çok etkileyici.</p>
-                  </div>
-                </li>
-              </ul>
+                )}
+              </div>
             </div>
 
             {/* Missing Points */}
             <div className="bg-surface-container-low p-8 rounded-[2rem] space-y-6">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center text-amber-600">
-                  <span className="material-symbols-outlined" style={{fontVariationSettings: '"FILL" 1'}}>warning</span>
+                <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center text-red-500">
+                  <span className="material-symbols-outlined" style={{ fontVariationSettings: '"FILL" 1' }}>cancel</span>
                 </div>
-                <h4 className="font-headline font-bold text-xl">Eksiklikler</h4>
+                <h4 className="font-headline font-bold text-xl">Eksik Yanlar</h4>
               </div>
-              <ul className="space-y-4">
-                <li className="flex items-start gap-3 p-4 bg-surface-container-lowest rounded-2xl">
-                  <div className="mt-1 w-2 h-2 rounded-full bg-amber-500"></div>
-                  <div>
-                    <p className="font-bold text-sm">Quantum Computing Temelleri</p>
-                    <p className="text-xs text-outline">İş tanımındaki "tercihen" bölümünde belirtilen anahtar kelime eksik.</p>
+              <div className="space-y-4">
+                {gaps ? (
+                  <div className="p-4 bg-surface-container-lowest rounded-2xl">
+                    <p className="text-sm text-outline-variant leading-relaxed whitespace-pre-line">
+                      {gaps}
+                    </p>
                   </div>
-                </li>
-                <li className="flex items-start gap-3 p-4 bg-surface-container-lowest rounded-2xl">
-                  <div className="mt-1 w-2 h-2 rounded-full bg-amber-500"></div>
-                  <div>
-                    <p className="font-bold text-sm">Open Source Katkısı</p>
-                    <p className="text-xs text-outline">Google kültüründe önemli olan açık kaynak referansları bulunamadı.</p>
+                ) : (
+                  <div className="text-center py-8 text-outline-variant">
+                    <span className="material-symbols-outlined text-3xl">hourglass_empty</span>
+                    <p className="text-sm mt-2">Eksik yönler analiz ediliyor...</p>
                   </div>
-                </li>
-                <li className="flex items-start gap-3 p-4 bg-surface-container-lowest rounded-2xl">
-                  <div className="mt-1 w-2 h-2 rounded-full bg-amber-500"></div>
-                  <div>
-                    <p className="font-bold text-sm">Kalıcı Sistem Tasarımı (LSD)</p>
-                    <p className="text-xs text-outline">Büyük veri ölçekleme stratejilerine dair spesifik detaylar yetersiz.</p>
-                  </div>
-                </li>
-              </ul>
+                )}
+              </div>
             </div>
           </section>
 
-          {/* Action Plan Section */}
+          {/* Bottom Grid: CV Suggestions + Interview Prep */}
           <section className="grid grid-cols-12 gap-8">
-            {/* Resume Recommendations Checklist */}
+            {/* CV Suggestions */}
             <div className="col-span-12 lg:col-span-5 bg-surface-container-lowest p-8 rounded-[2rem] shadow-sm border border-outline-variant/10">
               <h4 className="font-headline font-extrabold text-xl mb-6">Özgeçmiş Önerileri</h4>
               <div className="space-y-4">
@@ -269,9 +332,15 @@ const AnalysisReport = () => {
                   "Başarılarını % veya $ bazlı metriklerle zenginleştir.",
                   "Eğitim bölümünde tamamlanan sertifikaları öne çıkar."
                 ].map((item, index) => (
-                  <div key={index} className="flex items-center gap-4 p-4 border border-outline-variant/20 rounded-2xl hover:bg-primary/5 transition-colors group cursor-pointer" onClick={() => toggleCheck(index)}>
+                  <div
+                    key={index}
+                    className="flex items-center gap-4 p-4 border border-outline-variant/20 rounded-2xl hover:bg-primary/5 transition-colors group cursor-pointer"
+                    onClick={() => toggleCheck(index)}
+                  >
                     <div className="w-6 h-6 rounded-md border-2 border-primary flex items-center justify-center">
-                      <span className="material-symbols-outlined text-xs text-primary" style={{display: checkedItems[index] ? 'block' : 'none'}}>check</span>
+                      {checkedItems[index] && (
+                        <span className="material-symbols-outlined text-xs text-primary">check</span>
+                      )}
                     </div>
                     <span className="text-sm font-medium">{item}</span>
                   </div>
@@ -316,15 +385,6 @@ const AnalysisReport = () => {
           </section>
         </div>
       </main>
-
-      <style jsx>{`
-        .material-symbols-outlined {
-          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        .font-headline {
-          font-family: 'Manrope', sans-serif;
-        }
-      `}</style>
     </div>
   );
 };
