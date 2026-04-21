@@ -16,6 +16,9 @@ const MyResumes = () => {
   const [resumes, setResumes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [selectedCV, setSelectedCV] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState('');
+  const [previewLoading, setPreviewLoading] = useState(false);
 
   // Load CVs from backend
   useEffect(() => {
@@ -34,6 +37,33 @@ const MyResumes = () => {
 
     loadCVs();
   }, []);
+
+  // Handle CV selection and preview
+  const handleCVSelect = async (cv) => {
+    setSelectedCV(cv);
+    setPreviewLoading(true);
+    
+    try {
+      console.log('🔍 Loading preview for CV:', cv.id, cv.fileName);
+      const url = await cvService.getCVContentForPreview(cv.id);
+      setPreviewUrl(url);
+      console.log('✅ CV preview loaded:', url);
+    } catch (error) {
+      console.error('❌ Failed to load CV preview:', error);
+      setPreviewUrl(''); // Clear preview on error
+    } finally {
+      setPreviewLoading(false);
+    }
+  };
+
+  // Cleanup object URL when component unmounts or CV changes
+  useEffect(() => {
+    return () => {
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+      }
+    };
+  }, [previewUrl]);
 
   // Handle file upload
   const handleFileUpload = async (file) => {
@@ -165,48 +195,99 @@ const MyResumes = () => {
             {/* Section: Saved Resumes */}
             <section>
               <h1 className="text-4xl font-headline font-extrabold tracking-tight mb-8">Özgeçmişlerim</h1>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {/* Card 1 */}
-                <div className="bg-surface-container-lowest rounded-3xl p-5 shadow-sm hover:shadow-md transition-shadow group cursor-pointer relative overflow-hidden">
-                  <div className="h-32 mb-4 bg-slate-100 rounded-2xl overflow-hidden relative">
-                    <img alt="Resume Preview" className="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqkhHg7mbHYUAMK4CHx2bhdaKFAECI7AA_TVm2uysC5rbZ31CpPGWOfVvFBvC7BbnSp-2TNTdqcsWAErZsiZgQhDBPdKlcH9BE-W6J9RybAL5mCjzNoVRkiusOvY25JOyOg01G8CmHO_zePqLR_dkLSRnprVKMFYwcPvBhuoZRHlrc74uLt-bsaCgHwneLKDgcnlSgCTYXPVEmwq7RhNq1JvWchpr0FvWs-kdpeC4-tEl4hw2JQnoi-ggoM01mTJ_i2WX0FhFFu0I" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-white to-transparent"></div>
-                  </div>
-                  <h3 className="font-bold text-on-surface">Ürün Müdürü 2024</h3>
-                  <p className="text-xs text-slate-400 mt-1">Son Düzenleme: 2 gün önce</p>
-                  <div className="mt-4 flex gap-2">
-                    <button className="flex-1 text-[11px] font-bold py-2 bg-surface-container-high rounded-lg hover:bg-primary-container hover:text-white transition-colors">Düzenle</button>
-                    <button className="p-2 text-error hover:bg-error/10 rounded-lg transition-colors">
-                      <span className="material-symbols-outlined text-sm">delete</span>
-                    </button>
+              {loading ? (
+                <div className="flex items-center justify-center py-12">
+                  <div className="flex items-center gap-3">
+                    <span className="material-symbols-outlined animate-spin text-2xl text-primary">refresh</span>
+                    <span className="text-sm font-medium text-on-surface-variant">Özgeçmişler yükleniyor...</span>
                   </div>
                 </div>
-                {/* Card 2 */}
-                <div className="bg-surface-container-lowest rounded-3xl p-5 shadow-sm hover:shadow-md transition-shadow group cursor-pointer relative overflow-hidden">
-                  <div className="h-32 mb-4 bg-slate-100 rounded-2xl overflow-hidden relative">
-                    <img alt="Resume Preview" className="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJe4Z0mUvLu08BAdhNWbHjXE0vzguNBZ2fOGD6uP67sk4XrAGBJgvUHQdeCulVUGfuWyHdMi6N_Pb_BR6yIhPa2-N-SBQuYnp8KnwukuFpwyj1K-6wSx5fkkWxDK3y_Nn_mdmhPsHCWc8KxM0d0c1iUxKkfqBKaEHSu63SyQo1cvY44PrOoUQwts6VLoILxm9zMgioiDEP4fqs3tIJpXzCVYowLtoCLuGU9b70ggiDl9_LxyJCu7rlvOMOGtHWRzIH809TO76HQ7M" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-white to-transparent"></div>
-                  </div>
-                  <h3 className="font-bold text-on-surface">Yazılım Mühendisi</h3>
-                  <p className="text-xs text-slate-400 mt-1">Son Düzenleme: 1 hafta önce</p>
-                  <div className="mt-4 flex gap-2">
-                    <button className="flex-1 text-[11px] font-bold py-2 bg-surface-container-high rounded-lg hover:bg-primary-container hover:text-white transition-colors">Düzenle</button>
-                    <button className="p-2 text-error hover:bg-error/10 rounded-lg transition-colors">
-                      <span className="material-symbols-outlined text-sm">delete</span>
-                    </button>
+              ) : error ? (
+                <div className="bg-error-container p-6 rounded-xl border border-error/20">
+                  <div className="flex items-center gap-2">
+                    <span className="material-symbols-outlined text-error">error</span>
+                    <span className="text-error text-sm font-medium">{error}</span>
                   </div>
                 </div>
-                {/* Upload Card */}
-                <div className="border-2 border-dashed border-outline-variant/50 rounded-3xl p-5 flex flex-col items-center justify-center gap-3 hover:bg-white/50 transition-colors cursor-pointer group">
-                  <div className="w-12 h-12 rounded-full bg-primary/5 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <span className="material-symbols-outlined text-primary">upload_file</span>
+              ) : resumes.length === 0 ? (
+                <div className="text-center py-12">
+                  <div className="w-20 h-20 bg-surface-container-low rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span className="material-symbols-outlined text-3xl text-outline">description</span>
                   </div>
-                  <div className="text-center">
-                    <p className="text-sm font-bold">Yeni Özgeçmiş Yükle</p>
-                    <p className="text-[10px] text-slate-400">.pdf, .docx formatları</p>
+                  <h3 className="text-lg font-bold text-on-surface mb-2">Henüz özgeçmiş yüklenmemiş</h3>
+                  <p className="text-sm text-outline-variant mb-6">İlk özgeçmişinizi yüklemek için ana sayfaya gidin</p>
+                  <Link 
+                    to="/"
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-xl font-medium hover:bg-primary-container transition-all"
+                  >
+                    <span className="material-symbols-outlined">upload_file</span>
+                    Özgeçmiş Yükle
+                  </Link>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {resumes.map((cv) => (
+                    <div 
+                      key={cv.id} 
+                      className={`bg-surface-container-lowest rounded-3xl p-5 shadow-sm hover:shadow-md transition-shadow group cursor-pointer relative overflow-hidden ${
+                        cv.isDefault ? 'ring-2 ring-primary/20' : ''
+                      }`}
+                      onClick={() => handleCVSelect(cv)}
+                    >
+                      <div className="h-32 mb-4 bg-slate-100 rounded-2xl overflow-hidden relative">
+                        {/* CV Preview Placeholder */}
+                        <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/5 to-transparent">
+                          <span className={`material-symbols-outlined text-4xl ${
+                            cv.isDefault ? 'text-primary' : 'text-outline-variant'
+                          }`}>description</span>
+                        </div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-white to-transparent"></div>
+                        {cv.isDefault && (
+                          <div className="absolute top-2 right-2 px-2 py-1 bg-primary text-white text-[10px] font-bold rounded-full">
+                            VARSAYILAN
+                          </div>
+                        )}
+                      </div>
+                      <h3 className="font-bold text-on-surface truncate" title={cv.title}>{cv.title}</h3>
+                      <p className="text-xs text-slate-400 mt-1 truncate" title={cv.fileName}>{cv.fileName}</p>
+                      <div className="mt-4 flex items-center gap-4 text-xs text-outline-variant">
+                        <span className="flex items-center gap-1">
+                          <span className="material-symbols-outlined text-sm">description</span>
+                          {cv.fileType.split('/')[1]?.toUpperCase() || 'FILE'}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <span className="material-symbols-outlined text-sm">storage</span>
+                          {(cv.fileSize / 1024).toFixed(1)} KB
+                        </span>
+                      </div>
+                      <div className="mt-4 flex gap-2">
+                        <button 
+                          className="flex-1 text-[11px] font-bold py-2 bg-surface-container-high rounded-lg hover:bg-primary-container hover:text-white transition-colors"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          Düzenle
+                        </button>
+                        <button 
+                          className="p-2 text-error hover:bg-error/10 rounded-lg transition-colors"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <span className="material-symbols-outlined text-sm">delete</span>
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                  {/* Upload Card */}
+                  <div className="border-2 border-dashed border-outline-variant/50 rounded-3xl p-5 flex flex-col items-center justify-center gap-3 hover:bg-white/50 transition-colors cursor-pointer group">
+                    <div className="w-12 h-12 rounded-full bg-primary/5 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <span className="material-symbols-outlined text-primary">upload_file</span>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-sm font-bold">Yeni Özgeçmiş Yükle</p>
+                      <p className="text-[10px] text-slate-400">.pdf, .docx formatları</p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
             </section>
             {/* Section: Dynamic Form Editor */}
             <section className="bg-surface-container-lowest rounded-[40px] p-8 shadow-sm">
@@ -285,68 +366,37 @@ const MyResumes = () => {
                   <div className="w-4 h-4 rounded-full bg-rose-500 cursor-pointer"></div>
                 </div>
               </div>
-              {/* A4 Mockup */}
+              {/* A4 Preview with Real CV Content */}
               <div className="a4-preview bg-white rounded-xl overflow-hidden p-12 border border-slate-100 flex flex-col gap-8">
-                <header className="flex justify-between items-start border-b-2 border-primary pb-6">
-                  <div>
-                    <h1 className="text-3xl font-bold tracking-tight text-on-surface">SALİH KARAKUŞ</h1>
-                    <p className="text-primary font-bold text-sm mt-1">JUNIOR YAZILIM MÜHENDİSİ</p>
-                  </div>
-                  <div className="text-[10px] text-right text-slate-500 leading-tight">
-                    <p>salih@example.com</p>
-                    <p>+90 555 000 00 00</p>
-                    <p>Yalova, Türkiye</p>
-                  </div>
-                </header>
-                <section>
-                  <h2 className="text-xs font-black tracking-widest text-slate-400 mb-4 uppercase">PROFESYONEL ÖZET</h2>
-                  <p className="text-[11px] leading-relaxed text-slate-700">
-                    SaaS ürün geliştirme süreçlerinde 8 yılı aşkın deneyime sahip, kullanıcı odaklı düşünen ve veriyle strateji kuran bir lider. Karmaşık problemleri basit çözümlere dönüştürme konusunda uzmanlaşmış, çevik metodolojilere hakim ekip yöneticisi.
-                  </p>
-                </section>
-                <section>
-                  <h2 className="text-xs font-black tracking-widest text-slate-400 mb-4 uppercase">DENEYİM</h2>
-                  <div className="flex flex-col gap-4">
-                    <div>
-                      <div className="flex justify-between items-baseline">
-                        <h3 className="text-sm font-bold">Teknoloji A.Ş.</h3>
-                        <span className="text-[9px] font-bold text-slate-400">2021 — Günümüz</span>
-                      </div>
-                      <p className="text-[10px] text-primary font-bold mb-2">Kıdemli Ürün Yöneticisi</p>
-                      <ul className="list-disc list-inside text-[10px] text-slate-600 flex flex-col gap-1 pl-1">
-                        <li>Yıllık satış hedeflerini %20 aşarak bölge birincisi oldum.</li>
-                        <li>Ürün roadmap süreçlerini %30 hızlandıran yeni bir çalışma modeli kurguladım.</li>
-                        <li>Pazar analizleri ile müşteri segmentasyonunu yeniden yapılandırarak churn oranını %15 düşürdüm.</li>
-                      </ul>
+                {previewLoading ? (
+                  <div className="flex items-center justify-center h-[600px]">
+                    <div className="flex items-center gap-3">
+                      <span className="material-symbols-outlined animate-spin text-2xl text-primary">refresh</span>
+                      <span className="text-sm font-medium text-slate-500">Önizleme yükleniyor...</span>
                     </div>
                   </div>
-                </section>
-                <section>
-                  <h2 className="text-xs font-black tracking-widest text-slate-400 mb-4 uppercase">EĞİTİM</h2>
-                  <div className="flex flex-col gap-4">
-                    <div>
-                      <div className="flex justify-between items-baseline">
-                        <h3 className="text-sm font-bold">İstanbul Teknik Üniversitesi</h3>
-                        <span className="text-[9px] font-bold text-slate-400">2012 — 2016</span>
-                      </div>
-                      <p className="text-[10px] text-primary font-bold">İşletme Mühendisliği</p>
+                ) : previewUrl ? (
+                  <iframe
+                    src={previewUrl}
+                    className="w-full h-[600px] border-0 rounded-lg"
+                    title="CV Preview"
+                    onLoad={() => console.log('✅ CV preview iframe loaded')}
+                    onError={() => console.error('❌ CV preview iframe error')}
+                  />
+                ) : (
+                  <div className="flex items-center justify-center h-[600px] text-center">
+                    <div className="w-20 h-20 bg-surface-container-low rounded-full flex items-center justify-center mx-auto mb-4">
+                      <span className="material-symbols-outlined text-3xl text-outline">description</span>
                     </div>
+                    <h3 className="text-lg font-bold text-on-surface mb-2">Önizleme Seçimi</h3>
+                    <p className="text-sm text-outline-variant">
+                      {selectedCV 
+                        ? `"${selectedCV.title}" için önizleme yükleniyor...`
+                        : 'Önizleme görmek için bir CV seçin'
+                      }
+                    </p>
                   </div>
-                </section>
-                <section>
-                  <h2 className="text-xs font-black tracking-widest text-slate-400 mb-4 uppercase">YETKİNLİKLER</h2>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="bg-slate-50 text-[9px] px-2 py-1 rounded-md font-bold text-slate-600 border border-slate-100">Ürün Stratejisi</span>
-                    <span className="bg-slate-50 text-[9px] px-2 py-1 rounded-md font-bold text-slate-600 border border-slate-100">Agile/Scrum</span>
-                    <span className="bg-slate-50 text-[9px] px-2 py-1 rounded-md font-bold text-slate-600 border border-slate-100">Data Analytics</span>
-                    <span className="bg-slate-50 text-[9px] px-2 py-1 rounded-md font-bold text-slate-600 border border-slate-100">UX Research</span>
-                    <span className="bg-slate-50 text-[9px] px-2 py-1 rounded-md font-bold text-slate-600 border border-slate-100">Stakeholder Management</span>
-                  </div>
-                </section>
-                <div className="mt-auto border-t border-slate-50 pt-4 flex justify-between items-center opacity-30">
-                  <span className="text-[8px] font-bold">Resumise AI Builder</span>
-                  <span className="text-[8px]">Sayfa 1 / 1</span>
-                </div>
+                )}
               </div>
             </div>
           </div>

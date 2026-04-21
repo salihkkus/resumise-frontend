@@ -45,7 +45,7 @@ export const cvService = {
       console.log('📋 CVs list:', response.data);
       return response.data;
     } catch (error) {
-      console.error('❌ Get CVs failed:', error.message);
+      console.error('❌ Failed to get CVs:', error.message);
       throw error;
     }
   },
@@ -57,7 +57,40 @@ export const cvService = {
       console.log('🎯 Default CV:', response.data);
       return response.data;
     } catch (error) {
-      console.error('❌ Get default CV failed:', error.message);
+      console.error('❌ Failed to get default CV:', error.message);
+      throw error;
+    }
+  },
+
+  // Get CV content for preview
+  getCVContentForPreview: async (cvId) => {
+    try {
+      // Use fetch directly to get file content as blob
+      const API_BASE_URL = 'http://localhost:8080';
+      
+      const response = await fetch(`${API_BASE_URL}/api/v1/cvs/${cvId}/content`, {
+        method: 'GET',
+        credentials: 'include', // Important for session cookies
+      });
+
+      if (!response.ok) {
+        const errorData = await response.text();
+        console.error('❌ Response Error:', {
+          status: response.status,
+          url: `${API_BASE_URL}/api/v1/cvs/${cvId}/content`,
+          message: errorData,
+        });
+        throw new Error(errorData || `HTTP ${response.status}`);
+      }
+
+      const blob = await response.blob();
+      console.log('📄 CV content loaded:', blob.size, 'bytes');
+      
+      // Create object URL for preview
+      const objectUrl = URL.createObjectURL(blob);
+      return objectUrl;
+    } catch (error) {
+      console.error('❌ Failed to get CV content:', error.message);
       throw error;
     }
   },
