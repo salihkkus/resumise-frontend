@@ -108,9 +108,9 @@ const Analizlerim = () => {
               <span className="material-symbols-outlined !text-[22px]">grid_view</span>
               <span className="text-[15px] font-semibold">Panel</span>
             </Link>
-            <Link to="/analizlerim" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl bg-white/50 text-primary font-bold transition-all group">
-              <span className="material-symbols-outlined !text-[22px]" style={{fontVariationSettings: '"FILL" 1'}}>analytics</span>
-              <span className="text-[15px] font-semibold">Analizlerim</span>
+            <Link to="/analiz-raporu" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
+              <span className="material-symbols-outlined !text-[22px]">analytics</span>
+              <span className="text-[15px] font-semibold">Analiz Raporu</span>
             </Link>
             <Link to="/ozgecmislerim" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
               <span className="material-symbols-outlined !text-[22px]">description</span>
@@ -128,11 +128,31 @@ const Analizlerim = () => {
               <span className="material-symbols-outlined !text-[22px]">psychology</span>
               <span className="text-[15px] font-semibold">AI Mülakat Koçu</span>
             </Link>
+            <Link to="/analizlerim" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl bg-white/50 text-primary font-bold transition-all group">
+              <span className="material-symbols-outlined !text-[22px]" style={{fontVariationSettings: '"FILL" 1'}}>analytics</span>
+              <span className="text-[15px] font-semibold">Analizlerim</span>
+            </Link>
+            <Link to="/profil" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
+              <span className="material-symbols-outlined !text-[22px]">person</span>
+              <span className="text-[15px] font-semibold">Profil</span>
+            </Link>
           </nav>
         </div>
-        <div className="p-8 pt-0">
+        <div className="p-6">
+          {/* Pro Plan card */}
+          <div className="bg-primary rounded-[2rem] p-6 text-white relative overflow-hidden shadow-xl shadow-primary/20 mb-6">
+            <div className="relative z-10">
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] mb-2 opacity-80">PRO PLAN</p>
+              <p className="text-sm font-medium leading-relaxed mb-4">Sınırsız yapay zeka özgeçmiş revizyonu ve deneme mülakatlari alin.</p>
+              <button className="w-full bg-white text-primary font-bold py-3 rounded-xl text-xs hover:bg-slate-50 transition-colors shadow-lg">
+                Pro'ya Yükselt
+              </button>
+            </div>
+            <div className="absolute -right-4 -bottom-4 w-24 h-24 bg-white/10 rounded-full blur-2xl"></div>
+          </div>
+          {/* Support and Logout */}
           <div className="space-y-1">
-            <a className="flex items-center gap-3.5 px-5 py-3 text-slate-500 hover:text-primary transition-colors rounded-2xl" href="#">
+            <a className="flex items-center gap-3.5 px-5 py-3 text-slate-500 hover:text-primary transition-colors" href="#">
               <span className="material-symbols-outlined !text-[20px]">help_center</span>
               <span className="text-sm font-semibold">Destek</span>
             </a>

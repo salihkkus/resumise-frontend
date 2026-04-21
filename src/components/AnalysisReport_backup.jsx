@@ -98,11 +98,11 @@ const AnalysisReport = () => {
             </a>
             <a className="flex items-center gap-3.5 px-5 py-3 text-slate-500 hover:text-primary transition-colors rounded-2xl" href="/ozgecmislerim">
               <span className="material-symbols-outlined !text-[20px]">description</span>
-              <span className="text-sm font-semibold">Özgeçmelerim</span>
+              <span className="text-sm font-semibold">Özgeçmişlerim</span>
             </a>
             <a className="flex items-center gap-3.5 px-5 py-3 text-slate-500 hover:text-primary transition-colors rounded-2xl" href="/is-eslesmeleri">
               <span className="material-symbols-outlined !text-[20px]">work</span>
-              <span className="text-sm font-semibold">Ýþ Eþleþmeleri</span>
+              <span className="text-sm font-semibold">İş Eşleşmeleri</span>
             </a>
             <a className="flex items-center gap-3.5 px-5 py-3 text-slate-500 hover:text-primary transition-colors rounded-2xl" href="/ats-kontrolu">
               <span className="material-symbols-outlined !text-[20px]">checklist</span>

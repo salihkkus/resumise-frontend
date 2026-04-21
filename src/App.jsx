@@ -8,6 +8,7 @@ import ATSCheck from './components/ATSCheck';
 import AIInterviewCoach from './components/AIInterviewCoach';
 import Profile from './components/Profile';
 import AnalysisReport from './components/AnalysisReport';
+import LatestAnalysisRedirect from './components/LatestAnalysisRedirect';
 import Analizlerim from './components/Analizlerim';
 import Login from './components/Login';
 import Register from './components/Register';
@@ -51,6 +52,11 @@ function App() {
           <Route path="/profil" element={
             <ProtectedRoute>
               <Profile />
+            </ProtectedRoute>
+          } />
+          <Route path="/analiz-raporu" element={
+            <ProtectedRoute>
+              <LatestAnalysisRedirect />
             </ProtectedRoute>
           } />
           <Route path="/analiz-raporu/:analysisId" element={

@@ -32,13 +32,17 @@ const ATSCheck = () => {
               <span className="material-symbols-outlined !text-[22px]">work</span>
               <span className="text-[15px] font-semibold">İş Eşleşmeleri</span>
             </Link>
-            <a className="sidebar-active flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-primary font-bold transition-all group" href="#">
-              <span className="material-symbols-outlined !text-[22px]">analytics</span>
+            <Link to="/ats-kontrolu" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl bg-white/50 text-primary font-bold transition-all group">
+              <span className="material-symbols-outlined !text-[22px]" style={{fontVariationSettings: '"FILL" 1'}}>checklist</span>
               <span className="text-[15px] font-semibold">ATS Kontrolü</span>
-            </a>
+            </Link>
             <Link to="/ai-mulakat-kocu" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
               <span className="material-symbols-outlined !text-[22px]">psychology</span>
               <span className="text-[15px] font-semibold">Yapay Zeka Mülakat Koçu</span>
+            </Link>
+            <Link to="/analizlerim" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
+              <span className="material-symbols-outlined !text-[22px]">analytics</span>
+              <span className="text-[15px] font-semibold">Analizlerim</span>
             </Link>
             <Link to="/profil" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
               <span className="material-symbols-outlined !text-[22px]">person</span>

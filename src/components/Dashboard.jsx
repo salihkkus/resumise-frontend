@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { analysisService } from '../services/analysisService';
@@ -6,7 +6,7 @@ import { cvService } from '../services/cvService';
 
 const Dashboard = () => {
   const [jobUrl, setJobUrl] = useState('');
-  const [showInterviewBot, setShowInterviewBot] = useState(true);
+  const [showInterviewBot, setShowInterviewBot] = useState(false);
   const [selectedCV, setSelectedCV] = useState(null);
   const [jobDescription, setJobDescription] = useState('');
   const [loading, setLoading] = useState(false);
@@ -14,11 +14,30 @@ const Dashboard = () => {
   const [uploadLoading, setUploadLoading] = useState(false);
   const [uploadError, setUploadError] = useState('');
   const [uploadSuccess, setUploadSuccess] = useState('');
+  const [analyses, setAnalyses] = useState([]);
+  const [analysesLoading, setAnalysesLoading] = useState(true);
   const navigate = useNavigate();
   const { profileData } = useAuth();
 
   // Hidden file input reference
   const fileInputRef = React.useRef(null);
+
+  // Load analyses
+  useEffect(() => {
+    const loadAnalyses = async () => {
+      try {
+        const data = await analysisService.getAnalyses();
+        setAnalyses(data.slice(0, 3)); // Show only first 3 analyses
+        console.log('Recent analyses loaded:', data.slice(0, 3));
+      } catch (error) {
+        console.error('Failed to load analyses:', error);
+      } finally {
+        setAnalysesLoading(false);
+      }
+    };
+
+    loadAnalyses();
+  }, []);
 
   // Load default CV
   React.useEffect(() => {
@@ -116,7 +135,107 @@ const Dashboard = () => {
       setError(error.response?.data?.message || error.message || 'Analiz oluşturulamadı. Lütfen tekrar deneyin.');
     } finally {
       setLoading(false);
+    };
+  };
+
+  // Analizlerim Preview Component
+  const AnalizlerimPreview = () => {
+    const getStatusColor = (status) => {
+      switch (status) {
+        case 'DONE':
+          return 'text-green-600 bg-green-100';
+        case 'QUEUED':
+          return 'text-amber-600 bg-amber-100';
+        case 'PROCESSING':
+          return 'text-blue-600 bg-blue-100';
+        default:
+          return 'text-gray-600 bg-gray-100';
+      }
+    };
+
+    const getStatusText = (status) => {
+      switch (status) {
+        case 'DONE':
+          return 'Tamamlandi';
+        case 'QUEUED':
+          return 'Sirda';
+        case 'PROCESSING':
+          return 'Isleniyor';
+        default:
+          return 'Bilinmiyor';
+      }
+    };
+
+    if (analysesLoading) {
+      return (
+        <div className="flex items-center justify-center py-8">
+          <div className="flex items-center gap-3">
+            <span className="material-symbols-outlined animate-spin text-2xl text-primary">refresh</span>
+            <span className="text-sm font-medium text-on-surface-variant">Analizler yükleniyor...</span>
+          </div>
+        </div>
+      );
     }
+
+    if (analyses.length === 0) {
+      return (
+        <div className="text-center py-8">
+          <div className="w-12 h-12 bg-surface-container-low rounded-full flex items-center justify-center mx-auto mb-4">
+            <span className="material-symbols-outlined text-xl text-outline">analytics</span>
+          </div>
+          <p className="text-outline-variant mb-4">Henüz analiz yapmadiniz</p>
+          <button 
+            onClick={() => document.getElementById('job-description')?.focus()}
+            className="text-sm font-bold text-primary hover:text-primary-container transition-colors"
+          >
+            Ilk Analizi Yap
+          </button>
+        </div>
+      );
+    }
+
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {analyses.map((analysis) => (
+          <div 
+            key={analysis.id} 
+            className="bg-surface-container rounded-xl p-4 border border-outline-variant/10 hover:border-outline-variant/20 transition-all cursor-pointer"
+            onClick={() => navigate(`/analiz-raporu/${analysis.id}`)}
+          >
+            <div className="flex justify-between items-start mb-3">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
+                  <span className="material-symbols-outlined text-sm text-primary">analytics</span>
+                </div>
+                <div>
+                  <h4 className="font-bold text-on-surface text-sm truncate" title={analysis.cvTitle}>
+                    {analysis.cvTitle}
+                  </h4>
+                  <p className="text-xs text-outline-variant">ID: {analysis.id}</p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="flex items-center gap-3 text-xs text-outline-variant mb-3">
+              <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(analysis.status)}`}>
+                {getStatusText(analysis.status)}
+              </span>
+              <span className="flex items-center gap-1">
+                <span className="material-symbols-outlined text-sm">percent</span>
+                %{analysis.matchScore || 0}
+              </span>
+            </div>
+
+            <div className="text-xs text-outline-variant line-clamp-2">
+              {analysis.jobDescription ? 
+                analysis.jobDescription.substring(0, 100) + '...' : 
+                'Is tanimi belirtilmemis'
+              }
+            </div>
+          </div>
+        ))}
+      </div>
+    );
   };
 
   return (
@@ -129,25 +248,21 @@ const Dashboard = () => {
             <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mt-1">Yapay Zeka Kariyer Mimarı</p>
           </div>
           <nav className="px-4 space-y-1.5">
-            <Link to="/" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
-              <span className="material-symbols-outlined !text-[22px]">grid_view</span>
+            <Link to="/" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl bg-white/50 text-primary font-bold transition-all group">
+              <span className="material-symbols-outlined !text-[22px]" style={{fontVariationSettings: '"FILL" 1'}}>grid_view</span>
               <span className="text-[15px] font-semibold">Panel</span>
             </Link>
             <Link to="/analiz-raporu" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
-              <span className="material-symbols-outlined !text-[22px]" style={{fontVariationSettings: '"FILL" 1'}}>analytics</span>
+              <span className="material-symbols-outlined !text-[22px]">analytics</span>
               <span className="text-[15px] font-semibold">Analiz Raporu</span>
             </Link>
             <Link to="/ozgecmislerim" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
               <span className="material-symbols-outlined !text-[22px]">description</span>
-              <span className="text-[15px] font-semibold">Özgeçmişlerim</span>
-            </Link>
-            <Link to="/analizlerim" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl bg-white/50 text-primary font-bold transition-all group">
-              <span className="material-symbols-outlined !text-[22px]" style={{fontVariationSettings: '"FILL" 1'}}>analytics</span>
-              <span className="text-[15px] font-semibold">Analizlerim</span>
+              <span className="text-[15px] font-semibold">Özgeçmelerim</span>
             </Link>
             <Link to="/is-eslesmeleri" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
               <span className="material-symbols-outlined !text-[22px]">work</span>
-              <span className="text-[15px] font-semibold">İş Eşleşmeleri</span>
+              <span className="text-[15px] font-semibold">Iç Eçlesmeleri</span>
             </Link>
             <Link to="/ats-kontrolu" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
               <span className="material-symbols-outlined !text-[22px]">analytics</span>
@@ -156,6 +271,10 @@ const Dashboard = () => {
             <Link to="/ai-mulakat-kocu" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
               <span className="material-symbols-outlined !text-[22px]">psychology</span>
               <span className="text-[15px] font-semibold">Yapay Zeka Mülakat Koçu</span>
+            </Link>
+            <Link to="/analizlerim" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
+              <span className="material-symbols-outlined !text-[22px]">analytics</span>
+              <span className="text-[15px] font-semibold">Analizlerim</span>
             </Link>
             <Link to="/profil" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
               <span className="material-symbols-outlined !text-[22px]">person</span>
@@ -220,10 +339,30 @@ const Dashboard = () => {
 
         {/* Welcome Header */}
         <div className="mb-10">
-          <h2 className="text-5xl font-black font-headline tracking-tight text-slate-900 mb-2">Merhaba, Muhammet</h2>
+          <h2 className="text-5xl font-black font-headline tracking-tight text-slate-900 mb-2">Merhaba, {profileData?.firstName || 'Kullanici'}</h2>
           <p className="text-lg text-slate-500 font-medium max-w-2xl">
             Özgeçmişiniz şu anda <span className="text-slate-900 font-bold">Fullstack Mühendisliği</span> rollerinin <span className="text-primary font-bold">%82</span>'si ile eşleşiyor.
           </p>
+        </div>
+
+        {/* Recent Analyses Section */}
+        <div className="mb-12">
+          <div className="flex justify-between items-center mb-6">
+            <div>
+              <h3 className="text-2xl font-bold text-slate-900 font-headline mb-2">Son Analizleriniz</h3>
+              <p className="text-slate-500">Yaptiginiz en son analizler ve sonuçlari</p>
+            </div>
+            <Link 
+              to="/analizlerim" 
+              className="flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary rounded-xl font-medium hover:bg-primary/20 transition-colors"
+            >
+              <span className="material-symbols-outlined text-sm">visibility</span>
+              Tümünü Gör
+            </Link>
+          </div>
+          
+          {/* Analizlerim Preview */}
+          <AnalizlerimPreview />
         </div>
 
         {/* Dashboard Grid */}
