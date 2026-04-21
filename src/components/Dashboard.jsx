@@ -15,10 +15,14 @@ const Dashboard = () => {
             <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mt-1">Yapay Zeka Kariyer Mimarı</p>
           </div>
           <nav className="px-4 space-y-1.5">
-            <a className="sidebar-active flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-primary font-bold transition-all group" href="#">
-              <span className="material-symbols-outlined !text-[22px]" style={{fontVariationSettings: '"FILL" 1'}}>grid_view</span>
-              <span className="text-[15px]">Panel</span>
-            </a>
+            <Link to="/" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
+              <span className="material-symbols-outlined !text-[22px]">grid_view</span>
+              <span className="text-[15px] font-semibold">Panel</span>
+            </Link>
+            <Link to="/analiz-raporu" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
+              <span className="material-symbols-outlined !text-[22px]" style={{fontVariationSettings: '"FILL" 1'}}>analytics</span>
+              <span className="text-[15px] font-semibold">Analiz Raporu</span>
+            </Link>
             <Link to="/ozgecmislerim" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
               <span className="material-symbols-outlined !text-[22px]">description</span>
               <span className="text-[15px] font-semibold">Özgeçmişlerim</span>

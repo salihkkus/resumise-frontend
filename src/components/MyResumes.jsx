@@ -58,10 +58,14 @@ const MyResumes = () => {
               <span className="material-symbols-outlined !text-[22px]">grid_view</span>
               <span className="text-[15px] font-semibold">Panel</span>
             </Link>
-            <a className="sidebar-active flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-primary font-bold transition-all group" href="#">
-              <span className="material-symbols-outlined !text-[22px]" style={{fontVariationSettings: '"FILL" 1'}}>description</span>
-              <span className="text-[15px]">Özgeçmişlerim</span>
-            </a>
+            <Link to="/analiz-raporu" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
+              <span className="material-symbols-outlined !text-[22px]" style={{fontVariationSettings: '"FILL" 1'}}>analytics</span>
+              <span className="text-[15px] font-semibold">Analiz Raporu</span>
+            </Link>
+            <Link to="/ozgecmislerim" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
+              <span className="material-symbols-outlined !text-[22px]">description</span>
+              <span className="text-[15px] font-semibold">Özgeçmişlerim</span>
+            </Link>
             <Link to="/is-eslesmeleri" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
               <span className="material-symbols-outlined !text-[22px]">work</span>
               <span className="text-[15px] font-semibold">İş Eşleşmeleri</span>

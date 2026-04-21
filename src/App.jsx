@@ -6,6 +6,7 @@ import JobMatches from './components/JobMatches';
 import ATSCheck from './components/ATSCheck';
 import AIInterviewCoach from './components/AIInterviewCoach';
 import Profile from './components/Profile';
+import AnalysisReport from './components/AnalysisReport';
 import Login from './components/Login';
 import Register from './components/Register';
 import UnderConstruction from './components/UnderConstruction';
@@ -23,6 +24,7 @@ function App() {
           <Route path="/ats-kontrolu" element={<ATSCheck />} />
           <Route path="/ai-mulakat-kocu" element={<AIInterviewCoach />} />
           <Route path="/profil" element={<Profile />} />
+          <Route path="/analiz-raporu" element={<AnalysisReport />} />
           <Route path="/giris" element={<Login />} />
           <Route path="/kayit" element={<Register />} />
           <Route path="/yapim-asamasi" element={<UnderConstruction />} />

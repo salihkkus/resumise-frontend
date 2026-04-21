@@ -25,6 +25,10 @@ const Profile = () => {
               <span className="material-symbols-outlined !text-[22px]">grid_view</span>
               <span className="text-[15px] font-semibold">Panel</span>
             </Link>
+            <Link to="/analiz-raporu" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
+              <span className="material-symbols-outlined !text-[22px]" style={{fontVariationSettings: '"FILL" 1'}}>analytics</span>
+              <span className="text-[15px] font-semibold">Analiz Raporu</span>
+            </Link>
             <Link to="/ozgecmislerim" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
               <span className="material-symbols-outlined !text-[22px]">description</span>
               <span className="text-[15px] font-semibold">Özgeçmişlerim</span>
@@ -41,10 +45,10 @@ const Profile = () => {
               <span className="material-symbols-outlined !text-[22px]">psychology</span>
               <span className="text-[15px] font-semibold">Yapay Zeka Mülakat Koçu</span>
             </Link>
-            <a className="sidebar-active flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-primary font-bold transition-all group" href="#">
+            <Link to="/profil" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl bg-white/50 text-primary font-bold transition-all group">
               <span className="material-symbols-outlined !text-[22px]" style={{fontVariationSettings: '"FILL" 1'}}>person</span>
-              <span className="text-[15px]">Profil</span>
-            </a>
+              <span className="text-[15px] font-semibold">Profil</span>
+            </Link>
           </nav>
         </div>
         <div className="p-6">
@@ -81,8 +85,6 @@ const Profile = () => {
           <div className="flex items-center gap-10">
             <nav className="hidden md:flex gap-8 items-center">
               <a className="text-sm font-bold text-primary relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-full after:h-0.5 after:bg-primary" href="#">Profil</a>
-              <a className="text-sm font-semibold text-slate-500 hover:text-primary transition-colors" href="/under-construction">Ayarlar</a>
-              <a className="text-sm font-semibold text-slate-500 hover:text-primary transition-colors" href="/under-construction">Aktivite</a>
             </nav>
             <div className="flex items-center gap-2">
               <button className="p-2.5 text-slate-400 hover:text-primary hover:bg-primary-container/50 rounded-xl transition-all">

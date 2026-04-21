@@ -20,6 +20,10 @@ const AIInterviewCoach = () => {
               <span className="material-symbols-outlined !text-[22px]">grid_view</span>
               <span className="text-[15px] font-semibold">Panel</span>
             </Link>
+            <Link to="/analiz-raporu" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
+              <span className="material-symbols-outlined !text-[22px]" style={{fontVariationSettings: '"FILL" 1'}}>analytics</span>
+              <span className="text-[15px] font-semibold">Analiz Raporu</span>
+            </Link>
             <Link to="/ozgecmislerim" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
               <span className="material-symbols-outlined !text-[22px]">description</span>
               <span className="text-[15px] font-semibold">Özgeçmişlerim</span>
@@ -34,7 +38,7 @@ const AIInterviewCoach = () => {
             </Link>
             <a className="sidebar-active flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-primary font-bold transition-all group" href="#">
               <span className="material-symbols-outlined !text-[22px]" style={{fontVariationSettings: '"FILL" 1'}}>psychology</span>
-              <span className="text-[15px]">Yapay Zeka Mülakat Koçu</span>
+              <span className="text-[15px] font-semibold">Yapay Zeka Mülakat Koçu</span>
             </a>
             <Link to="/profil" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
               <span className="material-symbols-outlined !text-[22px]">person</span>
