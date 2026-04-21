@@ -189,9 +189,9 @@ const Register = () => {
             © 2026 Resumise AI. Built for modern architect.
           </p>
           <div className="flex gap-8">
-            <a className="font-['Inter'] text-xs uppercase tracking-widest text-[#5e636e] dark:text-[#c3c6d6] hover:text-[#0052CC] transition-all opacity-80 hover:opacity-100" href="#">Terms of Service</a>
-            <a className="font-['Inter'] text-xs uppercase tracking-widest text-[#5e636e] dark:text-[#c3c6d6] hover:text-[#0052CC] transition-all opacity-80 hover:opacity-100" href="#">Privacy Policy</a>
-            <a className="font-['Inter'] text-xs uppercase tracking-widest text-[#5e636e] dark:text-[#c3c6d6] hover:text-[#0052CC] transition-all opacity-80 hover:opacity-100" href="#">Contact Support</a>
+            <Link to="/yapim-asamasi" className="font-['Inter'] text-xs uppercase tracking-widest text-[#5e636e] dark:text-[#c3c6d6] hover:text-[#0052CC] transition-all opacity-80 hover:opacity-100">Terms of Service</Link>
+            <Link to="/yapim-asamasi" className="font-['Inter'] text-xs uppercase tracking-widest text-[#5e636e] dark:text-[#c3c6d6] hover:text-[#0052CC] transition-all opacity-80 hover:opacity-100">Privacy Policy</Link>
+            <Link to="/yapim-asamasi" className="font-['Inter'] text-xs uppercase tracking-widest text-[#5e636e] dark:text-[#c3c6d6] hover:text-[#0052CC] transition-all opacity-80 hover:opacity-100">Contact Support</Link>
           </div>
         </div>
       </footer>

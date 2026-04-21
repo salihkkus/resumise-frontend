@@ -7,92 +7,102 @@ const AIInterviewCoach = () => {
   const [interviewMode, setInterviewMode] = useState('sesli');
 
   return (
-    <div className="text-on-surface">
-      {/* SideNavBar */}
-      <aside className="h-screen w-64 fixed left-0 top-0 bg-[#f3f4f6] dark:bg-slate-900 flex flex-col py-8 px-4 gap-y-2 shadow-[40px_0_60px_-15px_rgba(25,28,30,0.04)] z-50">
-        <div className="mb-8 px-4 flex items-center gap-3">
-          <div className="w-10 h-10 bg-primary-container rounded-xl flex items-center justify-center text-on-primary">
-            <span className="material-symbols-outlined" data-icon="psychology">psychology</span>
+    <div className="flex min-h-screen bg-surface font-body text-on-surface crisp-text">
+      {/* Sidebar */}
+      <aside className="hidden lg:flex flex-col fixed inset-y-0 left-0 z-50 justify-between bg-[#f1f5f9] border-r border-slate-200/60 w-[18%] min-w-[280px] max-w-[360px] transition-all duration-300">
+        <div className="flex flex-col">
+          <div className="p-8 pb-10">
+            <h1 className="text-2xl font-extrabold text-primary tracking-tight font-headline">Resumise</h1>
+            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mt-1">Yapay Zeka Kariyer Mimarı</p>
           </div>
-          <div>
-            <h1 className="text-xl font-bold text-[#191c1e] dark:text-slate-100 font-headline leading-none">Resumise</h1>
-            <p className="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold mt-1">Dijital Mimar</p>
-          </div>
+          <nav className="px-4 space-y-1.5">
+            <Link to="/" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
+              <span className="material-symbols-outlined !text-[22px]">grid_view</span>
+              <span className="text-[15px] font-semibold">Panel</span>
+            </Link>
+            <Link to="/ozgecmislerim" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
+              <span className="material-symbols-outlined !text-[22px]">description</span>
+              <span className="text-[15px] font-semibold">Özgeçmişlerim</span>
+            </Link>
+            <Link to="/is-eslesmeleri" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
+              <span className="material-symbols-outlined !text-[22px]">work</span>
+              <span className="text-[15px] font-semibold">İş Eşleşmeleri</span>
+            </Link>
+            <Link to="/ats-kontrolu" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
+              <span className="material-symbols-outlined !text-[22px]">analytics</span>
+              <span className="text-[15px] font-semibold">ATS Kontrolü</span>
+            </Link>
+            <a className="sidebar-active flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-primary font-bold transition-all group" href="#">
+              <span className="material-symbols-outlined !text-[22px]" style={{fontVariationSettings: '"FILL" 1'}}>psychology</span>
+              <span className="text-[15px]">Yapay Zeka Mülakat Koçu</span>
+            </a>
+            <Link to="/profil" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
+              <span className="material-symbols-outlined !text-[22px]">person</span>
+              <span className="text-[15px] font-semibold">Profil</span>
+            </Link>
+          </nav>
         </div>
-        <nav className="flex-grow space-y-1">
-          <Link to="/" className="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-[#191c1e] hover:bg-white/50 transition-all font-semibold text-sm font-headline translate-x-1 duration-200" href="#">
-            <span className="material-symbols-outlined" data-icon="dashboard">dashboard</span>
-            <span>Panel</span>
-          </Link>
-          <Link to="/ozgecmislerim" className="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-[#191c1e] hover:bg-white/50 transition-all font-semibold text-sm font-headline translate-x-1 duration-200" href="#">
-            <span className="material-symbols-outlined" data-icon="description">description</span>
-            <span>Özgeçmişlerim</span>
-          </Link>
-          <Link to="/is-eslesmeleri" className="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-[#191c1e] hover:bg-white/50 transition-all font-semibold text-sm font-headline translate-x-1 duration-200" href="#">
-            <span className="material-symbols-outlined" data-icon="work_history">work_history</span>
-            <span>İş Eşleşmeleri</span>
-          </Link>
-          <Link to="/ats-kontrolu" className="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-[#191c1e] hover:bg-white/50 transition-all font-semibold text-sm font-headline translate-x-1 duration-200" href="#">
-            <span className="material-symbols-outlined" data-icon="fact_check">fact_check</span>
-            <span>ATS Kontrolü</span>
-          </Link>
-          {/* Active Navigation */}
-          <Link to="/ai-mulakat-kocu" className="sidebar-active flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-primary font-bold transition-all group" href="#">
-            <span className="material-symbols-outlined !text-[22px]" style={{fontVariationSettings: '"FILL" 1'}}>psychology</span>
-            <span className="text-[15px]">Yapay Zeka Mülakat Koçu</span>
-          </Link>
-          <Link to="/profil" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
-            <span className="material-symbols-outlined !text-[22px]">person</span>
-            <span className="text-[15px] font-semibold">Profil</span>
-          </Link>
-        </nav>
-        <div className="mt-auto space-y-1 pt-4 border-t border-outline-variant/10">
-          <a className="flex items-center gap-3 px-4 py-3 text-slate-600 hover:text-[#191c1e] font-headline text-sm" href="#">
-            <span className="material-symbols-outlined" data-icon="settings">settings</span>
-            <span>Ayarlar</span>
-          </a>
-          <a className="flex items-center gap-3 px-4 py-3 text-slate-600 hover:text-[#191c1e] font-headline text-sm" href="#">
-            <span className="material-symbols-outlined" data-icon="logout">logout</span>
-            <span>Çıkış Yap</span>
-          </a>
+        <div className="p-6">
+          {/* Pro Plan card */}
+          <div className="bg-primary rounded-[2rem] p-6 text-white relative overflow-hidden shadow-xl shadow-primary/20 mb-6">
+            <div className="relative z-10">
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] mb-2 opacity-80">PRO PLAN</p>
+              <p className="text-sm font-medium leading-relaxed mb-4">Sınırsız yapay zeka özgeçmiş revizyonu ve deneme mülakatları alın.</p>
+              <button className="w-full bg-white text-primary font-bold py-3 rounded-xl text-xs hover:bg-slate-50 transition-colors shadow-lg">
+                Pro'ya Yükselt
+              </button>
+            </div>
+            <div className="absolute -right-4 -bottom-4 w-24 h-24 bg-white/10 rounded-full blur-2xl"></div>
+          </div>
+          {/* Support and Logout */}
+          <div className="space-y-1">
+            <Link to="/yapim-asamasi" className="flex items-center gap-3.5 px-5 py-3 text-slate-500 hover:text-primary transition-colors">
+              <span className="material-symbols-outlined !text-[20px]">help_center</span>
+              <span className="text-sm font-semibold">Destek</span>
+            </Link>
+            <Link to="/yapim-asamasi" className="flex items-center gap-3.5 px-5 py-3 text-slate-500 hover:text-error transition-colors">
+              <span className="material-symbols-outlined !text-[20px]">logout</span>
+              <span className="text-sm font-semibold">Çıkış Yap</span>
+            </Link>
+          </div>
         </div>
       </aside>
 
-      {/* Main Workspace */}
-      <main className="ml-64 min-h-screen flex flex-col">
-        {/* TopNavBar */}
-        <header className="flex justify-between items-center w-full px-8 h-16 bg-[#f8f9fb] dark:bg-slate-950 font-['Inter'] text-sm tracking-tight z-40 sticky top-0">
-          <div className="flex items-center bg-surface-container-low rounded-full px-4 py-2 w-96">
-            <span className="material-symbols-outlined text-outline mr-2" data-icon="search">search</span>
-            <input 
-              className="bg-transparent border-none focus:ring-0 text-sm w-full outline-none" 
-              placeholder="Arama yap..." 
-              type="text"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </div>
-          <div className="flex items-center gap-6">
-            <div className="flex items-center gap-4 text-on-surface-variant">
-              <button className="material-symbols-outlined hover:bg-[#f3f4f6] p-2 rounded-full transition-colors" data-icon="notifications">notifications</button>
-              <button className="material-symbols-outlined hover:bg-[#f3f4f6] p-2 rounded-full transition-colors" data-icon="help">help</button>
-            </div>
-            <div className="h-8 w-px bg-outline-variant/30"></div>
-            <div className="flex items-center gap-3">
-              <span className="font-semibold text-on-surface">Kerem Can</span>
-              <Link to="/profil">
-                <img 
-                  alt="Kullanici Profili" 
-                  className="w-10 h-10 rounded-full border-2 border-primary-container object-cover hover:border-primary transition-all cursor-pointer" 
-                  data-alt="headshot of a young professional man with a friendly smile, clean-cut, against a soft corporate background" 
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDw1N5Efq9zF2ZOMb2tokOMLYQyQZp5uUWXov-zj1NiCMqBU_RBWqZBP50d9TULuCayvOrO12ODWDOXA7qtM2TFzfmNxCFSutEjGQVPaR4BWZN2BBNQmrXKZE0CmZcD42tF3iTeWxWoLjnvz40i1SnCH68lxftnTY_HDQpDBqwj7Mas3FuGSuJpRPnYpk3wGdL_k3Dxi5SssobEoL3qrhupsaOWx5aEP3DoXV6yQ9OqmLIEk4yB2M3eH9P0agiPtdCAf5qpoiycAo0"
-                />
+      {/* Main Content Area */}
+      <main className="flex-grow lg:ml-[18%] p-8 lg:p-12 transition-all duration-300" style={{marginLeft: 'clamp(280px, 18%, 360px)'}}>
+        {/* Top Nav */}
+        <header className="flex justify-between items-center gap-6 mb-12">
+          <div className="flex-grow"></div>
+          <div className="flex items-center gap-10">
+            <nav className="hidden md:flex gap-8 items-center">
+              <a className="text-sm font-bold text-primary relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-full after:h-0.5 after:bg-primary" href="#">Yapay Zeka Mülakat Koçu</a>
+              <a className="text-sm font-semibold text-slate-500 hover:text-primary transition-colors" href="#">Mülakatlar</a>
+              <a className="text-sm font-semibold text-slate-500 hover:text-primary transition-colors" href="#">Ayarlar</a>
+            </nav>
+            <div className="flex items-center gap-2">
+              <button className="p-2.5 text-slate-400 hover:text-primary hover:bg-primary-container/50 rounded-xl transition-all">
+                <span className="material-symbols-outlined">notifications</span>
+              </button>
+              <button className="p-2.5 text-slate-400 hover:text-primary hover:bg-primary-container/50 rounded-xl transition-all">
+                <span className="material-symbols-outlined">settings</span>
+              </button>
+              <Link to="/profil" className="ml-2 ring-2 ring-offset-2 ring-primary/10 rounded-full cursor-pointer hover:ring-primary/30 transition-all overflow-hidden w-9 h-9">
+                <img alt="User" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzYKuaD5OrzzhLI78Jt88LJ05ffyKr6IsAiQ1rMYbD09-JhBmoKrK5qhAZKa5sw6QynOG1gHRQfua4ytLdpU-Ukp7Lp5AJfRhrYS4OYn4K_n2hFHTt6xjFQoPQ8Ro6n6x39Xz-sKz1yHt3Pm66Z5p0Gv1yocCGPlhI-7Ww5wR6etE5HWPKcM8TZH4tQb6BwS21MhWS8XffGsU8w2GTyGj0md5anOCgGb5GTa9LpA31qgIkUqsTBQHKPUHFiS7uRB-GecQFSDC68pU" />
               </Link>
             </div>
           </div>
         </header>
 
-        {/* Content Canvas */}
+        {/* Header Section */}
+        <div className="mb-10">
+          <h1 className="font-headline text-4xl font-extrabold tracking-tight text-on-surface">Yapay Zeka Mülakat Koçu</h1>
+          <div className="flex items-center gap-2 mt-2 text-outline">
+            <span className="material-symbols-outlined text-sm">psychology</span>
+            <p className="text-sm">Aktif mülakat: 5 dakika</p>
+          </div>
+        </div>
+
+        {/* Main Content */}
         <div className="p-8 flex flex-col gap-8 flex-grow">
           {/* 1. Preparation Panel */}
           <section className="grid grid-cols-12 gap-6 items-end">
@@ -107,9 +117,9 @@ const AIInterviewCoach = () => {
               </div>
               <div className="flex items-center gap-2 bg-surface-container-lowest px-4 py-2 rounded-full shadow-sm">
                 <span className="text-xs font-bold text-on-surface-variant uppercase">Zorluk:</span>
-                <span className="material-symbols-outlined text-tertiary text-sm" data-icon="star" style={{fontVariationSettings: '"FILL" 1'}}>star</span>
-                <span className="material-symbols-outlined text-tertiary text-sm" data-icon="star" style={{fontVariationSettings: '"FILL" 1'}}>star</span>
-                <span className="material-symbols-outlined text-outline-variant text-sm" data-icon="star">star</span>
+                <span className="material-symbols-outlined text-tertiary text-sm" style={{fontVariationSettings: '"FILL" 1'}}>star</span>
+                <span className="material-symbols-outlined text-tertiary text-sm" style={{fontVariationSettings: '"FILL" 1'}}>star</span>
+                <span className="material-symbols-outlined text-outline-variant text-sm">star</span>
               </div>
               <div className="flex items-center bg-primary p-1 rounded-full text-white">
                 <button 
@@ -118,7 +128,7 @@ const AIInterviewCoach = () => {
                   }`}
                   onClick={() => setInterviewMode('sesli')}
                 >
-                  <span className="material-symbols-outlined text-sm" data-icon="mic">mic</span> Sesli
+                  <span className="material-symbols-outlined text-sm">mic</span> Sesli
                 </button>
                 <button 
                   className={`px-4 py-1.5 rounded-full text-xs font-bold flex items-center gap-2 ${
@@ -126,7 +136,7 @@ const AIInterviewCoach = () => {
                   }`}
                   onClick={() => setInterviewMode('metin')}
                 >
-                  <span className="material-symbols-outlined text-sm" data-icon="chat_bubble">chat_bubble</span> Metin
+                  <span className="material-symbols-outlined text-sm">chat_bubble</span> Metin
                 </button>
               </div>
             </div>
@@ -173,7 +183,7 @@ const AIInterviewCoach = () => {
                   className="bg-error hover:bg-error/90 text-white flex items-center gap-3 px-10 py-5 rounded-full text-lg font-bold transition-transform active:scale-95 shadow-xl shadow-error/20"
                   onClick={() => setIsRecording(!isRecording)}
                 >
-                  <span className="material-symbols-outlined" data-icon="stop_circle" style={{fontVariationSettings: '"FILL" 1'}}>
+                  <span className="material-symbols-outlined" style={{fontVariationSettings: '"FILL" 1'}}>
                     {isRecording ? 'stop_circle' : 'play_circle'}
                   </span>
                   {isRecording ? 'Kaydı Durdur' : 'Kaydı Başlat'}
@@ -186,7 +196,7 @@ const AIInterviewCoach = () => {
               <div className="bg-surface-container-low rounded-[2rem] p-8 flex flex-col gap-8 h-full">
                 <div className="flex items-center justify-between">
                   <h4 className="headline-text font-bold text-xl">Canlı Performans Analizi</h4>
-                  <span className="material-symbols-outlined text-primary" data-icon="insights">insights</span>
+                  <span className="material-symbols-outlined text-primary">insights</span>
                 </div>
 
                 {/* Confidence Score Gauge */}
@@ -197,7 +207,7 @@ const AIInterviewCoach = () => {
                       <h5 className="text-3xl font-extrabold headline-text">84%</h5>
                     </div>
                     <div className="bg-primary/10 p-2 rounded-xl text-primary">
-                      <span className="material-symbols-outlined" data-icon="ecg_heart">ecg_heart</span>
+                      <span className="material-symbols-outlined">ecg_heart</span>
                     </div>
                   </div>
                   <div className="w-full bg-surface-container h-2 rounded-full overflow-hidden">
@@ -211,10 +221,10 @@ const AIInterviewCoach = () => {
                   <p className="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Teknik Anahtar Kelimeler</p>
                   <div className="flex flex-wrap gap-2">
                     <span className="bg-primary-container/20 text-primary px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1">
-                      <span className="material-symbols-outlined text-[14px]" data-icon="check_circle">check_circle</span> REST API
+                      <span className="material-symbols-outlined text-[14px]">check_circle</span> REST API
                     </span>
                     <span className="bg-primary-container/20 text-primary px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1">
-                      <span className="material-symbols-outlined text-[14px]" data-icon="check_circle">check_circle</span> SQL
+                      <span className="material-symbols-outlined text-[14px]">check_circle</span> SQL
                     </span>
                     <span className="bg-outline-variant/20 text-on-surface-variant px-3 py-1.5 rounded-xl text-xs font-bold">
                       Unit Test
@@ -247,7 +257,7 @@ const AIInterviewCoach = () => {
                 {/* AI Insight Overlay */}
                 <div className="glass-panel p-4 rounded-2xl border border-primary/20 shadow-lg">
                   <div className="flex gap-3">
-                    <span className="material-symbols-outlined text-primary-container" data-icon="auto_awesome">auto_awesome</span>
+                    <span className="material-symbols-outlined text-primary-container">auto_awesome</span>
                     <p className="text-xs leading-relaxed text-on-surface-variant">
                       <strong>AI İpucu:</strong> Çözümünüzden bahsederken karşılaştığınız kısıtlamaları (zaman, bütçe, donanım) vurgulamak sizi daha deneyimli gösterecektir.
                     </p>

@@ -5,79 +5,97 @@ const ATSCheck = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   return (
-    <div className="flex min-h-screen bg-background font-body text-on-surface">
-      {/* SideNavBar */}
-      <aside className="fixed left-0 top-0 h-screen w-64 z-50 bg-slate-50 dark:bg-slate-950 flex flex-col py-8 px-4 gap-y-2">
-        <div className="text-2xl font-black text-blue-700 dark:text-blue-500 mb-8 px-4">Resumise</div>
-        <nav className="space-y-1">
-          <Link to="/" className="flex items-center gap-3 text-slate-600 dark:text-slate-400 px-4 py-3 hover:translate-x-1 transition-all rounded-lg" href="#">
-            <span className="material-symbols-outlined" data-icon="dashboard">dashboard</span>
-            <span>Dashboard</span>
-          </Link>
-          <Link to="/ozgecmislerim" className="flex items-center gap-3 text-slate-600 dark:text-slate-400 px-4 py-3 hover:translate-x-1 transition-all rounded-lg" href="#">
-            <span className="material-symbols-outlined" data-icon="description">description</span>
-            <span>Özgeçmişim</span>
-          </Link>
-          <Link to="/is-eslesmeleri" className="flex items-center gap-3 text-slate-600 dark:text-slate-400 px-4 py-3 hover:translate-x-1 transition-all rounded-lg" href="#">
-            <span className="material-symbols-outlined" data-icon="handshake">handshake</span>
-            <span>İş Eşleşmeleri</span>
-          </Link>
-          <a className="flex items-center gap-3 bg-white dark:bg-slate-800 text-blue-700 dark:text-blue-400 font-semibold rounded-lg shadow-sm px-4 py-3 ml-2 transition-all" href="#">
-            <span className="material-symbols-outlined" data-icon="fact_check">fact_check</span>
-            <span>ATS Kontrolü</span>
-          </a>
-          <Link to="/ai-mulakat-kocu" className="flex items-center gap-3 text-slate-600 dark:text-slate-400 px-4 py-3 hover:translate-x-1 transition-all rounded-lg" href="#">
-            <span className="material-symbols-outlined" data-icon="psychology">psychology</span>
-            <span>Yapay Zeka Mülakat Koçu</span>
-          </Link>
-          <Link to="/profil" className="flex items-center gap-3 text-slate-600 dark:text-slate-400 px-4 py-3 hover:translate-x-1 transition-all rounded-lg" href="#">
-            <span className="material-symbols-outlined" data-icon="person">person</span>
-            <span>Profil</span>
-          </Link>
-        </nav>
-      </aside>
-
-      {/* TopNavBar */}
-      <header className="fixed top-0 right-0 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 shadow-sm shadow-blue-900/5 flex items-center justify-between w-[calc(100%-16rem)] ml-64 px-8 h-16">
-        <div className="flex items-center bg-surface-container-low px-4 py-2 rounded-full w-96">
-          <span className="material-symbols-outlined text-outline" data-icon="search">search</span>
-          <input 
-            className="bg-transparent border-none focus:ring-0 text-sm w-full font-label" 
-            placeholder="Yardım merkezi veya belgelerde ara..." 
-            type="text"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+    <div className="flex min-h-screen bg-surface font-body text-on-surface crisp-text">
+      {/* Sidebar */}
+      <aside className="hidden lg:flex flex-col fixed inset-y-0 left-0 z-50 justify-between bg-[#f1f5f9] border-r border-slate-200/60 w-[18%] min-w-[280px] max-w-[360px] transition-all duration-300">
+        <div className="flex flex-col">
+          <div className="p-8 pb-10">
+            <h1 className="text-2xl font-extrabold text-primary tracking-tight font-headline">Resumise</h1>
+            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mt-1">Yapay Zeka Kariyer Mimarı</p>
+          </div>
+          <nav className="px-4 space-y-1.5">
+            <Link to="/" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
+              <span className="material-symbols-outlined !text-[22px]">grid_view</span>
+              <span className="text-[15px] font-semibold">Panel</span>
+            </Link>
+            <Link to="/ozgecmislerim" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
+              <span className="material-symbols-outlined !text-[22px]">description</span>
+              <span className="text-[15px] font-semibold">Özgeçmişlerim</span>
+            </Link>
+            <Link to="/is-eslesmeleri" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
+              <span className="material-symbols-outlined !text-[22px]">work</span>
+              <span className="text-[15px] font-semibold">İş Eşleşmeleri</span>
+            </Link>
+            <a className="sidebar-active flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-primary font-bold transition-all group" href="#">
+              <span className="material-symbols-outlined !text-[22px]" style={{ fontVariationSettings: '"FILL" 1' }}>analytics</span>
+              <span className="text-[15px]">ATS Kontrolü</span>
+            </a>
+            <Link to="/ai-mulakat-kocu" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
+              <span className="material-symbols-outlined !text-[22px]">psychology</span>
+              <span className="text-[15px] font-semibold">Yapay Zeka Mülakat Koçu</span>
+            </Link>
+            <Link to="/profil" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
+              <span className="material-symbols-outlined !text-[22px]">person</span>
+              <span className="text-[15px] font-semibold">Profil</span>
+            </Link>
+          </nav>
         </div>
-        <div className="flex items-center gap-6">
-          <button className="relative text-slate-500 hover:bg-slate-100 p-2 rounded-full transition-colors">
-            <span className="material-symbols-outlined" data-icon="notifications">notifications</span>
-            <span className="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
-          </button>
-          <div className="flex items-center gap-3">
-            <div className="text-right">
-              <p className="text-sm font-bold text-on-surface">Ahmet Yılmaz</p>
-              <p className="text-[10px] text-outline uppercase tracking-wider">Premium Üye</p>
+        <div className="p-6">
+          {/* Pro Plan card */}
+          <div className="bg-primary rounded-[2rem] p-6 text-white relative overflow-hidden shadow-xl shadow-primary/20 mb-6">
+            <div className="relative z-10">
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] mb-2 opacity-80">PRO PLAN</p>
+              <p className="text-sm font-medium leading-relaxed mb-4">Sınırsız yapay zeka özgeçmiş revizyonu ve deneme mülakatları alın.</p>
+              <button className="w-full bg-white text-primary font-bold py-3 rounded-xl text-xs hover:bg-slate-50 transition-colors shadow-lg">
+                Pro'ya Yükselt
+              </button>
             </div>
-            <Link to="/profil">
-              <img 
-                alt="User Profile Avatar" 
-                className="w-10 h-10 rounded-full object-cover ring-2 ring-primary-fixed hover:ring-primary transition-all cursor-pointer" 
-                data-alt="professional headshot of a male software engineer in a minimalist tech office clean lighting blurry office background high quality photography" 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnsZyrL4uL1n4Wj0rwM9difGI691BKNBh5qZWOkPr-8fd8Nuzny1KB8iDbQuvs17tGUbz-f58MP-pp5e5gWTZwuMti9k5D95rGPCKns3llYEBwvtKu4BJbnKDGUKaKl-MATzzQoVQds_Hjl7X4YLmND85xnBeeGJ8ZQizBMwlYNopGPJ3AN_xCQmcRo2GkhJUHpN76kGbVYqZXguonSeqrdGIi6SeUwYMB279BZqzu0aWqPY_HS_JjKD8DjRNNSmDgvcFQG2rDnDk"
-              />
+            <div className="absolute -right-4 -bottom-4 w-24 h-24 bg-white/10 rounded-full blur-2xl"></div>
+          </div>
+          {/* Support and Logout */}
+          <div className="space-y-1">
+            <Link to="/yapim-asamasi" className="flex items-center gap-3.5 px-5 py-3 text-slate-500 hover:text-primary transition-colors">
+              <span className="material-symbols-outlined !text-[20px]">help_center</span>
+              <span className="text-sm font-semibold">Destek</span>
+            </Link>
+            <Link to="/yapim-asamasi" className="flex items-center gap-3.5 px-5 py-3 text-slate-500 hover:text-error transition-colors">
+              <span className="material-symbols-outlined !text-[20px]">logout</span>
+              <span className="text-sm font-semibold">Çıkış Yap</span>
             </Link>
           </div>
         </div>
-      </header>
+      </aside>
 
-      {/* Main Content */}
-      <main className="ml-64 pt-24 pb-12 px-8 min-h-screen">
+      {/* Main Content Area */}
+      <main className="flex-grow lg:ml-[18%] p-8 lg:p-12 transition-all duration-300" style={{marginLeft: 'clamp(280px, 18%, 360px)'}}>
+        {/* Top Nav */}
+        <header className="flex justify-between items-center gap-6 mb-12">
+          <div className="flex-grow"></div>
+          <div className="flex items-center gap-10">
+            <nav className="hidden md:flex gap-8 items-center">
+              <a className="text-sm font-bold text-primary relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-full after:h-0.5 after:bg-primary" href="#">ATS Kontrolü</a>
+              <a className="text-sm font-semibold text-slate-500 hover:text-primary transition-colors" href="#">Raporlar</a>
+              <a className="text-sm font-semibold text-slate-500 hover:text-primary transition-colors" href="#">Ayarlar</a>
+            </nav>
+            <div className="flex items-center gap-2">
+              <button className="p-2.5 text-slate-400 hover:text-primary hover:bg-primary-container/50 rounded-xl transition-all">
+                <span className="material-symbols-outlined">notifications</span>
+              </button>
+              <button className="p-2.5 text-slate-400 hover:text-primary hover:bg-primary-container/50 rounded-xl transition-all">
+                <span className="material-symbols-outlined">settings</span>
+              </button>
+              <Link to="/profil" className="ml-2 ring-2 ring-offset-2 ring-primary/10 rounded-full cursor-pointer hover:ring-primary/30 transition-all overflow-hidden w-9 h-9">
+                <img alt="User" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzYKuaD5OrzzhLI78Jt88LJ05ffyKr6IsAiQ1rMYbD09-JhBmoKrK5qhAZKa5sw6QynOG1gHRQfua4ytLdpU-Ukp7Lp5AJfRhrYS4OYn4K_n2hFHTt6xjFQoPQ8Ro6n6x39Xz-sKz1yHt3Pm66Z5p0Gv1yocCGPlhI-7Ww5wR6etE5HWPKcM8TZH4tQb6BwS21MhWS8XffGsU8w2GTyGj0md5anOCgGb5GTa9LpA31qgIkUqsTBQHKPUHFiS7uRB-GecQFSDC68pU" />
+              </Link>
+            </div>
+          </div>
+        </header>
+
         {/* Header Section */}
         <div className="mb-10">
           <h1 className="font-headline text-4xl font-extrabold tracking-tight text-on-surface">ATS Kontrolü</h1>
           <div className="flex items-center gap-2 mt-2 text-outline">
-            <span className="material-symbols-outlined text-sm" data-icon="history">history</span>
+            <span className="material-symbols-outlined text-sm">history</span>
             <p className="text-sm">Son Tarama: 2 dakika önce</p>
           </div>
         </div>
@@ -87,7 +105,7 @@ const ATSCheck = () => {
           {/* Radial Progress Card */}
           <div className="col-span-12 lg:col-span-4 bg-surface-container-lowest rounded-[1.5rem] p-8 shadow-sm flex flex-col items-center justify-center relative overflow-hidden group">
             <div className="absolute -top-12 -right-12 w-48 h-48 bg-primary/5 rounded-full blur-3xl"></div>
-            <div className="radial-progress-container">
+            <div className="radial-progress-container relative w-48 h-48">
               <svg className="w-full h-full rotate-[-90deg]" viewBox="0 0 36 36">
                 <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#f3f4f6" strokeDasharray="100, 100" strokeWidth="3"></path>
                 <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="url(#blue-gradient)" strokeLinecap="round" strokeDasharray="78, 100" strokeWidth="3"></path>
@@ -103,6 +121,10 @@ const ATSCheck = () => {
                 <span className="text-xs text-outline font-medium tracking-widest uppercase">ATS SKORU</span>
               </div>
             </div>
+            <div className="text-center mt-4">
+              <p className="text-sm font-medium text-slate-600">Özgeçmişiniz <span className="font-bold text-primary">%78</span> uyumlu</p>
+              <p className="text-xs text-slate-500 mt-1">Son güncelleme: 2 saat önce</p>
+            </div>
           </div>
 
           {/* Stats Cards */}
@@ -110,7 +132,7 @@ const ATSCheck = () => {
             <div className="bg-surface-container-lowest rounded-[1.5rem] p-6 shadow-sm flex flex-col justify-between border-l-4 border-error">
               <div className="flex justify-between items-start">
                 <div className="bg-error-container/30 p-2 rounded-xl">
-                  <span className="material-symbols-outlined text-error" data-icon="cancel">cancel</span>
+                  <span className="material-symbols-outlined text-error">cancel</span>
                 </div>
               </div>
               <div>
@@ -122,7 +144,7 @@ const ATSCheck = () => {
             <div className="bg-surface-container-lowest rounded-[1.5rem] p-6 shadow-sm flex flex-col justify-between border-l-4 border-tertiary">
               <div className="flex justify-between items-start">
                 <div className="bg-tertiary-fixed/30 p-2 rounded-xl">
-                  <span className="material-symbols-outlined text-tertiary" data-icon="warning">warning</span>
+                  <span className="material-symbols-outlined text-tertiary">warning</span>
                 </div>
               </div>
               <div>
@@ -134,7 +156,7 @@ const ATSCheck = () => {
             <div className="bg-surface-container-lowest rounded-[1.5rem] p-6 shadow-sm flex flex-col justify-between border-l-4 border-emerald-500">
               <div className="flex justify-between items-start">
                 <div className="bg-emerald-50/50 p-2 rounded-xl">
-                  <span className="material-symbols-outlined text-emerald-500" data-icon="check_circle">check_circle</span>
+                  <span className="material-symbols-outlined text-emerald-500">check_circle</span>
                 </div>
               </div>
               <div>
@@ -159,7 +181,7 @@ const ATSCheck = () => {
                 <div className="flex items-start justify-between">
                   <div className="flex gap-4">
                     <div className="bg-error-container text-error p-3 rounded-full h-fit">
-                      <span className="material-symbols-outlined" data-icon="error">error</span>
+                      <span className="material-symbols-outlined">error</span>
                     </div>
                     <div>
                       <h4 className="font-bold text-lg text-on-surface">Karmaşık Tablo Yapısı</h4>
@@ -167,7 +189,7 @@ const ATSCheck = () => {
                     </div>
                   </div>
                 </div>
-                <button className="bg-surface-container-high hover:bg-primary hover:text-white text-on-surface text-xs font-bold px-4 py-2 rounded-full transition-all whitespace-nowrap">Çözüm Önerisi</button>
+                <button className="bg-surface-container-high hover:bg-primary hover:text-white text-on-surface text-xs font-bold px-4 py-2 rounded-full transition-all whitespace-nowrap mt-4">Çözüm Önerisi</button>
               </div>
 
               {/* Warning Card 1 */}
@@ -175,7 +197,7 @@ const ATSCheck = () => {
                 <div className="flex items-start justify-between">
                   <div className="flex gap-4">
                     <div className="bg-tertiary-fixed text-tertiary p-3 rounded-full h-fit">
-                      <span className="material-symbols-outlined" data-icon="photo_camera">photo_camera</span>
+                      <span className="material-symbols-outlined">photo_camera</span>
                     </div>
                     <div>
                       <h4 className="font-bold text-lg text-on-surface">Fotoğraf Tespit Edildi</h4>
@@ -183,7 +205,7 @@ const ATSCheck = () => {
                     </div>
                   </div>
                 </div>
-                <button className="bg-surface-container-high hover:bg-primary hover:text-white text-on-surface text-xs font-bold px-4 py-2 rounded-full transition-all whitespace-nowrap">Çözüm Önerisi</button>
+                <button className="bg-surface-container-high hover:bg-primary hover:text-white text-on-surface text-xs font-bold px-4 py-2 rounded-full transition-all whitespace-nowrap mt-4">Çözüm Önerisi</button>
               </div>
 
               {/* Warning Card 2 */}
@@ -191,7 +213,7 @@ const ATSCheck = () => {
                 <div className="flex items-start justify-between">
                   <div className="flex gap-4">
                     <div className="bg-tertiary-fixed text-tertiary p-3 rounded-full h-fit">
-                      <span className="material-symbols-outlined" data-icon="font_download">font_download</span>
+                      <span className="material-symbols-outlined">font_download</span>
                     </div>
                     <div>
                       <h4 className="font-bold text-lg text-on-surface">Uygunsuz Font Tercihi</h4>
@@ -199,7 +221,7 @@ const ATSCheck = () => {
                     </div>
                   </div>
                 </div>
-                <button className="bg-surface-container-high hover:bg-primary hover:text-white text-on-surface text-xs font-bold px-4 py-2 rounded-full transition-all whitespace-nowrap">Çözüm Önerisi</button>
+                <button className="bg-surface-container-high hover:bg-primary hover:text-white text-on-surface text-xs font-bold px-4 py-2 rounded-full transition-all whitespace-nowrap mt-4">Çözüm Önerisi</button>
               </div>
             </div>
           </div>
@@ -244,9 +266,9 @@ const ATSCheck = () => {
         </div>
 
         {/* AI Insight Card */}
-        <div className="bg-primary text-on-primary rounded-[2rem] p-8 relative overflow-hidden mb-16">
+        <div className="bg-primary text-on-primary rounded-[2rem] p-8 relative overflow-hidden mb-16 mt-10">
           <div className="absolute top-0 right-0 p-4 opacity-20">
-            <span className="material-symbols-outlined text-6xl" data-icon="psychology">psychology</span>
+            <span className="material-symbols-outlined text-6xl">psychology</span>
           </div>
           <h5 className="text-lg font-bold mb-2">AI Önerisi</h5>
           <p className="text-sm leading-relaxed text-blue-100/90">
@@ -269,8 +291,7 @@ const ATSCheck = () => {
                     <span className="text-primary">Sen: %92</span>
                   </div>
                   <div className="h-3 bg-surface-container rounded-full overflow-hidden flex">
-                    <div className="h-full bg-primary rounded-full" style={{width: '92%'}}></div>
-                    <div className="h-full bg-outline-variant/30" style={{width: '65%', marginLeft: '-92%', zIndex: 1}}></div>
+                    <div className="h-full bg-primary rounded-full" style={{ width: '92%' }}></div>
                   </div>
                   <div className="flex justify-end mt-1">
                     <span className="text-[10px] text-outline uppercase tracking-tighter">Sektör Ortalaması: %65</span>
@@ -282,8 +303,7 @@ const ATSCheck = () => {
                     <span className="text-primary">Sen: %45</span>
                   </div>
                   <div className="h-3 bg-surface-container rounded-full overflow-hidden flex">
-                    <div className="h-full bg-primary rounded-full" style={{width: '45%'}}></div>
-                    <div className="h-full bg-outline-variant/30" style={{width: '78%', marginLeft: '-45%', zIndex: 1}}></div>
+                    <div className="h-full bg-primary rounded-full" style={{ width: '45%' }}></div>
                   </div>
                   <div className="flex justify-end mt-1">
                     <span className="text-[10px] text-outline uppercase tracking-tighter">Sektör Ortalaması: %78</span>
@@ -295,8 +315,7 @@ const ATSCheck = () => {
                     <span className="text-primary">Sen: %84</span>
                   </div>
                   <div className="h-3 bg-surface-container rounded-full overflow-hidden flex">
-                    <div className="h-full bg-primary rounded-full" style={{width: '84%'}}></div>
-                    <div className="h-full bg-outline-variant/30" style={{width: '70%', marginLeft: '-84%', zIndex: 1}}></div>
+                    <div className="h-full bg-primary rounded-full" style={{ width: '84%' }}></div>
                   </div>
                   <div className="flex justify-end mt-1">
                     <span className="text-[10px] text-outline uppercase tracking-tighter">Sektör Ortalaması: %70</span>
@@ -304,10 +323,9 @@ const ATSCheck = () => {
                 </div>
               </div>
               <div className="relative flex justify-center items-center">
-                <img 
-                  alt="Sektör Karşılaştırma Grafiği" 
-                  className="rounded-3xl shadow-xl border-8 border-surface-container-low" 
-                  data-alt="abstract data visualization showing career growth and benchmarking sleek lines tech blue accents clean white background minimalist business aesthetic" 
+                <img
+                  alt="Sektör Karşılaştırma Grafiği"
+                  className="rounded-3xl shadow-xl border-8 border-surface-container-low"
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuBq-tsOzfJQB9hqr_PClJ7b-qI0A9N3kj5sNt4axeBSX6F7FwpirFlFwY9xl-P4RWTfpGgR399zYnDtaRpIjJHR1YXiH5yP5Iqp_1BVE5FftsQBcYXdAouMdzdjXircBcg2P2QWbvvLSUE9CqLX-3Yi-OUyuJmGJuXyaZopgEu9sDCPOKq4267Ijn42H5k-0lf4B8himeqoHqikpeLMi2wglhStrmHGKkO7ZbZZSajlAcijq3hrJYDS3pdleVP9J9i383vDmGqvB98"
                 />
                 <div className="absolute -bottom-6 -right-6 glass-panel p-6 rounded-2xl shadow-lg border border-primary/10">
@@ -320,10 +338,10 @@ const ATSCheck = () => {
         </section>
       </main>
 
-      {/* FAB Action (Contextual to ATS Scan) */}
+      {/* FAB Action */}
       <div className="fixed bottom-8 right-8 z-50">
         <button className="bg-primary hover:bg-primary-container text-white h-16 px-8 rounded-full shadow-2xl shadow-primary/40 flex items-center gap-3 transition-all active:scale-95 group">
-          <span className="material-symbols-outlined" data-icon="refresh">refresh</span>
+          <span className="material-symbols-outlined">refresh</span>
           <span className="font-bold">Yeni Taramayı Başlat</span>
         </button>
       </div>

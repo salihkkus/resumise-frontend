@@ -94,14 +94,14 @@ const MyResumes = () => {
           </div>
           {/* Support and Logout */}
           <div className="space-y-1">
-            <a className="flex items-center gap-3.5 px-5 py-3 text-slate-500 hover:text-primary transition-colors" href="#">
+            <Link to="/yapim-asamasi" className="flex items-center gap-3.5 px-5 py-3 text-slate-500 hover:text-primary transition-colors">
               <span className="material-symbols-outlined !text-[20px]">help_center</span>
               <span className="text-sm font-semibold">Destek</span>
-            </a>
-            <a className="flex items-center gap-3.5 px-5 py-3 text-slate-500 hover:text-error transition-colors" href="#">
+            </Link>
+            <Link to="/yapim-asamasi" className="flex items-center gap-3.5 px-5 py-3 text-slate-500 hover:text-error transition-colors">
               <span className="material-symbols-outlined !text-[20px]">logout</span>
               <span className="text-sm font-semibold">Çıkış Yap</span>
-            </a>
+            </Link>
           </div>
         </div>
       </aside>
@@ -114,8 +114,8 @@ const MyResumes = () => {
           <div className="flex items-center gap-10">
             <nav className="hidden md:flex gap-8 items-center">
               <a className="text-sm font-bold text-primary relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-full after:h-0.5 after:bg-primary" href="#">Özgeçmişlerim</a>
-              <a className="text-sm font-semibold text-slate-500 hover:text-primary transition-colors" href="#">Şablonlar</a>
-              <a className="text-sm font-semibold text-slate-500 hover:text-primary transition-colors" href="#">İş İlanları</a>
+              <Link to="/yapim-asamasi" className="text-sm font-semibold text-slate-500 hover:text-primary transition-colors">Şablonlar</Link>
+              <Link to="/yapim-asamasi" className="text-sm font-semibold text-slate-500 hover:text-primary transition-colors">İş İlanları</Link>
             </nav>
             <div className="flex items-center gap-2">
               <button className="p-2.5 text-slate-400 hover:text-primary hover:bg-primary-container/50 rounded-xl transition-all">
@@ -125,7 +125,7 @@ const MyResumes = () => {
                 <span className="material-symbols-outlined">settings</span>
               </button>
               <Link to="/profil" className="ml-2 ring-2 ring-offset-2 ring-primary/10 rounded-full cursor-pointer hover:ring-primary/30 transition-all overflow-hidden w-9 h-9">
-                <img alt="User" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCr_XFiwkjdS11UGfwPueLfDETkToDBj2WZhCnjSYYOKz7CfxN4RszN6JrQZ95uJ0Fbl-CVh5nxyc9fUbXpvkcOzZ834AmAlF5Qt7prNOwMVnRTGkcVRVNdDxf38RMdV8CdgSK_nsw2LBFfAsHsaxpPWzf7f64nHpn9xzTgC9QomwWKDd-lV2QFf_e5zkm9ExOo5mlbXXn2P1TovZI4P8_k1zFko5QkFuqtDtK0wMxzCbs6g8s0jxJNJNII72z4Gf1lMhjekPZylxw" />
+                <img alt="User" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzYKuaD5OrzzhLI78Jt88LJ05ffyKr6IsAiQ1rMYbD09-JhBmoKrK5qhAZKa5sw6QynOG1gHRQfua4ytLdpU-Ukp7Lp5AJfRhrYS4OYn4K_n2hFHTt6xjFQoPQ8Ro6n6x39Xz-sKz1yHt3Pm66Z5p0Gv1yocCGPlhI-7Ww5wR6etE5HWPKcM8TZH4tQb6BwS21MhWS8XffGsU8w2GTyGj0md5anOCgGb5GTa9LpA31qgIkUqsTBQHKPUHFiS7uRB-GecQFSDC68pU" />
               </Link>
             </div>
           </div>

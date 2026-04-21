@@ -8,6 +8,7 @@ import AIInterviewCoach from './components/AIInterviewCoach';
 import Profile from './components/Profile';
 import Login from './components/Login';
 import Register from './components/Register';
+import UnderConstruction from './components/UnderConstruction';
 import './styles/globals.css';
 import './styles/my-resumes.css';
 
@@ -24,6 +25,8 @@ function App() {
           <Route path="/profil" element={<Profile />} />
           <Route path="/giris" element={<Login />} />
           <Route path="/kayit" element={<Register />} />
+          <Route path="/yapim-asamasi" element={<UnderConstruction />} />
+          <Route path="*" element={<UnderConstruction />} />
         </Routes>
       </div>
     </Router>

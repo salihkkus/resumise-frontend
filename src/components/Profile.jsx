@@ -12,110 +12,92 @@ const Profile = () => {
   });
 
   return (
-    <div className="bg-surface">
-      {/* SideNavBar */}
-      <aside className="fixed left-0 top-0 h-full flex flex-col py-8 px-4 bg-[#f8f9fb] dark:bg-slate-950 w-64 z-50">
-        <div className="mb-10 px-4">
-          <h1 className="text-xl font-bold tracking-tight text-[#003d9b] dark:text-[#4d90ff]">Resumise</h1>
-          <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest mt-1">Kariyer Mimar</p>
-        </div>
-        <nav className="flex-1 space-y-1">
-          <Link to="/" className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-[#f3f4f6] dark:hover:bg-slate-800 transition-colors duration-200 rounded-xl group" href="#">
-            <span className="material-symbols-outlined">dashboard</span>
-            <span className="font-medium text-sm">Panel</span>
-          </Link>
-          <Link to="/ozgecmislerim" className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-[#f3f4f6] dark:hover:bg-slate-800 transition-colors duration-200 rounded-xl group" href="#">
-            <span className="material-symbols-outlined">description</span>
-            <span className="font-medium text-sm">Özgeçmişlerim</span>
-          </Link>
-          <Link to="/is-eslesmeleri" className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-[#f3f4f6] dark:hover:bg-slate-800 transition-colors duration-200 rounded-xl group" href="#">
-            <span className="material-symbols-outlined">work_history</span>
-            <span className="font-medium text-sm">İş Eşleşmeleri</span>
-          </Link>
-          {/* Active Tab: Profil */}
-          <a className="flex items-center gap-3 px-4 py-3 text-[#0052CC] dark:text-white font-bold border-r-4 border-[#0052CC] bg-[#f3f4f6] dark:bg-slate-900 rounded-l-xl opacity-80 transition-opacity" href="#">
-            <span className="material-symbols-outlined" style={{fontVariationSettings: '"FILL" 1'}}>person</span>
-            <span className="font-bold text-sm">Profil</span>
-          </a>
-          <Link to="/ats-kontrolu" className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-[#f3f4f6] dark:hover:bg-slate-800 transition-colors duration-200 rounded-xl group" href="#">
-            <span className="material-symbols-outlined">fact_check</span>
-            <span className="font-medium text-sm">ATS Kontrolü</span>
-          </Link>
-          <Link to="/ai-mulakat-kocu" className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-[#f3f4f6] dark:hover:bg-slate-800 transition-colors duration-200 rounded-xl group" href="#">
-            <span className="material-symbols-outlined">psychology</span>
-            <span className="font-medium text-sm">Yapay Zeka Mülakat Koçu</span>
-          </Link>
-        </nav>
-        <div className="mt-auto space-y-1">
-          <div className="p-4 bg-primary-container/10 rounded-2xl mb-6">
-            <p className="text-xs font-bold text-primary mb-2">Pro'ya Yükselt</p>
-            <p className="text-[10px] text-on-surface-variant leading-relaxed">Sınırsız AI analizi ve premium şablonlar için geçiş yapın.</p>
+    <div className="flex min-h-screen bg-surface font-body text-on-surface crisp-text">
+      {/* Sidebar */}
+      <aside className="hidden lg:flex flex-col fixed inset-y-0 left-0 z-50 justify-between bg-[#f1f5f9] border-r border-slate-200/60 w-[18%] min-w-[280px] max-w-[360px] transition-all duration-300">
+        <div className="flex flex-col">
+          <div className="p-8 pb-10">
+            <h1 className="text-2xl font-extrabold text-primary tracking-tight font-headline">Resumise</h1>
+            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mt-1">Yapay Zeka Kariyer Mimarı</p>
           </div>
-          <a className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-[#f3f4f6] dark:hover:bg-slate-800 transition-colors duration-200 rounded-xl" href="#">
-            <span className="material-symbols-outlined">settings</span>
-            <span className="font-medium text-sm">Ayarlar</span>
-          </a>
-          <a className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-[#f3f4f6] dark:hover:bg-slate-800 transition-colors duration-200 rounded-xl" href="#">
-            <span className="material-symbols-outlined">help</span>
-            <span className="font-medium text-sm">Yardım Merkezi</span>
-          </a>
+          <nav className="px-4 space-y-1.5">
+            <Link to="/" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
+              <span className="material-symbols-outlined !text-[22px]">grid_view</span>
+              <span className="text-[15px] font-semibold">Panel</span>
+            </Link>
+            <Link to="/ozgecmislerim" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
+              <span className="material-symbols-outlined !text-[22px]">description</span>
+              <span className="text-[15px] font-semibold">Özgeçmişlerim</span>
+            </Link>
+            <Link to="/is-eslesmeleri" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
+              <span className="material-symbols-outlined !text-[22px]">work</span>
+              <span className="text-[15px] font-semibold">İş Eşleşmeleri</span>
+            </Link>
+            <Link to="/ats-kontrolu" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
+              <span className="material-symbols-outlined !text-[22px]">analytics</span>
+              <span className="text-[15px] font-semibold">ATS Kontrolü</span>
+            </Link>
+            <Link to="/ai-mulakat-kocu" className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-slate-500 hover:text-primary hover:bg-white/50 transition-all group">
+              <span className="material-symbols-outlined !text-[22px]">psychology</span>
+              <span className="text-[15px] font-semibold">Yapay Zeka Mülakat Koçu</span>
+            </Link>
+            <a className="sidebar-active flex items-center gap-3.5 px-5 py-3.5 rounded-2xl text-primary font-bold transition-all group" href="#">
+              <span className="material-symbols-outlined !text-[22px]" style={{fontVariationSettings: '"FILL" 1'}}>person</span>
+              <span className="text-[15px]">Profil</span>
+            </a>
+          </nav>
+        </div>
+        <div className="p-6">
+          {/* Pro Plan card */}
+          <div className="bg-primary rounded-[2rem] p-6 text-white relative overflow-hidden shadow-xl shadow-primary/20 mb-6">
+            <div className="relative z-10">
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] mb-2 opacity-80">PRO PLAN</p>
+              <p className="text-sm font-medium leading-relaxed mb-4">Sınırsız yapay zeka özgeçmiş revizyonu ve deneme mülakatları alın.</p>
+              <button className="w-full bg-white text-primary font-bold py-3 rounded-xl text-xs hover:bg-slate-50 transition-colors shadow-lg">
+                Pro'ya Yükselt
+              </button>
+            </div>
+            <div className="absolute -right-4 -bottom-4 w-24 h-24 bg-white/10 rounded-full blur-2xl"></div>
+          </div>
+          {/* Support and Logout */}
+          <div className="space-y-1">
+            <Link to="/yapim-asamasi" className="flex items-center gap-3.5 px-5 py-3 text-slate-500 hover:text-primary transition-colors">
+              <span className="material-symbols-outlined !text-[20px]">help_center</span>
+              <span className="text-sm font-semibold">Destek</span>
+            </Link>
+            <Link to="/yapim-asamasi" className="flex items-center gap-3.5 px-5 py-3 text-slate-500 hover:text-error transition-colors">
+              <span className="material-symbols-outlined !text-[20px]">logout</span>
+              <span className="text-sm font-semibold">Çıkış Yap</span>
+            </Link>
+          </div>
         </div>
       </aside>
 
-      {/* TopAppBar */}
-      <header className="fixed top-0 right-0 left-64 h-16 flex justify-between items-center px-8 z-40 bg-[#ffffff]/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-sm shadow-slate-200/50">
-        <div className="flex items-center bg-surface-container-low px-4 py-2 rounded-full w-96">
-          <span className="material-symbols-outlined text-outline text-sm">search</span>
-          <input 
-            className="bg-transparent border-none focus:ring-0 text-sm w-full ml-2" 
-            placeholder="İş, yetenek veya döküman ara..." 
-            type="text"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </div>
-        <div className="flex items-center gap-6">
-          <div className="flex gap-4 items-center">
-            <a 
-              className={`text-sm py-1 ${activeTab === 'profile' ? 'text-[#0052CC] font-bold border-b-2 border-[#0052CC]' : 'text-slate-600 hover:text-[#003d9b] transition-all'}`} 
-              href="#"
-              onClick={() => setActiveTab('profile')}
-            >
-              Profil
-            </a>
-            <a 
-              className={`text-sm py-1 ${activeTab === 'activity' ? 'text-[#0052CC] font-bold border-b-2 border-[#0052CC]' : 'text-slate-600 hover:text-[#003d9b] transition-all'}`} 
-              href="#"
-              onClick={() => setActiveTab('activity')}
-            >
-              Aktivite
-            </a>
-            <a 
-              className={`text-sm py-1 ${activeTab === 'billing' ? 'text-[#0052CC] font-bold border-b-2 border-[#0052CC]' : 'text-slate-600 hover:text-[#003d9b] transition-all'}`} 
-              href="#"
-              onClick={() => setActiveTab('billing')}
-            >
-              Faturalandırma
-            </a>
-          </div>
-          <div className="h-6 w-px bg-outline-variant/30"></div>
-          <div className="flex items-center gap-4">
-            <button className="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">notifications</button>
-            <button className="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">settings</button>
-            <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/20">
-              <img 
-                alt="Muhammet" 
-                className="w-full h-full object-cover" 
-                data-alt="Close-up portrait of a young professional man with a confident expression in a clean studio setting with soft lighting" 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAqGCd0anH_PdEKdoXmLIkvlTJ8ns9FaKEBMyx-Qy2FHi8awrGCOArHEigLrV8-KspJjIvOU3_WktPhtLixy0xZfDexcwoxcRWbuY1w3KaZm2jYGTQ1bWuIQaZwm1YaxHjXDRCcxNI2yLwgnr83jGlHKdTw6VOGzt2QOSrHXgowofUaI1U2woqDhXmNKOIuGKoQy_b8MrBUUQrMKEHcryeKn42sNSJzWw9qIFC1tbVuDV7TfHepKvZMYmRot3IpWmPEPhyNlmOUdQ"
-              />
+      {/* Main Content Area */}
+      <main className="flex-grow lg:ml-[18%] p-8 lg:p-12 transition-all duration-300" style={{marginLeft: 'clamp(280px, 18%, 360px)'}}>
+        {/* Top Nav */}
+        <header className="flex justify-between items-center gap-6 mb-12">
+          <div className="flex-grow"></div>
+          <div className="flex items-center gap-10">
+            <nav className="hidden md:flex gap-8 items-center">
+              <a className="text-sm font-bold text-primary relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-full after:h-0.5 after:bg-primary" href="#">Profil</a>
+              <a className="text-sm font-semibold text-slate-500 hover:text-primary transition-colors" href="#">Ayarlar</a>
+              <a className="text-sm font-semibold text-slate-500 hover:text-primary transition-colors" href="#">Aktivite</a>
+            </nav>
+            <div className="flex items-center gap-2">
+              <button className="p-2.5 text-slate-400 hover:text-primary hover:bg-primary-container/50 rounded-xl transition-all">
+                <span className="material-symbols-outlined">notifications</span>
+              </button>
+              <button className="p-2.5 text-slate-400 hover:text-primary hover:bg-primary-container/50 rounded-xl transition-all">
+                <span className="material-symbols-outlined">settings</span>
+              </button>
+              <Link to="/profil" className="ml-2 ring-2 ring-offset-2 ring-primary/10 rounded-full cursor-pointer hover:ring-primary/30 transition-all overflow-hidden w-9 h-9">
+                <img alt="User" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzYKuaD5OrzzhLI78Jt88LJ05ffyKr6IsAiQ1rMYbD09-JhBmoKrK5qhAZKa5sw6QynOG1gHRQfua4ytLdpU-Ukp7Lp5AJfRhrYS4OYn4K_n2hFHTt6xjFQoPQ8Ro6n6x39Xz-sKz1yHt3Pm66Z5p0Gv1yocCGPlhI-7Ww5wR6etE5HWPKcM8TZH4tQb6BwS21MhWS8XffGsU8w2GTyGj0md5anOCgGb5GTa9LpA31qgIkUqsTBQHKPUHFiS7uRB-GecQFSDC68pU" />
+              </Link>
             </div>
           </div>
-        </div>
-      </header>
+        </header>
 
-      {/* Main Content Canvas */}
-      <main className="ml-64 pt-24 pb-12 px-10 min-h-screen">
         {/* Header Section (Profile Hero) */}
         <section className="flex flex-col md:flex-row items-end gap-8 mb-12">
           <div className="relative">
