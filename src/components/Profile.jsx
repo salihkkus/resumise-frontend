@@ -81,8 +81,8 @@ const Profile = () => {
           <div className="flex items-center gap-10">
             <nav className="hidden md:flex gap-8 items-center">
               <a className="text-sm font-bold text-primary relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-full after:h-0.5 after:bg-primary" href="#">Profil</a>
-              <a className="text-sm font-semibold text-slate-500 hover:text-primary transition-colors" href="#">Ayarlar</a>
-              <a className="text-sm font-semibold text-slate-500 hover:text-primary transition-colors" href="#">Aktivite</a>
+              <a className="text-sm font-semibold text-slate-500 hover:text-primary transition-colors" href="/under-construction">Ayarlar</a>
+              <a className="text-sm font-semibold text-slate-500 hover:text-primary transition-colors" href="/under-construction">Aktivite</a>
             </nav>
             <div className="flex items-center gap-2">
               <button className="p-2.5 text-slate-400 hover:text-primary hover:bg-primary-container/50 rounded-xl transition-all">
@@ -92,7 +92,7 @@ const Profile = () => {
                 <span className="material-symbols-outlined">settings</span>
               </button>
               <Link to="/profil" className="ml-2 ring-2 ring-offset-2 ring-primary/10 rounded-full cursor-pointer hover:ring-primary/30 transition-all overflow-hidden w-9 h-9">
-                <img alt="User" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzYKuaD5OrzzhLI78Jt88LJ05ffyKr6IsAiQ1rMYbD09-JhBmoKrK5qhAZKa5sw6QynOG1gHRQfua4ytLdpU-Ukp7Lp5AJfRhrYS4OYn4K_n2hFHTt6xjFQoPQ8Ro6n6x39Xz-sKz1yHt3Pm66Z5p0Gv1yocCGPlhI-7Ww5wR6etE5HWPKcM8TZH4tQb6BwS21MhWS8XffGsU8w2GTyGj0md5anOCgGb5GTa9LpA31qgIkUqsTBQHKPUHFiS7uRB-GecQFSDC68pU" />
+                <img alt="User" className="w-full h-full object-cover" src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740&q=80" />
               </Link>
             </div>
           </div>
@@ -106,7 +106,7 @@ const Profile = () => {
                 alt="Muhammet Profile" 
                 className="w-full h-full object-cover" 
                 data-alt="Professional headshot of a young man with dark hair and a slight smile, studio lighting, soft gray background" 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAF3ZGojVK2_Ognf6Gd6jOKNSCJyPF3ic9_A1hGzrFRDyCHZcOHRkamtX7V7jaVW8SaaTyAXpIvNt9a6qUOGVrVrNGCKVu4YUF41jpOgzTxtpK9jwe8SHNAfVDW6APRJS-9SHk7hecYaWOQav-V8lVncfTO95xgBts0DrdPZOfPT-mBUEOMhhq0PrNdOFN3UGzSWI1Xx0haYb1x6Kfgoj-RTYUJkIu2hnSRoX1yjGgtjx5nLkvzEwkg2klgk8qHeJFCMKxnsnOg0FA"
+                src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740&q=80"
               />
             </div>
             <button className="absolute bottom-1 right-1 bg-primary text-white p-2 rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform">
