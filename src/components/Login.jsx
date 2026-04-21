@@ -1,14 +1,47 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+  const { login } = useAuth();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle login logic here
-    console.log('Login attempt:', { email, password });
+    setLoading(true);
+    setError('');
+
+    const result = await login({ email, password });
+    
+    if (result.success) {
+      console.log('✅ Login successful');
+      navigate('/');
+    } else {
+      setError(result.error || 'Giriş başarısız. Lütfen bilgilerinizi kontrol edin.');
+    }
+    
+    setLoading(false);
+  };
+
+  // Google OAuth login
+  const handleGoogleLogin = async () => {
+    setGoogleLoading(true);
+    setError('');
+
+    try {
+      // Redirect to Google OAuth endpoint
+      console.log('🔗 Redirecting to Google OAuth...');
+      window.location.href = 'http://localhost:8080/oauth2/authorization/google';
+    } catch (error) {
+      console.error('❌ Google login error:', error);
+      setError('Google ile giriş yapılamadı. Lütfen tekrar deneyin.');
+      setGoogleLoading(false);
+    }
   };
 
   return (
@@ -69,9 +102,19 @@ const Login = () => {
             </div>
             
             {/* Social Login */}
-            <button className="flex items-center justify-center gap-3 w-full py-4 px-6 bg-surface-container-lowest border border-outline-variant/30 rounded-full shadow-sm hover:bg-surface-container transition-all group">
-              <img alt="Google" className="w-5 h-5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKUBliANBG4vAgC63UpjKoqpb5kq37TjwgT8-k-AxvayaSRIxtqmXK3xweCEgA6bv-NzRs7uu359dldPqSRueY-JQwqB6nVuGCQZGf56nkeP_2-RRXvYy-un4uuScifEpo9sG4Yyg7t62_gRXWAa7BpD8cQYhyBfPRNRWwake0J_L6X6z3U0RtJ7BN0J-ozz4iIzGnt3Rnfjk1lx4S3JLcqsbthsDB5ut_KYIDcUNZ5wYPjzQSrO2kmPzMN1ecq4wTIMFJthRQHMI"/>
-              <span className="text-on-surface font-semibold text-sm">Google ile devam et</span>
+            <button 
+              className="flex items-center justify-center gap-3 w-full py-4 px-6 bg-surface-container-lowest border border-outline-variant/30 rounded-full shadow-sm hover:bg-surface-container transition-all group disabled:opacity-50 disabled:cursor-not-allowed"
+              onClick={handleGoogleLogin}
+              disabled={googleLoading}
+            >
+              {googleLoading ? (
+                <span className="material-symbols-outlined animate-spin">refresh</span>
+              ) : (
+                <img alt="Google" className="w-5 h-5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKUBliANBG4vAgC63UpjKoqpb5kq37TjwgT8-k-AxvayaSRIxtqmXK3xweCEgA6bv-NzRs7uu359dldPqSRueY-JQwqB6nVuGCQZGf56nkeP_2-RRXvYy-un4uuScifEpo9sG4Yyg7t62_gRXWAa7BpD8cQYhyBfPRNRWwake0J_L6X6z3U0RtJ7BN0J-ozz4iIzGnt3Rnfjk1lx4S3JLcqsbthsDB5ut_KYIDcUNZ5wYPjzQSrO2kmPzMN1ecq4wTIMFJthRQHMI"/>
+              )}
+              <span className="text-on-surface font-semibold text-sm">
+                {googleLoading ? 'Yönlendiriliyor...' : 'Google ile devam et'}
+              </span>
             </button>
             
             <div className="flex items-center gap-4 my-8">
@@ -80,6 +123,13 @@ const Login = () => {
               <div className="h-px flex-1 bg-outline-variant/20"></div>
             </div>
             
+            {/* Error Message */}
+            {error && (
+              <div className="bg-error-container p-4 rounded-xl border border-error/20">
+                <p className="text-error text-sm font-medium">{error}</p>
+              </div>
+            )}
+
             {/* Form */}
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
@@ -115,8 +165,19 @@ const Login = () => {
                 </div>
               </div>
               
-              <button className="w-full py-4 bg-gradient-to-br from-primary to-primary-container text-white rounded-full font-headline font-bold text-lg shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all" type="submit">
-                Giriş Yap
+              <button 
+                className="w-full py-4 bg-gradient-to-br from-primary to-primary-container text-white rounded-full font-headline font-bold text-lg shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100" 
+                type="submit"
+                disabled={loading}
+              >
+                {loading ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <span className="material-symbols-outlined animate-spin">refresh</span>
+                    Giriş Yapılıyor...
+                  </span>
+                ) : (
+                  'Giriş Yap'
+                )}
               </button>
             </form>
             

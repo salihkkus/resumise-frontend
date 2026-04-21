@@ -1,9 +1,112 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
+import { analysisService } from '../services/analysisService';
+import { cvService } from '../services/cvService';
 
 const Dashboard = () => {
   const [jobUrl, setJobUrl] = useState('');
   const [showInterviewBot, setShowInterviewBot] = useState(true);
+  const [selectedCV, setSelectedCV] = useState(null);
+  const [jobDescription, setJobDescription] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [uploadLoading, setUploadLoading] = useState(false);
+  const [uploadError, setUploadError] = useState('');
+  const [uploadSuccess, setUploadSuccess] = useState('');
+  const navigate = useNavigate();
+  const { profileData } = useAuth();
+
+  // Hidden file input reference
+  const fileInputRef = React.useRef(null);
+
+  // Load default CV
+  React.useEffect(() => {
+    const loadDefaultCV = async () => {
+      try {
+        const cv = await cvService.getDefaultCV();
+        setSelectedCV(cv);
+        console.log('✅ Default CV loaded:', cv);
+      } catch (error) {
+        console.error('❌ Failed to load default CV:', error);
+      }
+    };
+
+    loadDefaultCV();
+  }, []);
+
+  // Handle file upload
+  const handleFileUpload = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    setUploadLoading(true);
+    setUploadError('');
+    setUploadSuccess('');
+
+    try {
+      console.log('📤 Uploading file:', file.name, file.type, file.size);
+      
+      const result = await cvService.uploadCV(file, file.name.replace(/\.[^/.]+$/, ""));
+      
+      console.log('✅ CV uploaded successfully:', result);
+      setUploadSuccess(`"${file.name}" başarıyla yüklendi!`);
+      
+      // Refresh CV list
+      const cvs = await cvService.getCVs();
+      if (cvs.length > 0) {
+        setSelectedCV(cvs[0]); // Select the first CV as default
+      }
+      
+      // Clear success message after 3 seconds
+      setTimeout(() => setUploadSuccess(''), 3000);
+      
+      // Reset file input
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    } catch (error) {
+      console.error('❌ File upload failed:', error);
+      setUploadError(error.message || 'Dosya yüklenirken bir hata oluştu.');
+    } finally {
+      setUploadLoading(false);
+    }
+  };
+
+  // Create analysis
+  const handleCreateAnalysis = async () => {
+    if (!selectedCV) {
+      setError('Lütfen önce bir CV seçin veya yükleyin.');
+      return;
+    }
+
+    if (!jobDescription.trim()) {
+      setError('Lütfen iş tanımı girin.');
+      return;
+    }
+
+    setLoading(true);
+    setError('');
+
+    try {
+      const analysisData = {
+        cvId: selectedCV.id,
+        jobDescription: jobDescription.trim(),
+        jobLink: jobUrl.trim() || null
+      };
+
+      const newAnalysis = await analysisService.createAnalysis(analysisData);
+      console.log('✅ Analysis created:', newAnalysis);
+      
+      // Redirect to analysis report
+      navigate(`/analiz-raporu/${newAnalysis.id}`);
+    } catch (error) {
+      console.error('❌ Analysis creation failed:', error);
+      setError(error.response?.data?.message || 'Analiz oluşturulamadı. Lütfen tekrar deneyin.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="flex min-h-screen bg-surface font-body text-on-surface crisp-text">
@@ -90,7 +193,11 @@ const Dashboard = () => {
                 <span className="material-symbols-outlined">settings</span>
               </button>
               <Link to="/profil" className="ml-2 ring-2 ring-offset-2 ring-primary/10 rounded-full cursor-pointer hover:ring-primary/30 transition-all overflow-hidden w-9 h-9">
-                <img alt="User" className="w-full h-full object-cover" src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740&q=80" />
+                <img 
+                  alt="User" 
+                  className="w-full h-full object-cover" 
+                  src={profileData?.profileImageUrl || "https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740&q=80"} 
+                />
               </Link>
             </div>
           </div>
@@ -185,10 +292,32 @@ const Dashboard = () => {
                       Eksik (5)
                     </div>
                   </div>
-                  <Link to="/under-construction" className="bg-primary text-white py-4 px-8 rounded-2xl font-bold shadow-xl shadow-primary/25 hover:bg-blue-700 hover:-translate-y-0.5 active:scale-95 transition-all flex items-center justify-center gap-3">
-                    <span className="material-symbols-outlined">upload_file</span>
-                    Yeni Özgeçmiş Yükle
-                  </Link>
+                  <div className="relative">
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept=".pdf,.doc,.docx"
+                    onChange={handleFileUpload}
+                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                    disabled={uploadLoading}
+                  />
+                  <button 
+                    className="bg-primary text-white py-4 px-8 rounded-2xl font-bold shadow-xl shadow-primary/25 hover:bg-blue-700 hover:-translate-y-0.5 active:scale-95 transition-all flex items-center justify-center gap-3 w-full disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled={uploadLoading}
+                  >
+                    {uploadLoading ? (
+                      <>
+                        <span className="material-symbols-outlined animate-spin">refresh</span>
+                        Yükleniyor...
+                      </>
+                    ) : (
+                      <>
+                        <span className="material-symbols-outlined">upload_file</span>
+                        Yeni Özgeçmiş Yükle
+                      </>
+                    )}
+                  </button>
+                </div>
                 </div>
               </div>
             </div>
@@ -215,21 +344,67 @@ const Dashboard = () => {
                     </p>
                   </div>
                 </div>
+                {/* Upload Success Message */}
+                {uploadSuccess && (
+                  <div className="bg-green-50 p-4 rounded-xl border border-green-200 mb-4">
+                    <div className="flex items-center gap-2">
+                      <span className="material-symbols-outlined text-green-600">check_circle</span>
+                      <p className="text-green-700 text-sm font-medium">{uploadSuccess}</p>
+                    </div>
+                  </div>
+                )}
+
+                {/* Upload Error Message */}
+                {uploadError && (
+                  <div className="bg-red-50 p-4 rounded-xl border border-red-200 mb-4">
+                    <div className="flex items-center gap-2">
+                      <span className="material-symbols-outlined text-red-600">error</span>
+                      <p className="text-red-700 text-sm font-medium">{uploadError}</p>
+                    </div>
+                  </div>
+                )}
+
+                {/* Analysis Error Message */}
+                {error && (
+                  <div className="bg-error-container p-4 rounded-xl border border-error/20 mb-4">
+                    <p className="text-error text-sm font-medium">{error}</p>
+                  </div>
+                )}
+
+                {/* Selected CV Info */}
+                {selectedCV && (
+                  <div className="bg-green-50 p-4 rounded-xl border border-green-100 mb-4">
+                    <p className="text-green-700 text-sm font-medium">
+                      ✅ Seçili CV: <span className="font-bold">{selectedCV.title}</span>
+                    </p>
+                  </div>
+                )}
+
                 <div className="flex flex-col sm:flex-row gap-4">
                   <div className="flex-grow relative group">
                     <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
-                      <span className="material-symbols-outlined text-primary group-focus-within:scale-110 transition-transform">search</span>
+                      <span className="material-symbols-outlined text-primary group-focus-within:scale-110 transition-transform">description</span>
                     </div>
-                    <input 
-                      className="w-full bg-slate-50 border border-slate-200 rounded-2xl py-4 pr-6 pl-14 text-sm font-semibold text-slate-900 focus:ring-2 focus:ring-primary/10 focus:border-primary outline-none transition-all placeholder:text-slate-400 shadow-sm" 
-                      placeholder="İş ilanı URL'sini buraya yapıştırın (LinkedIn, Indeed vb.)" 
-                      type="text"
-                      value={jobUrl}
-                      onChange={(e) => setJobUrl(e.target.value)}
+                    <textarea 
+                      className="w-full bg-slate-50 border border-slate-200 rounded-2xl py-4 pr-6 pl-14 text-sm font-semibold text-slate-900 focus:ring-2 focus:ring-primary/10 focus:border-primary outline-none transition-all placeholder:text-slate-400 shadow-sm resize-none h-24" 
+                      placeholder="İş tanımını buraya yazın veya iş ilanı URL'sini yapıştırın..." 
+                      value={jobDescription}
+                      onChange={(e) => setJobDescription(e.target.value)}
                     />
                   </div>
-                  <button className="bg-slate-900 text-white px-10 py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-slate-800 transition-all shadow-lg active:scale-95">
-                    ANALİZ ET
+                  <button 
+                    className="bg-slate-900 text-white px-10 py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-slate-800 transition-all shadow-lg active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed" 
+                    onClick={handleCreateAnalysis}
+                    disabled={loading}
+                  >
+                    {loading ? (
+                      <span className="flex items-center justify-center gap-2">
+                        <span className="material-symbols-outlined animate-spin">refresh</span>
+                        ANALİZ EDİLİYOR...
+                      </span>
+                    ) : (
+                      'ANALİZ ET'
+                    )}
                   </button>
                 </div>
               </div>

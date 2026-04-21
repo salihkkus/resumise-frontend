@@ -1,8 +1,35 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
+import { analysisService } from '../services/analysisService';
 
 const AnalysisReport = () => {
+  const { analysisId } = useParams();
   const [checkedItems, setCheckedItems] = useState([false, false, false, false]);
+  const [analysisData, setAnalysisData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const { profileData } = useAuth();
+
+  // Load analysis data from backend
+  useEffect(() => {
+    const loadAnalysis = async () => {
+      if (!analysisId) return;
+      
+      try {
+        const data = await analysisService.getAnalysisById(analysisId);
+        setAnalysisData(data);
+        console.log('✅ Analysis loaded from backend:', data);
+      } catch (error) {
+        console.error('❌ Failed to load analysis:', error);
+        setError('Analiz yüklenemedi. Lütfen daha sonra tekrar deneyin.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadAnalysis();
+  }, [analysisId]);
 
   const toggleCheck = (index) => {
     const newCheckedItems = [...checkedItems];
@@ -93,7 +120,11 @@ const AnalysisReport = () => {
                 <span className="material-symbols-outlined">settings</span>
               </button>
               <Link to="/profil" className="ml-2 ring-2 ring-offset-2 ring-primary/10 rounded-full cursor-pointer hover:ring-primary/30 transition-all overflow-hidden w-9 h-9">
-                <img alt="User" className="w-full h-full object-cover" src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740&q=80" />
+                <img 
+                  alt="User" 
+                  className="w-full h-full object-cover" 
+                  src={profileData?.profileImageUrl || "https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740&q=80"} 
+                />
               </Link>
             </div>
           </div>

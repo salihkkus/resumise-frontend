@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
+import { cvService } from '../services/cvService';
 
 const MyResumes = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -9,22 +11,41 @@ const MyResumes = () => {
   const [jobDescription, setJobDescription] = useState('Satış yaptım');
   const [showAISuggestion, setShowAISuggestion] = useState(true);
   const [selectedTemplate, setSelectedTemplate] = useState('modern');
+  const { profileData } = useAuth();
   const [selectedColor, setSelectedColor] = useState('primary');
+  const [resumes, setResumes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
-  const resumes = [
-    {
-      id: 1,
-      title: 'Ürün Müdürü 2024',
-      lastEdited: '2 gün önce',
-      preview: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAqkhHg7mbHYUAMK4CHx2bhdaKFAECI7AA_TVm2uysC5rbZ31CpPGWOfVvFBvC7BbnSp-2TNTdqcsWAErZsiZgQhDBPdKlcH9BE-W6J9RybAL5mCjzNoVRkiusOvY25JOyOg01G8CmHO_zePqLR_dkLSRnprVKMFYwcPvBhuoZRHlrc74uLt-bsaCgHwneLKDgcnlSgCTYXPVEmwq7RhNq1JvWchpr0FvWs-kdpeC4-tEl4hw2JQnoi-ggoM01mTJ_i2WX0FhFFu0I'
-    },
-    {
-      id: 2,
-      title: 'Yazılım Mühendisi',
-      lastEdited: '1 hafta önce',
-      preview: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBJe4Z0mUvLu08BAdhNWbHjXE0vzguNBZ2fOGD6uP67sk4XrAGBJgvUHQdeCulVUGfuWyHdMi6N_Pb_BR6yIhPa2-N-SBQuYnp8KnwukuFpwyj1K-6wSx5fkkWxDK3y_Nn_mdmhPsHCWc8KxM0d0c1iUxKkfqBKaEHSu63SyQo1cvY44PrOoUQwts6VLoILxm9zMgioiDEP4fqs3tIJpXzCVYowLtoCLuGU9b70ggiDl9_LxyJCu7rlvOMOGtHWRzIH809TO76HQ7M'
+  // Load CVs from backend
+  useEffect(() => {
+    const loadCVs = async () => {
+      try {
+        const data = await cvService.getCVs();
+        setResumes(data);
+        console.log('✅ CVs loaded from backend:', data);
+      } catch (error) {
+        console.error('❌ Failed to load CVs:', error);
+        setError('CV\'ler yüklenemedi. Lütfen daha sonra tekrar deneyin.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadCVs();
+  }, []);
+
+  // Handle file upload
+  const handleFileUpload = async (file) => {
+    try {
+      const newCV = await cvService.uploadCV(file);
+      setResumes(prev => [newCV, ...prev]);
+      console.log('✅ New CV uploaded:', newCV);
+    } catch (error) {
+      console.error('❌ CV upload failed:', error);
+      setError('CV yüklenemedi. Lütfen dosyayı kontrol edin.');
     }
-  ];
+  };
 
   const templates = [
     { id: 'modern', icon: 'dashboard_customize', label: 'Modern' },
@@ -129,7 +150,11 @@ const MyResumes = () => {
                 <span className="material-symbols-outlined">settings</span>
               </button>
               <Link to="/profil" className="ml-2 ring-2 ring-offset-2 ring-primary/10 rounded-full cursor-pointer hover:ring-primary/30 transition-all overflow-hidden w-9 h-9">
-                <img alt="User" className="w-full h-full object-cover" src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740&q=80" />
+                <img 
+                  alt="User" 
+                  className="w-full h-full object-cover" 
+                  src={profileData?.profileImageUrl || "https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740&q=80"} 
+                />
               </Link>
             </div>
           </div>

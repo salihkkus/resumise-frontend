@@ -1,15 +1,134 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
+import { profileService } from '../services/profileService';
 
 const Profile = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [activeTab, setActiveTab] = useState('profile');
+  const [profileData, setProfileData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editData, setEditData] = useState({});
+  const [updateLoading, setUpdateLoading] = useState(false);
+  const [updateError, setUpdateError] = useState('');
+  const [updateSuccess, setUpdateSuccess] = useState('');
   const [twoFactorEnabled, setTwoFactorEnabled] = useState(false);
   const [notifications, setNotifications] = useState({
     highMatch: true,
     newsletter: false,
     interviewReminders: true
   });
+  const { user } = useAuth();
+
+  // Load profile data
+  useEffect(() => {
+    const loadProfile = async () => {
+      try {
+        const data = await profileService.getProfile();
+        setProfileData(data);
+        setEditData(data);
+        
+        // Update notifications state with backend data
+        setNotifications({
+          highMatch: data.notifyHighMatch ?? true,
+          newsletter: data.notifyNewsletter ?? false,
+          interviewReminders: data.notifyInterviewReminders ?? true
+        });
+        
+        console.log('✅ Profile data loaded:', data);
+      } catch (error) {
+        console.error('❌ Failed to load profile:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadProfile();
+  }, []);
+
+  // Handle edit toggle
+  const handleEditToggle = () => {
+    if (isEditing) {
+      // Cancel editing - reset edit data
+      setEditData(profileData);
+      setUpdateError('');
+      setUpdateSuccess('');
+    } else {
+      // Start editing - initialize edit data
+      setEditData({
+        ...profileData,
+        targetRoles: profileData?.targetRoles?.join(', ') || ''
+      });
+      setUpdateError('');
+      setUpdateSuccess('');
+    }
+    setIsEditing(!isEditing);
+  };
+
+  // Handle input changes
+  const handleInputChange = (field, value) => {
+    setEditData(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
+  // Handle save
+  const handleSave = async () => {
+    setUpdateLoading(true);
+    setUpdateError('');
+    setUpdateSuccess('');
+
+    try {
+      // Prepare data for backend
+      const updateData = {
+        firstName: editData.firstName || '',
+        lastName: editData.lastName || '',
+        headline: editData.headline || '',
+        location: editData.location || '',
+        phone: editData.phone || '',
+        linkedinUrl: editData.linkedinUrl || '',
+        githubUrl: editData.githubUrl || '',
+        professionalSummary: editData.professionalSummary || '',
+        targetRoles: editData.targetRoles || ''
+      };
+
+      console.log('🔄 Updating profile:', updateData);
+      
+      const updatedData = await profileService.updateProfile(updateData);
+      
+      // Update local states
+      setProfileData(updatedData);
+      setEditData(updatedData);
+      setIsEditing(false);
+      setUpdateSuccess('Profil başarıyla güncellendi!');
+      
+      // Clear success message after 3 seconds
+      setTimeout(() => setUpdateSuccess(''), 3000);
+      
+      console.log('✅ Profile updated successfully:', updatedData);
+    } catch (error) {
+      console.error('❌ Profile update failed:', error);
+      setUpdateError(error.message || 'Profil güncellenirken bir hata oluştu.');
+    } finally {
+      setUpdateLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-surface flex items-center justify-center">
+        <div className="text-center">
+          <div className="inline-flex items-center gap-3 mb-4">
+            <span className="material-symbols-outlined animate-spin text-4xl text-primary">refresh</span>
+            <span className="text-xl font-semibold text-on-surface">Profil Yükleniyor...</span>
+          </div>
+          <p className="text-sm text-outline">Lütfen bekleyin, profil bilgileriniz getiriliyor.</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex min-h-screen bg-surface font-body text-on-surface crisp-text">
@@ -94,7 +213,11 @@ const Profile = () => {
                 <span className="material-symbols-outlined">settings</span>
               </button>
               <Link to="/profil" className="ml-2 ring-2 ring-offset-2 ring-primary/10 rounded-full cursor-pointer hover:ring-primary/30 transition-all overflow-hidden w-9 h-9">
-                <img alt="User" className="w-full h-full object-cover" src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740&q=80" />
+                <img 
+                  alt="User" 
+                  className="w-full h-full object-cover" 
+                  src={profileData?.profileImageUrl || "https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740&q=80"} 
+                />
               </Link>
             </div>
           </div>
@@ -105,10 +228,9 @@ const Profile = () => {
           <div className="relative">
             <div className="w-32 h-32 rounded-full border-4 border-white shadow-xl overflow-hidden">
               <img 
-                alt="Muhammet Profile" 
+                alt={`${profileData?.firstName || 'User'} Profile`} 
                 className="w-full h-full object-cover" 
-                data-alt="Professional headshot of a young man with dark hair and a slight smile, studio lighting, soft gray background" 
-                src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740&q=80"
+                src={profileData?.profileImageUrl || "https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740&q=80"}
               />
             </div>
             <button className="absolute bottom-1 right-1 bg-primary text-white p-2 rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform">
@@ -116,11 +238,17 @@ const Profile = () => {
             </button>
           </div>
           <div className="flex-1 pb-2">
-            <h1 className="text-4xl font-extrabold text-on-surface tracking-tight mb-1">Muhammet</h1>
-            <p className="text-lg text-on-surface-variant font-medium">Bilgisayar Mühendisliği Öğrencisi</p>
+            <h1 className="text-4xl font-extrabold text-on-surface tracking-tight mb-1">
+              {profileData ? `${profileData.firstName} ${profileData.lastName}` : 'Yükleniyor...'}
+            </h1>
+            <p className="text-lg text-on-surface-variant font-medium">
+              {profileData?.headline || 'Profesyonel Başlık Eklenmemiş'}
+            </p>
             <div className="flex items-center gap-2 text-outline mt-2">
               <span className="material-symbols-outlined text-sm">location_on</span>
-              <span className="text-sm font-medium">İstanbul, Türkiye</span>
+              <span className="text-sm font-medium">
+                {profileData?.location || 'Konum Belirtilmemiş'}
+              </span>
             </div>
           </div>
           <div className="flex gap-4">
@@ -149,24 +277,85 @@ const Profile = () => {
                   <span className="material-symbols-outlined text-primary">person_outline</span>
                   Kişisel Bilgiler
                 </h2>
-                <button className="text-primary text-sm font-bold hover:underline">Düzenle</button>
+                <button 
+                  onClick={handleEditToggle}
+                  className="text-primary text-sm font-bold hover:underline flex items-center gap-2"
+                >
+                  {isEditing ? (
+                    <>
+                      <span className="material-symbols-outlined text-base">close</span>
+                      İptal
+                    </>
+                  ) : (
+                    <>
+                      <span className="material-symbols-outlined text-base">edit</span>
+                      Düzenle
+                    </>
+                  )}
+                </button>
               </div>
               <div className="grid grid-cols-2 gap-6 mb-10">
                 <div className="space-y-1">
                   <label className="text-[11px] font-bold text-outline uppercase tracking-wider ml-1">E-posta</label>
-                  <div className="bg-surface-container-low px-4 py-3 rounded-xl text-sm font-medium">muhammet@example.com</div>
+                  <div className="bg-surface-container-low px-4 py-3 rounded-xl text-sm font-medium">
+                    {profileData?.email || 'Yükleniyor...'}
+                  </div>
                 </div>
                 <div className="space-y-1">
                   <label className="text-[11px] font-bold text-outline uppercase tracking-wider ml-1">Telefon</label>
-                  <div className="bg-surface-container-low px-4 py-3 rounded-xl text-sm font-medium">+90 5XX XXX XX XX</div>
+                  {isEditing ? (
+                    <input
+                      type="tel"
+                      value={editData?.phone || ''}
+                      onChange={(e) => handleInputChange('phone', e.target.value)}
+                      className="bg-surface-container-low px-4 py-3 rounded-xl text-sm font-medium w-full border border-outline-variant/30 focus:border-primary focus:outline-none transition-colors"
+                      placeholder="Telefon numaranızı girin"
+                    />
+                  ) : (
+                    <div className="bg-surface-container-low px-4 py-3 rounded-xl text-sm font-medium">
+                      {profileData?.phone || 'Belirtilmemiş'}
+                    </div>
+                  )}
                 </div>
                 <div className="space-y-1">
                   <label className="text-[11px] font-bold text-outline uppercase tracking-wider ml-1">LinkedIn</label>
-                  <div className="bg-surface-container-low px-4 py-3 rounded-xl text-sm font-medium">linkedin.com/in/muhammet</div>
+                  {isEditing ? (
+                    <input
+                      type="url"
+                      value={editData?.linkedinUrl || ''}
+                      onChange={(e) => handleInputChange('linkedinUrl', e.target.value)}
+                      className="bg-surface-container-low px-4 py-3 rounded-xl text-sm font-medium w-full border border-outline-variant/30 focus:border-primary focus:outline-none transition-colors"
+                      placeholder="LinkedIn profil URL'nizi girin"
+                    />
+                  ) : (
+                    <div className="bg-surface-container-low px-4 py-3 rounded-xl text-sm font-medium">
+                      {profileData?.linkedinUrl ? (
+                        <a href={profileData.linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                          {profileData.linkedinUrl.replace('https://', '').replace('http://', '')}
+                        </a>
+                      ) : 'Belirtilmemiş'}
+                    </div>
+                  )}
                 </div>
                 <div className="space-y-1">
                   <label className="text-[11px] font-bold text-outline uppercase tracking-wider ml-1">GitHub</label>
-                  <div className="bg-surface-container-low px-4 py-3 rounded-xl text-sm font-medium">github.com/muhammet</div>
+                  {isEditing ? (
+                    <input
+                      type="url"
+                      value={editData?.githubUrl || ''}
+                      onChange={(e) => handleInputChange('githubUrl', e.target.value)}
+                      className="bg-surface-container-low px-4 py-3 rounded-xl text-sm font-medium w-full border border-outline-variant/30 focus:border-primary focus:outline-none transition-colors"
+                      placeholder="GitHub profil URL'nizi girin"
+                    />
+                  ) : (
+                    <div className="bg-surface-container-low px-4 py-3 rounded-xl text-sm font-medium">
+                      {profileData?.githubUrl ? (
+                        <a href={profileData.githubUrl} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                          {profileData.githubUrl.replace('https://', '').replace('http://', '')}
+                        </a>
+                      ) : 'Belirtilmemiş'}
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="space-y-4">
@@ -174,21 +363,45 @@ const Profile = () => {
                   <label className="text-[11px] font-bold text-outline uppercase tracking-wider ml-1">Kariyer Özeti</label>
                   <span className="bg-primary-fixed text-primary px-2 py-0.5 rounded text-[10px] font-bold">AI ile Geliştirildi</span>
                 </div>
-                <div className="p-6 bg-surface-container-lowest border-l-4 border-primary rounded-r-2xl text-sm leading-relaxed text-on-surface-variant italic">
-                  "Modern web teknolojileri üzerine uzmanlaşmış, ölçeklenebilir React uygulamaları geliştirme konusunda deneyimli bir Bilgisayar Mühendisliği öğrencisiyim. Veri bilimi ve makine öğrenmesi algoritmalarına ilgi duyuyor, projelerimde veri odaklı yaklaşımlar sergiliyorum."
-                </div>
+                {isEditing ? (
+                  <textarea
+                    value={editData?.professionalSummary || ''}
+                    onChange={(e) => handleInputChange('professionalSummary', e.target.value)}
+                    className="w-full p-6 bg-surface-container-lowest border-l-4 border-primary rounded-r-2xl text-sm leading-relaxed text-on-surface-variant resize-none focus:outline-none focus:ring-2 focus:ring-primary/20"
+                    rows={4}
+                    placeholder="Profesyonel özetinizi buraya yazın..."
+                  />
+                ) : (
+                  <div className="p-6 bg-surface-container-lowest border-l-4 border-primary rounded-r-2xl text-sm leading-relaxed text-on-surface-variant italic">
+                    {profileData?.professionalSummary || 'Profesyonel özet eklenmemiş. AI ile özet oluşturmak için tıklayın.'}
+                  </div>
+                )}
               </div>
               <div className="mt-8">
                 <label className="text-[11px] font-bold text-outline uppercase tracking-wider ml-1 block mb-4">Hedef Pozisyonlar</label>
-                <div className="flex flex-wrap gap-2">
-                  <span className="px-4 py-2 bg-primary text-white text-xs font-bold rounded-full">React Developer</span>
-                  <span className="px-4 py-2 bg-primary/10 text-primary text-xs font-bold rounded-full">Data Scientist</span>
-                  <span className="px-4 py-2 bg-primary/10 text-primary text-xs font-bold rounded-full">Frontend Architect</span>
-                  <button className="px-4 py-2 border-2 border-dashed border-outline-variant text-outline-variant hover:border-primary hover:text-primary rounded-full transition-colors flex items-center gap-1">
-                    <span className="material-symbols-outlined text-xs">add</span>
-                    <span className="text-xs font-bold">Ekle</span>
-                  </button>
-                </div>
+                {isEditing ? (
+                  <input
+                    type="text"
+                    value={editData?.targetRoles || ''}
+                    onChange={(e) => handleInputChange('targetRoles', e.target.value)}
+                    className="w-full px-4 py-3 bg-surface-container-low border border-outline-variant/30 focus:border-primary focus:outline-none rounded-xl text-sm font-medium"
+                    placeholder="Hedef pozisyonlarınızı virgülle ayırarak yazın (örn: React Developer, Data Scientist)"
+                  />
+                ) : (
+                  <div className="flex flex-wrap gap-2">
+                    {profileData?.targetRoles && profileData.targetRoles.length > 0 ? (
+                      profileData.targetRoles.map((role, index) => (
+                        <span key={index} className="px-4 py-2 bg-primary text-white text-xs font-bold rounded-full">
+                          {role}
+                        </span>
+                      ))
+                    ) : (
+                      <span className="px-4 py-2 bg-surface-container-low text-outline-variant text-xs font-medium rounded-full">
+                        Hedef pozisyon eklenmemiş
+                      </span>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -295,49 +508,101 @@ const Profile = () => {
                     <p className="text-sm font-bold">Yeni bir %90 eşleşme olduğunda haber ver</p>
                     <p className="text-xs text-outline font-medium">Profilinize uygun fırsatları kaçırmayın.</p>
                   </div>
-                  <div className="flex items-center">
+                  <div className="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
                     <input 
-                      checked={notifications.highMatch}
-                      className="w-5 h-5 rounded text-primary border-outline-variant focus:ring-primary" 
+                      className="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer border-outline-variant checked:right-0 checked:border-primary right-4" 
+                      id="toggle-high-match" 
+                      name="toggle" 
                       type="checkbox"
-                      onChange={(e) => setNotifications({...notifications, highMatch: e.target.checked})}
+                      checked={notifications.highMatch}
+                      onChange={(e) => setNotifications(prev => ({...prev, highMatch: e.target.checked}))}
                     />
+                    <label className="toggle-label block overflow-hidden h-6 rounded-full bg-surface-container-high cursor-pointer" htmlFor="toggle-high-match"></label>
                   </div>
                 </div>
                 <div className="flex justify-between items-center py-4 border-b border-outline-variant/10">
                   <div>
-                    <p className="text-sm font-bold">E-bülten ve Kariyer İpuçları</p>
-                    <p className="text-xs text-outline font-medium">AI tabanlı haftalık özet raporlar.</p>
+                    <p className="text-sm font-bold">Haftalık bülten aboneliği</p>
+                    <p className="text-xs text-outline font-medium">Kariyer ipuçları ve sektör içgörüleri.</p>
                   </div>
-                  <div className="flex items-center">
+                  <div className="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
                     <input 
-                      checked={notifications.newsletter}
-                      className="w-5 h-5 rounded text-primary border-outline-variant focus:ring-primary" 
+                      className="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer border-outline-variant checked:right-0 checked:border-primary right-4" 
+                      id="toggle-newsletter" 
+                      name="toggle" 
                       type="checkbox"
-                      onChange={(e) => setNotifications({...notifications, newsletter: e.target.checked})}
+                      checked={notifications.newsletter}
+                      onChange={(e) => setNotifications(prev => ({...prev, newsletter: e.target.checked}))}
                     />
+                    <label className="toggle-label block overflow-hidden h-6 rounded-full bg-surface-container-high cursor-pointer" htmlFor="toggle-newsletter"></label>
                   </div>
                 </div>
                 <div className="flex justify-between items-center py-4">
                   <div>
-                    <p className="text-sm font-bold">Mülakat Hatırlatıcıları</p>
-                    <p className="text-xs text-outline font-medium">Yaklaşan görüşmeleriniz için anlık uyarılar.</p>
+                    <p className="text-sm font-bold">Mülakat hatırlatıcıları</p>
+                    <p className="text-xs text-outline font-medium">Yaklaşan mülakatlar için bildirimler alın.</p>
                   </div>
-                  <div className="flex items-center">
+                  <div className="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
                     <input 
-                      checked={notifications.interviewReminders}
-                      className="w-5 h-5 rounded text-primary border-outline-variant focus:ring-primary" 
+                      className="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer border-outline-variant checked:right-0 checked:border-primary right-4" 
+                      id="toggle-interview" 
+                      name="toggle" 
                       type="checkbox"
+                      checked={notifications.interviewReminders}
                       onChange={(e) => setNotifications({...notifications, interviewReminders: e.target.checked})}
                     />
                   </div>
                 </div>
               </div>
             </div>
-            <div className="mt-12 pt-8 border-t border-outline-variant/10 flex justify-end gap-4">
-              <button className="px-8 py-3 bg-surface-container-high text-on-surface-variant font-bold text-sm rounded-xl hover:opacity-80 transition-opacity">Değişiklikleri Geri Al</button>
-              <button className="px-8 py-3 bg-gradient-to-br from-primary to-primary-container text-white font-bold text-sm rounded-xl shadow-lg shadow-primary/20 hover:scale-[0.98] transition-transform">Ayarları Kaydet</button>
-            </div>
+            {/* Success/Error Messages */}
+            {updateSuccess && (
+              <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-xl">
+                <div className="flex items-center gap-2">
+                  <span className="material-symbols-outlined text-green-600">check_circle</span>
+                  <span className="text-sm font-medium text-green-800">{updateSuccess}</span>
+                </div>
+              </div>
+            )}
+            
+            {updateError && (
+              <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl">
+                <div className="flex items-center gap-2">
+                  <span className="material-symbols-outlined text-red-600">error</span>
+                  <span className="text-sm font-medium text-red-800">{updateError}</span>
+                </div>
+              </div>
+            )}
+
+            {/* Action Buttons */}
+            {isEditing && (
+              <div className="mt-12 pt-8 border-t border-outline-variant/10 flex justify-end gap-4">
+                <button 
+                  onClick={handleEditToggle}
+                  className="px-8 py-3 bg-surface-container-high text-on-surface-variant font-bold text-sm rounded-xl hover:opacity-80 transition-opacity"
+                  disabled={updateLoading}
+                >
+                  İptal
+                </button>
+                <button 
+                  onClick={handleSave}
+                  className="px-8 py-3 bg-gradient-to-br from-primary to-primary-container text-white font-bold text-sm rounded-xl shadow-lg shadow-primary/20 hover:scale-[0.98] transition-transform flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={updateLoading}
+                >
+                  {updateLoading ? (
+                    <>
+                      <span className="material-symbols-outlined animate-spin text-base">refresh</span>
+                      Kaydediliyor...
+                    </>
+                  ) : (
+                    <>
+                      <span className="material-symbols-outlined text-base">save</span>
+                      Değişiklikleri Kaydet
+                    </>
+                  )}
+                </button>
+              </div>
+            )}
           </div>
         </section>
       </main>

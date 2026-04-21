@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
 const AIInterviewCoach = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isRecording, setIsRecording] = useState(true);
   const [interviewMode, setInterviewMode] = useState('sesli');
+  const { profileData } = useAuth();
 
   return (
     <div className="flex min-h-screen bg-surface font-body text-on-surface crisp-text">
@@ -91,7 +93,11 @@ const AIInterviewCoach = () => {
                 <span className="material-symbols-outlined">settings</span>
               </button>
               <Link to="/profil" className="ml-2 ring-2 ring-offset-2 ring-primary/10 rounded-full cursor-pointer hover:ring-primary/30 transition-all overflow-hidden w-9 h-9">
-                <img alt="User" className="w-full h-full object-cover" src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740&q=80" />
+                <img 
+                  alt="User" 
+                  className="w-full h-full object-cover" 
+                  src={profileData?.profileImageUrl || "https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740&q=80"} 
+                />
               </Link>
             </div>
           </div>
